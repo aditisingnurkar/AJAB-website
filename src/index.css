@@ -6,15 +6,15 @@ body,
 #root {
   min-height: 100%;
   font-family: 'DM Sans', sans-serif;
-  background-color: #120D0A;
-  color: #FDF7F0;
+  background-color: #14100D;
+  color: #EDE4DB;
   margin: 0;
   padding: 0;
 }
 
 ::selection {
-  background-color: #D4A359;
-  color: #120D0A;
+  background-color: #B87342;
+  color: #FFFDF8;
 }
 
 h1, h2, h3, .font-serif {
@@ -26,14 +26,14 @@ h1, h2, h3, .font-serif {
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #150F0B;
+  background: #14100D;
 }
 ::-webkit-scrollbar-thumb {
-  background: #3A2B20;
+  background: #33261E;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4A359;
+  background: #A66E43;
 }
 
 * {
@@ -52,8 +52,8 @@ h1, h2, h3, .font-serif {
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(226, 169, 85, 0.4); }
-  50% { box-shadow: 0 0 0 10px rgba(226, 169, 85, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(184, 115, 66, 0.35); }
+  50% { box-shadow: 0 0 0 10px rgba(184, 115, 66, 0); }
 }
 
 .animate-fade-in {

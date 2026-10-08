@@ -6,7 +6,7 @@ import { cafeEvents, CafeEvent } from "./data/eventsData";
 import { T, Lang } from "./data/translations";
 
 /* ═══════════════════════════════════════════════════════════════════════
-   TYPES & PALETTES (LUXURY DARK ESPRESSO & ARTISAN GOLD THEME)
+   TYPES & PALETTES (TONED-DOWN REFINED ESPRESSO & WARM CARAMEL THEME)
 ═══════════════════════════════════════════════════════════════════════ */
 type AppMode = "common" | "elderly" | "rural" | "vi";
 
@@ -45,19 +45,19 @@ interface VoiceFilterState {
   badgeLabel?: string;
 }
 
-// ── Dark Espresso & Warm Amber Gold Palette (Default Overall Mode) ──
+// ── Refined Dark Espresso & Roasted Warm Caramel Palette ──
 const C = {
-  bg: "#120D0A",
-  card: "#1C1510",
-  cardHover: "#261D16",
-  border: "#382A20",
-  borderFocus: "#D4A359",
-  text: "#FDF7F0",
-  muted: "#B3A090",
-  accent: "#E2A955",
-  accentLight: "#F4C77D",
-  cream: "#241B14",
-  tag: "#2E2219",
+  bg: "#14100D",
+  card: "#1E1813",
+  cardHover: "#27201A",
+  border: "#382C23",
+  borderFocus: "#B87B4E",
+  text: "#EDE4DB",
+  muted: "#A08F81",
+  accent: "#C4824E",
+  accentLight: "#D9A073",
+  cream: "#241D17",
+  tag: "#2B221B",
 };
 
 const EC = {
@@ -66,9 +66,9 @@ const EC = {
   border: "#855831",
   text: "#FFFDF8",
   muted: "#DBCAB6",
-  accent: "#F4C77D",
-  btn: "#D49B4B",
-  btnText: "#120D0A",
+  accent: "#D9A073",
+  btn: "#B87342",
+  btnText: "#FFFDF8",
   cream: "#1F1610",
 };
 
@@ -95,9 +95,9 @@ function AjabLogo({ size = 48, className = "" }: { size?: number; className?: st
       style={{
         width: size,
         height: size,
-        backgroundColor: "#1A120B",
-        border: "2px solid #D4A359",
-        boxShadow: "0 0 16px rgba(212,163,89,0.35)",
+        backgroundColor: "#1A130E",
+        border: "2px solid #8C613E",
+        boxShadow: "0 0 10px rgba(184, 115, 66, 0.18)",
       }}
     >
       {!imgError ? (
@@ -109,8 +109,8 @@ function AjabLogo({ size = 48, className = "" }: { size?: number; className?: st
         />
       ) : (
         <svg viewBox="0 0 100 100" className="w-full h-full p-1" fill="none">
-          <circle cx="50" cy="50" r="46" stroke="#D4A359" strokeWidth="2.5" strokeDasharray="3,2" />
-          <circle cx="50" cy="50" r="41" stroke="#D4A359" strokeWidth="1" />
+          <circle cx="50" cy="50" r="46" stroke="#8C613E" strokeWidth="2.5" strokeDasharray="3,2" />
+          <circle cx="50" cy="50" r="41" stroke="#8C613E" strokeWidth="1" />
           <text
             x="50"
             y="54"
@@ -118,7 +118,7 @@ function AjabLogo({ size = 48, className = "" }: { size?: number; className?: st
             fontFamily="'Playfair Display', Georgia, serif"
             fontSize="26"
             fontWeight="bold"
-            fill="#FDF7F0"
+            fill="#EDE4DB"
             letterSpacing="2"
           >
             AJAB
@@ -130,7 +130,7 @@ function AjabLogo({ size = 48, className = "" }: { size?: number; className?: st
             fontFamily="'DM Sans', sans-serif"
             fontSize="8"
             fontWeight="600"
-            fill="#D4A359"
+            fill="#C4824E"
             letterSpacing="2.5"
           >
             CAFÉ
@@ -162,21 +162,21 @@ function CBtn({
   const bg =
     variant === "primary"
       ? {
-          background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
-          color: "#120D0A",
+          background: "linear-gradient(135deg, #B87342 0%, #9C5E32 100%)",
+          color: "#FFFDF8",
           border: "none",
-          boxShadow: "0 4px 16px rgba(226, 169, 85, 0.35)",
+          boxShadow: "0 4px 14px rgba(184, 115, 66, 0.25)",
         }
       : variant === "gold"
       ? {
-          background: "linear-gradient(135deg, #F4C77D 0%, #D49B4B 100%)",
-          color: "#120D0A",
+          background: "linear-gradient(135deg, #C88554 0%, #A66838 100%)",
+          color: "#FFFDF8",
           border: "none",
-          boxShadow: "0 4px 16px rgba(244, 199, 125, 0.35)",
+          boxShadow: "0 4px 14px rgba(200, 133, 84, 0.25)",
         }
       : variant === "secondary"
       ? { backgroundColor: C.card, color: C.text, border: `1px solid ${C.border}` }
-      : { backgroundColor: "transparent", color: C.accent, border: `1.5px solid ${C.accent}` };
+      : { backgroundColor: "transparent", color: "#D49566", border: `1.5px solid #A66E43` };
 
   return (
     <button
@@ -195,11 +195,11 @@ function CCard({ children, className = "", style = {}, onClick }: { children: Re
   return (
     <div
       onClick={onClick}
-      className={`rounded-3xl p-6 transition-all ${onClick ? "cursor-pointer hover:shadow-xl hover:border-[#D4A359]/70 hover:-translate-y-0.5" : ""} ${className}`}
+      className={`rounded-3xl p-6 transition-all ${onClick ? "cursor-pointer hover:shadow-xl hover:border-[#B87342]/60 hover:-translate-y-0.5" : ""} ${className}`}
       style={{
         backgroundColor: C.card,
         border: `1px solid ${C.border}`,
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25)",
         ...style,
       }}
     >
@@ -211,13 +211,13 @@ function CCard({ children, className = "", style = {}, onClick }: { children: Re
 function CTag({ label, color = "default" }: { label: string; color?: "default" | "green" | "red" | "gold" | "season" }) {
   const c =
     color === "green"
-      ? { bg: "#14331E", text: "#4ADE80", border: "#1E542C" }
+      ? { bg: "#122619", text: "#4ADE80", border: "#1E4729" }
       : color === "red"
-      ? { bg: "#3D1416", text: "#F87171", border: "#612225" }
+      ? { bg: "#2B1416", text: "#F87171", border: "#4E2125" }
       : color === "gold"
-      ? { bg: "#36270E", text: "#FCD34D", border: "#5C4217" }
+      ? { bg: "#291E15", text: "#D49566", border: "#4A3525" }
       : color === "season"
-      ? { bg: "#3D1E0E", text: "#FB923C", border: "#693318" }
+      ? { bg: "#2E1C12", text: "#E09362", border: "#52301D" }
       : { bg: C.tag, text: C.text, border: C.border };
 
   return (
@@ -232,9 +232,9 @@ function CTag({ label, color = "default" }: { label: string; color?: "default" |
 
 function StatusDot({ status }: { status: "available" | "reserved" | "occupied" }) {
   const map = {
-    available: { bg: "#22C55E", text: "Available", light: "#102E1B", border: "#1E542C" },
-    reserved: { bg: "#F59E0B", text: "Reserved", light: "#2E200C", border: "#5C4217" },
-    occupied: { bg: "#EF4444", text: "Occupied", light: "#331214", border: "#612225" },
+    available: { bg: "#4ADE80", text: "Available", light: "#122619", border: "#1E4729" },
+    reserved: { bg: "#D49566", text: "Reserved", light: "#261D15", border: "#473424" },
+    occupied: { bg: "#F87171", text: "Occupied", light: "#2B1416", border: "#4E2125" },
   };
   const cur = map[status] || map.available;
   return (
@@ -272,7 +272,7 @@ function ReadAloudBtn({ text }: { text: string }) {
       className="rounded-full flex items-center justify-center p-2 cursor-pointer transition-all hover:scale-110 active:scale-95"
       style={{
         backgroundColor: speaking ? C.accent : C.cream,
-        color: speaking ? "#120D0A" : C.accent,
+        color: speaking ? "#FFFDF8" : C.accent,
         border: `1.5px solid ${C.accent}`,
       }}
     >
@@ -329,7 +329,7 @@ function FoodImage({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   REALISTIC OUTSIDE SURROUNDINGS & NEIGHBORHOOD MAP (DARK CARTOGRAPHY)
+   REALISTIC OUTSIDE SURROUNDINGS & NEIGHBORHOOD MAP (REFINED DARK MAP)
 ═══════════════════════════════════════════════════════════════════════ */
 function CafeSurroundingsMap() {
   const [activeTab, setActiveTab] = useState<"map" | "landmarks" | "transit">("map");
@@ -338,7 +338,7 @@ function CafeSurroundingsMap() {
     <div className="rounded-3xl p-6 sm:p-8" style={{ backgroundColor: C.card, border: `2px solid ${C.border}` }}>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#14331E] text-[#4ADE80] border border-[#1E542C] mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729] mb-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             <span>🟢 Open Daily · 8:00 AM – 11:00 PM</span>
           </div>
@@ -358,7 +358,7 @@ function CafeSurroundingsMap() {
               className="px-3.5 py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all capitalize"
               style={{
                 backgroundColor: activeTab === tab ? C.accent : "transparent",
-                color: activeTab === tab ? "#120D0A" : C.muted,
+                color: activeTab === tab ? "#FFFDF8" : C.muted,
               }}
             >
               {tab === "map" ? "🗺️ Interactive Map" : tab === "landmarks" ? "🏛️ Landmarks" : "🚗 Transit &amp; Parking"}
@@ -368,60 +368,60 @@ function CafeSurroundingsMap() {
       </div>
 
       {activeTab === "map" && (
-        <div className="relative w-full rounded-2xl overflow-hidden shadow-inner border-2" style={{ height: 380, borderColor: C.border, backgroundColor: "#140E0A" }}>
-          {/* Dark Luxury Map Canvas */}
+        <div className="relative w-full rounded-2xl overflow-hidden shadow-inner border-2" style={{ height: 380, borderColor: C.border, backgroundColor: "#140F0C" }}>
+          {/* Refined Dark Map Canvas */}
           <svg className="w-full h-full" viewBox="0 0 900 450" preserveAspectRatio="none">
             {/* Parks / Green Areas */}
-            <path d="M 0 0 L 260 0 L 240 180 L 0 140 Z" fill="#142B1A" opacity="0.9" stroke="#1E4426" strokeWidth="1" />
+            <path d="M 0 0 L 260 0 L 240 180 L 0 140 Z" fill="#14261A" opacity="0.9" stroke="#1D3E25" strokeWidth="1" />
             <text x="50" y="70" fill="#4ADE80" fontSize="12" fontWeight="bold" fontFamily="sans-serif">🌳 CUBBON PARK (800m)</text>
-            <path d="M 680 280 L 900 240 L 900 450 L 620 450 Z" fill="#142B1A" opacity="0.85" stroke="#1E4426" strokeWidth="1" />
+            <path d="M 680 280 L 900 240 L 900 450 L 620 450 Z" fill="#14261A" opacity="0.85" stroke="#1D3E25" strokeWidth="1" />
             <text x="700" y="380" fill="#4ADE80" fontSize="11" fontWeight="bold" fontFamily="sans-serif">🌿 HERITAGE BOTANICAL VERANDAH</text>
 
             {/* Roads */}
             {/* MG Road Boulevard */}
-            <line x1="0" y1="210" x2="900" y2="210" stroke="#2A1E16" strokeWidth="28" />
-            <line x1="0" y1="210" x2="900" y2="210" stroke="#E2A955" strokeWidth="2" strokeDasharray="14,14" opacity="0.6" />
-            <text x="40" y="205" fill="#E2A955" fontSize="11" fontWeight="bold" letterSpacing="2">MG ROAD BOULEVARD</text>
+            <line x1="0" y1="210" x2="900" y2="210" stroke="#251C15" strokeWidth="28" />
+            <line x1="0" y1="210" x2="900" y2="210" stroke="#3D2D20" strokeWidth="2" strokeDasharray="14,14" />
+            <text x="40" y="205" fill="#C48E68" fontSize="11" fontWeight="bold" letterSpacing="2">MG ROAD BOULEVARD</text>
 
             {/* Residency Road */}
-            <line x1="420" y1="0" x2="420" y2="450" stroke="#2A1E16" strokeWidth="34" />
-            <line x1="420" y1="0" x2="420" y2="450" stroke="#E2A955" strokeWidth="2" strokeDasharray="14,14" opacity="0.6" />
-            <text x="435" y="60" fill="#E2A955" fontSize="11" fontWeight="bold" letterSpacing="1.5">RESIDENCY ROAD</text>
+            <line x1="420" y1="0" x2="420" y2="450" stroke="#251C15" strokeWidth="34" />
+            <line x1="420" y1="0" x2="420" y2="450" stroke="#3D2D20" strokeWidth="2" strokeDasharray="14,14" />
+            <text x="435" y="60" fill="#C48E68" fontSize="11" fontWeight="bold" letterSpacing="1.5">RESIDENCY ROAD</text>
 
             {/* Brigade Road */}
-            <line x1="680" y1="0" x2="680" y2="450" stroke="#241912" strokeWidth="18" />
-            <text x="692" y="100" fill="#A8927F" fontSize="10" fontWeight="bold">BRIGADE RD</text>
+            <line x1="680" y1="0" x2="680" y2="450" stroke="#201712" strokeWidth="18" />
+            <text x="692" y="100" fill="#8C7B6E" fontSize="10" fontWeight="bold">BRIGADE RD</text>
 
             {/* Richmond Circle Link */}
-            <line x1="0" y1="360" x2="900" y2="360" stroke="#241912" strokeWidth="18" />
-            <text x="80" y="354" fill="#A8927F" fontSize="10" fontWeight="bold">RICHMOND CIRCLE FLYOVER</text>
+            <line x1="0" y1="360" x2="900" y2="360" stroke="#201712" strokeWidth="18" />
+            <text x="80" y="354" fill="#8C7B6E" fontSize="10" fontWeight="bold">RICHMOND CIRCLE FLYOVER</text>
 
             {/* Surrounding Buildings Blocks */}
-            <rect x="290" y="60" width="100" height="110" rx="8" fill="#201711" stroke="#38291F" strokeWidth="1.5" />
-            <text x="305" y="120" fill="#B3A090" fontSize="10" fontWeight="bold">COMMERCIAL</text>
-            <text x="305" y="135" fill="#8A7868" fontSize="9">PLAZA</text>
+            <rect x="290" y="60" width="100" height="110" rx="8" fill="#1C1611" stroke="#33251D" strokeWidth="1.5" />
+            <text x="305" y="120" fill="#9C8B7E" fontSize="10" fontWeight="bold">COMMERCIAL</text>
+            <text x="305" y="135" fill="#756558" fontSize="9">PLAZA</text>
 
-            <rect x="470" y="60" width="160" height="110" rx="8" fill="#201711" stroke="#38291F" strokeWidth="1.5" />
-            <text x="485" y="120" fill="#B3A090" fontSize="10" fontWeight="bold">VICTORIA HERITAGE</text>
-            <text x="485" y="135" fill="#8A7868" fontSize="9">MANSION</text>
+            <rect x="470" y="60" width="160" height="110" rx="8" fill="#1C1611" stroke="#33251D" strokeWidth="1.5" />
+            <text x="485" y="120" fill="#9C8B7E" fontSize="10" fontWeight="bold">VICTORIA HERITAGE</text>
+            <text x="485" y="135" fill="#756558" fontSize="9">MANSION</text>
 
-            <rect x="180" y="250" width="180" height="80" rx="8" fill="#201711" stroke="#38291F" strokeWidth="1.5" />
-            <text x="195" y="295" fill="#E2A955" fontSize="10" fontWeight="bold">METRO STATION (250m)</text>
-            <text x="195" y="310" fill="#8A7868" fontSize="9">MG Road Purple Line</text>
+            <rect x="180" y="250" width="180" height="80" rx="8" fill="#1C1611" stroke="#33251D" strokeWidth="1.5" />
+            <text x="195" y="295" fill="#C48E68" fontSize="10" fontWeight="bold">METRO STATION (250m)</text>
+            <text x="195" y="310" fill="#756558" fontSize="9">MG Road Purple Line</text>
 
-            {/* AJAB CAFE PLOT (Glowing Dark Roast Highlight) */}
-            <rect x="460" y="240" width="180" height="90" rx="14" fill="#3D200E" stroke="#E2A955" strokeWidth="2.5" />
-            <text x="480" y="276" fill="#FDF7F0" fontSize="14" fontWeight="bold" fontFamily="serif" letterSpacing="1.5">AJAB CAFÉ</text>
-            <text x="480" y="295" fill="#F4C77D" fontSize="10" fontWeight="bold">12 Residency Rd · Entrance</text>
-            <text x="480" y="312" fill="#B3A090" fontSize="9">Valet Parking &amp; Ramp Access</text>
+            {/* AJAB CAFE PLOT */}
+            <rect x="460" y="240" width="180" height="90" rx="14" fill="#2A180E" stroke="#B87342" strokeWidth="2" />
+            <text x="480" y="276" fill="#EDE4DB" fontSize="14" fontWeight="bold" fontFamily="serif" letterSpacing="1.5">AJAB CAFÉ</text>
+            <text x="480" y="295" fill="#D49566" fontSize="10" fontWeight="bold">12 Residency Rd · Entrance</text>
+            <text x="480" y="312" fill="#A08F81" fontSize="9">Valet Parking &amp; Ramp Access</text>
 
             {/* Radar Pulse on AJAB Pin */}
-            <circle cx="440" cy="285" r="16" fill="#E2A955" opacity="0.35" className="animate-ping" />
-            <circle cx="440" cy="285" r="8" fill="#E2A955" />
+            <circle cx="440" cy="285" r="14" fill="#B87342" opacity="0.3" className="animate-ping" />
+            <circle cx="440" cy="285" r="7" fill="#B87342" />
           </svg>
 
           {/* Floating Directions Card */}
-          <div className="absolute bottom-4 left-4 p-3.5 rounded-2xl backdrop-blur-md border shadow-lg max-w-xs" style={{ backgroundColor: "rgba(28, 21, 16, 0.95)", borderColor: C.border }}>
+          <div className="absolute bottom-4 left-4 p-3.5 rounded-2xl backdrop-blur-md border shadow-lg max-w-xs" style={{ backgroundColor: "rgba(26, 20, 15, 0.95)", borderColor: C.border }}>
             <p className="font-bold text-xs" style={{ color: C.accent }}>📍 How to reach AJAB:</p>
             <p className="text-[11px] mt-1 leading-relaxed" style={{ color: C.muted }}>
               • 3 min walk from MG Road Metro (Exit Gate 2)<br />
@@ -635,10 +635,10 @@ function VoiceAssistantModal({
           width: 56,
           height: 56,
           borderRadius: "50%",
-          background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
-          border: `2px solid #F4C77D`,
-          color: "#120D0A",
-          boxShadow: "0 8px 24px rgba(226, 169, 85, 0.4)",
+          background: "linear-gradient(135deg, #B87342 0%, #9C5E32 100%)",
+          border: `2px solid #D9A073`,
+          color: "#FFFDF8",
+          boxShadow: "0 8px 24px rgba(184, 115, 66, 0.35)",
         }}
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -662,7 +662,7 @@ function VoiceAssistantModal({
             border: `1.5px solid ${C.border}`,
           }}
         >
-          <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ backgroundColor: "#261A12", color: C.text, borderColor: C.border }}>
+          <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ backgroundColor: "#241B14", color: C.text, borderColor: C.border }}>
             <div className="flex items-center gap-2">
               <span className="text-lg">🎙️</span>
               <div>
@@ -693,7 +693,7 @@ function VoiceAssistantModal({
 
             {transcript && (
               <div className="p-2.5 rounded-xl text-xs border" style={{ backgroundColor: "#241A13", borderColor: C.border }}>
-                <span className="font-bold text-[#E2A955]">Heard:</span> “{transcript}”
+                <span className="font-bold text-[#D49566]">Heard:</span> “{transcript}”
               </div>
             )}
 
@@ -779,7 +779,7 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
             border: `1.5px solid ${C.border}`,
           }}
         >
-          <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ borderColor: C.border, backgroundColor: "#261A12", color: C.text }}>
+          <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ borderColor: C.border, backgroundColor: "#241B14", color: C.text }}>
             <div className="flex items-center gap-2">
               <span className="text-lg">♿</span>
               <div>
@@ -793,7 +793,7 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
           <div className="p-3 flex flex-col gap-2">
             <button
               onClick={() => { setMode("elderly"); setOpen(false); }}
-              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#D4A359]"
+              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#B87342]"
               style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg" style={{ backgroundColor: "#3D1F00", color: "#FFFEF8" }}>
@@ -807,7 +807,7 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
 
             <button
               onClick={() => { setMode("rural"); setOpen(false); }}
-              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#D4A359]"
+              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#B87342]"
               style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ backgroundColor: "#203810", color: "#A7F3D0" }}>
@@ -821,7 +821,7 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
 
             <button
               onClick={() => { setMode("vi"); setOpen(false); }}
-              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#D4A359]"
+              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#B87342]"
               style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ backgroundColor: "#0D0600", color: "#FFD166", border: "1px solid #C49A24" }}>
@@ -840,7 +840,7 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   COMMON NAVBAR (DARK ROAST)
+   COMMON NAVBAR (WARM ROAST)
 ═══════════════════════════════════════════════════════════════════════ */
 function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; active: Screen; cartCount: number }) {
   const links: { label: string; screen: Screen; icon: string }[] = [
@@ -853,7 +853,7 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
   ];
 
   return (
-    <header style={{ backgroundColor: "rgba(18, 13, 10, 0.95)", borderBottom: `1px solid ${C.border}` }} className="sticky top-0 z-40 w-full backdrop-blur-md">
+    <header style={{ backgroundColor: "rgba(20, 16, 13, 0.95)", borderBottom: `1px solid ${C.border}` }} className="sticky top-0 z-40 w-full backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
         <button onClick={() => navigate("home")} className="cursor-pointer flex items-center gap-3 text-left" aria-label="AJAB Cafe & Restaurant">
           <AjabLogo size={46} />
@@ -874,8 +874,8 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
               onClick={() => navigate(l.screen)}
               className="text-sm font-semibold cursor-pointer transition-colors relative py-1"
               style={{
-                color: active === l.screen ? C.accent : C.muted,
-                borderBottom: active === l.screen ? `2px solid ${C.accent}` : "2px solid transparent",
+                color: active === l.screen ? "#D49566" : C.muted,
+                borderBottom: active === l.screen ? `2px solid #D49566` : "2px solid transparent",
               }}
             >
               {l.label}
@@ -897,14 +897,14 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
             aria-label={`Cart with ${cartCount} items`}
             className="relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold cursor-pointer transition-transform hover:scale-105"
             style={{
-              background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
-              color: "#120D0A",
+              background: "linear-gradient(135deg, #B87342 0%, #9C5E32 100%)",
+              color: "#FFFDF8",
             }}
           >
             <span>🛒</span>
             <span className="hidden sm:inline">Cart</span>
             {cartCount > 0 && (
-              <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold bg-[#120D0A] text-[#FDF7F0]">
+              <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold bg-[#14100D] text-[#EDE4DB]">
                 {cartCount}
               </span>
             )}
@@ -939,13 +939,13 @@ function CHome({
             alt="Warm AJAB café interior"
             className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#120D0A] via-transparent to-[#120D0A]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#14100D] via-transparent to-[#14100D]" />
         </div>
         <div className="relative z-10 flex flex-col items-center max-w-4xl">
           <AjabLogo size={104} className="mb-4" />
-          <p className="text-xs tracking-widest uppercase mb-4" style={{ color: C.accent }}>Modern Indian Café · Est. 2024</p>
+          <p className="text-xs tracking-widest uppercase mb-4 font-semibold" style={{ color: C.accent }}>Modern Indian Café · Est. 2024</p>
           <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(36px,6vw,64px)", color: C.text, lineHeight: 1.1 }}>
-            Warmth in every<br /><em style={{ color: C.accent }}>cup and corner.</em>
+            Warmth in every<br /><em style={{ color: "#D49566" }}>cup and corner.</em>
           </h1>
           <div className="mt-4 flex items-start gap-2 max-w-xl">
             <p className="text-base sm:text-lg flex-1" style={{ color: C.muted, lineHeight: 1.7 }}>
@@ -966,7 +966,7 @@ function CHome({
       <section className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-[#36270E] text-[#FCD34D] border border-[#5C4217] mb-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-[#261D15] text-[#D49566] border border-[#423122] mb-2">
               <span>👑 Chef's Highlights</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold" style={{ color: C.accent }}>
@@ -990,7 +990,7 @@ function CHome({
           {featuredDishes.map((item) => (
             <div
               key={item.id}
-              className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-2xl hover:border-[#D4A359]/70 hover:-translate-y-1.5 group"
+              className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-2xl hover:border-[#B87342]/60 hover:-translate-y-1.5 group"
               style={{ backgroundColor: C.card, border: `1.5px solid ${C.border}` }}
             >
               <div className="relative h-48 overflow-hidden">
@@ -1003,14 +1003,15 @@ function CHome({
                   <span
                     className="text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm"
                     style={{
-                      backgroundColor: item.foodType === "veg" ? "#166534" : "#991B1B",
-                      color: "#FFF",
+                      backgroundColor: item.foodType === "veg" ? "#122619" : "#2B1416",
+                      color: item.foodType === "veg" ? "#4ADE80" : "#F87171",
+                      border: `1px solid ${item.foodType === "veg" ? "#1E4729" : "#4E2125"}`,
                     }}
                   >
                     {item.foodType === "veg" ? "● VEG" : "● NON-VEG"}
                   </span>
                   {item.seasonBadge && (
-                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#B8860B] text-white shadow-sm">
+                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#B87342] text-white shadow-sm">
                       {item.seasonBadge}
                     </span>
                   )}
@@ -1028,7 +1029,7 @@ function CHome({
                         {item.name}
                       </h3>
                     </div>
-                    <p className="font-bold text-lg shrink-0" style={{ color: C.accent }}>
+                    <p className="font-bold text-lg shrink-0" style={{ color: "#D49566" }}>
                       ₹ {item.price}
                     </p>
                   </div>
@@ -1037,7 +1038,7 @@ function CHome({
                     {item.desc}
                   </p>
 
-                  <div className="flex items-center gap-3 mt-3 text-xs font-semibold" style={{ color: C.accentLight }}>
+                  <div className="flex items-center gap-3 mt-3 text-xs font-semibold" style={{ color: C.muted }}>
                     <span>🔥 {item.cal} kcal</span>
                     <span>💪 {item.protein}g protein</span>
                   </div>
@@ -1047,7 +1048,7 @@ function CHome({
                   <button
                     onClick={() => { setFood(item); navigate("food-details"); }}
                     className="flex-1 py-2.5 rounded-xl text-xs font-semibold cursor-pointer transition-colors text-center"
-                    style={{ backgroundColor: C.cream, color: C.accent, border: `1px solid ${C.border}` }}
+                    style={{ backgroundColor: C.cream, color: C.text, border: `1px solid ${C.border}` }}
                   >
                     Details
                   </button>
@@ -1055,8 +1056,8 @@ function CHome({
                     onClick={() => addToCart(item)}
                     className="flex-1 py-2.5 rounded-xl text-xs font-bold cursor-pointer transition-colors text-center"
                     style={{
-                      background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
-                      color: "#120D0A",
+                      background: "linear-gradient(135deg, #B87342 0%, #9C5E32 100%)",
+                      color: "#FFFDF8",
                     }}
                   >
                     + Add to Cart
@@ -1068,22 +1069,22 @@ function CHome({
         </div>
 
         {/* Heritage Pairing Combo Banner */}
-        <div className="mt-8 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border" style={{ backgroundColor: "#24160C", borderColor: "#D4A359", color: "#FFFDF8" }}>
+        <div className="mt-8 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border" style={{ backgroundColor: "#221811", borderColor: "#4A3525", color: "#EDE4DB" }}>
           <div className="flex items-center gap-5">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shrink-0 bg-white/10 border border-white/20">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shrink-0 bg-white/5 border border-white/10">
               ☕🥟
             </div>
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#FDE68A]">Special Heritage Combo</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#D49566]">Special Heritage Combo</span>
               <h3 className="font-serif text-2xl font-bold mt-0.5">Filter Coffee &amp; Mumbai Vada Pav</h3>
-              <p className="text-xs text-[#D4C8B4] mt-1">Frothy double-drip chicory coffee paired with hot batata vada &amp; spicy garlic chutney.</p>
+              <p className="text-xs text-[#A08F81] mt-1">Frothy double-drip chicory coffee paired with hot batata vada &amp; spicy garlic chutney.</p>
             </div>
           </div>
 
           <div className="flex items-center gap-4 shrink-0">
             <div className="text-right">
-              <span className="text-xs line-through text-[#8A7868]">₹ 205</span>
-              <p className="text-2xl font-bold text-[#FDE68A]">₹ 175</p>
+              <span className="text-xs line-through text-[#7A6A5E]">₹ 205</span>
+              <p className="text-2xl font-bold text-[#E0AB82]">₹ 175</p>
             </div>
             <button
               onClick={() => {
@@ -1094,7 +1095,7 @@ function CHome({
                 navigate("cart");
               }}
               className="px-5 py-3 rounded-2xl font-bold text-sm cursor-pointer shadow-lg transition-transform hover:scale-105"
-              style={{ backgroundColor: "#E2A955", color: "#120D0A" }}
+              style={{ backgroundColor: "#B87342", color: "#FFFDF8" }}
             >
               Order Combo →
             </button>
@@ -1111,22 +1112,22 @@ function CHome({
       <section className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-3xl p-8 shadow-sm" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
           <div className="lg:col-span-7 flex flex-col gap-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#E2A955]">Live Seat Picker</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#D49566]">Live Seat Picker</span>
             <h2 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>Architectural Floor Plan Reservation</h2>
             <p className="text-sm leading-relaxed" style={{ color: C.muted }}>
               Choose your exact table across 4 distinct ambient zones: Indoor Main Hall, Garden Verandah Patio, Heritage Quiet Alcove, or the Barista Coffee Bar.
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">✓ 20 Distinct Tables</span>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">✓ Live Availability</span>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">✓ Wheelchair Accessible</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">✓ 20 Distinct Tables</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">✓ Live Availability</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">✓ Wheelchair Accessible</span>
             </div>
             <div className="pt-2">
               <CBtn label="Open Table Reservation Floor Plan" onClick={() => navigate("seats")} size="lg" />
             </div>
           </div>
 
-          <div className="lg:col-span-5 relative rounded-2xl overflow-hidden shadow-md border-2" style={{ height: 220, borderColor: C.border, backgroundColor: "#150F0A" }}>
+          <div className="lg:col-span-5 relative rounded-2xl overflow-hidden shadow-md border-2" style={{ height: 220, borderColor: C.border, backgroundColor: "#16110D" }}>
             <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center">
               <span className="text-3xl mb-2">🏛️</span>
               <p className="font-serif font-bold text-lg" style={{ color: C.accent }}>14 Tables Currently Available</p>
@@ -1240,39 +1241,39 @@ function CMenu({
     return typeMatch && cuisineMatch && categoryMatch && dietMatch && allergenMatch && seasonMatch && queryMatch;
   });
 
-  // Seasonal configuration for the vibrant Garden widget
+  // Seasonal configuration for the Garden widget
   const seasonConfig = {
     summer: {
       title: "☀️ Summer Garden Coolers",
       temp: "32°C Sunny Weather Active",
       bannerImg: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&h=400&fit=crop&auto=format",
-      bgGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
-      accentBg: "#36270E",
-      accentText: "#FCD34D",
+      bgGradient: "linear-gradient(135deg, #7C3A16 0%, #4D1E08 100%)",
+      accentBg: "#291E15",
+      accentText: "#D49566",
     },
     monsoon: {
       title: "🌧️ Monsoon Rain Comforts",
       temp: "23°C Refreshing Petrichor",
       bannerImg: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=800&h=400&fit=crop&auto=format",
-      bgGradient: "linear-gradient(135deg, #065F46 0%, #064E3B 100%)",
-      accentBg: "#14331E",
+      bgGradient: "linear-gradient(135deg, #064E3B 0%, #033628 100%)",
+      accentBg: "#122619",
       accentText: "#4ADE80",
     },
     winter: {
       title: "❄️ Winter Hearth Warmers",
       temp: "17°C Chilly Evening Warmth",
       bannerImg: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&h=400&fit=crop&auto=format",
-      bgGradient: "linear-gradient(135deg, #881337 0%, #4C0519 100%)",
-      accentBg: "#3D1416",
+      bgGradient: "linear-gradient(135deg, #5C1D2A 0%, #3B1019 100%)",
+      accentBg: "#2B1416",
       accentText: "#F87171",
     },
     All: {
       title: "🌿 All-Season Classics",
       temp: "Signature Year-Round Menu",
       bannerImg: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&h=400&fit=crop&auto=format",
-      bgGradient: "linear-gradient(135deg, #5C3D1E 0%, #261608 100%)",
-      accentBg: "#241B14",
-      accentText: "#E2A955",
+      bgGradient: "linear-gradient(135deg, #4A2E1A 0%, #261608 100%)",
+      accentBg: "#241D17",
+      accentText: "#C4824E",
     }
   };
 
@@ -1293,7 +1294,7 @@ function CMenu({
         </div>
         <div className="flex items-center gap-2">
           {voiceFilter && (
-            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
+            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
               🎙️ {voiceFilter.badgeLabel}
             </span>
           )}
@@ -1308,7 +1309,7 @@ function CMenu({
       </div>
 
       {/* ── TOP SECTION: ALLERGEN SAFETY SHIELD & NUTRITION HUB ── */}
-      <div className="rounded-3xl p-5 mb-8 shadow-sm" style={{ backgroundColor: "#1A130E", border: `1.5px solid ${C.border}` }}>
+      <div className="rounded-3xl p-5 mb-8 shadow-sm" style={{ backgroundColor: "#1A140F", border: `1.5px solid ${C.border}` }}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-6 flex flex-col gap-2">
             <div className="flex items-center gap-2">
@@ -1325,9 +1326,9 @@ function CMenu({
                     onClick={() => toggleAllergen(a.name)}
                     className="rounded-full px-3 py-1.5 text-xs font-semibold cursor-pointer transition-all flex items-center gap-1.5 select-none"
                     style={{
-                      backgroundColor: active ? "#991B1B" : C.cream,
+                      backgroundColor: active ? "#8B2326" : C.cream,
                       color: active ? "#FFFFFF" : C.text,
-                      border: `1.5px solid ${active ? "#991B1B" : C.border}`,
+                      border: `1.5px solid ${active ? "#8B2326" : C.border}`,
                     }}
                   >
                     <span>{a.icon}</span>
@@ -1353,10 +1354,10 @@ function CMenu({
                     onClick={() => setSelectedDiet(active ? "All" : d.value)}
                     className="rounded-full px-3 py-1.5 text-xs font-semibold cursor-pointer transition-all select-none"
                     style={{
-                      backgroundColor: active ? C.accent : C.cream,
-                      color: active ? "#120D0A" : C.text,
-                      border: `1.5px solid ${active ? C.accent : C.border}`,
-                      fontWeight: active ? 700 : 600,
+                      backgroundColor: active ? "#B87342" : C.cream,
+                      color: active ? "#FFFDF8" : C.text,
+                      border: `1.5px solid ${active ? "#B87342" : C.border}`,
+                      fontWeight: active ? 700 : 500,
                     }}
                   >
                     {d.label}
@@ -1376,8 +1377,8 @@ function CMenu({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search dishes (e.g., Filter Coffee, Samosa, Butter Chicken, Biryani, Tiramisu)..."
-              className="w-full rounded-2xl px-11 py-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[#D4A359]"
-              style={{ backgroundColor: "#1F1712", border: `1px solid ${C.border}`, color: C.text }}
+              className="w-full rounded-2xl px-11 py-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[#B87342]"
+              style={{ backgroundColor: "#1E1813", border: `1px solid ${C.border}`, color: C.text }}
             />
             <span className="absolute left-4 top-3.5 text-base opacity-60">🔍</span>
             {searchQuery && (
@@ -1392,8 +1393,8 @@ function CMenu({
                 onClick={() => setFoodType(t)}
                 className="flex-1 py-2 text-xs font-bold rounded-xl cursor-pointer transition-all text-center flex items-center justify-center gap-1"
                 style={{
-                  backgroundColor: foodType === t ? (t === "Veg" ? "#166534" : t === "Non-Veg" ? "#991B1B" : C.accent) : "transparent",
-                  color: foodType === t ? (t === "All" ? "#120D0A" : "#FFF") : C.muted,
+                  backgroundColor: foodType === t ? (t === "Veg" ? "#166534" : t === "Non-Veg" ? "#991B1B" : "#B87342") : "transparent",
+                  color: foodType === t ? "#FFFDF8" : C.muted,
                 }}
               >
                 {t === "Veg" && <span>🟢</span>}
@@ -1412,9 +1413,9 @@ function CMenu({
               onClick={() => setSelectedCategory(c)}
               className="rounded-full px-3.5 py-1.5 text-xs font-semibold cursor-pointer shrink-0 transition-all select-none"
               style={{
-                backgroundColor: selectedCategory === c ? C.accent : C.card,
-                color: selectedCategory === c ? "#120D0A" : C.text,
-                border: `1px solid ${selectedCategory === c ? C.accent : C.border}`,
+                backgroundColor: selectedCategory === c ? "#B87342" : C.card,
+                color: selectedCategory === c ? "#FFFDF8" : C.text,
+                border: `1px solid ${selectedCategory === c ? "#B87342" : C.border}`,
                 fontWeight: selectedCategory === c ? 700 : 500,
               }}
             >
@@ -1431,9 +1432,9 @@ function CMenu({
               onClick={() => setSelectedCuisine(c)}
               className="rounded-full px-3 py-1 text-xs font-semibold cursor-pointer shrink-0 transition-all select-none"
               style={{
-                backgroundColor: selectedCuisine === c ? "#D49B4B" : C.cream,
-                color: selectedCuisine === c ? "#120D0A" : C.muted,
-                border: `1px solid ${selectedCuisine === c ? "#D49B4B" : C.border}`,
+                backgroundColor: selectedCuisine === c ? "#A66838" : C.cream,
+                color: selectedCuisine === c ? "#FFFDF8" : C.muted,
+                border: `1px solid ${selectedCuisine === c ? "#A66838" : C.border}`,
                 fontWeight: selectedCuisine === c ? 700 : 500,
               }}
             >
@@ -1467,7 +1468,7 @@ function CMenu({
               {filteredItems.map((item) => (
                 <div
                   key={item.id}
-                  className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-xl hover:border-[#D4A359]/70 hover:-translate-y-1 group"
+                  className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-xl hover:border-[#B87342]/60 hover:-translate-y-1 group"
                   style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}
                 >
                   <div className="relative h-44 overflow-hidden">
@@ -1481,14 +1482,15 @@ function CMenu({
                       <span
                         className="text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm"
                         style={{
-                          backgroundColor: item.foodType === "veg" ? "#166534" : "#991B1B",
-                          color: "#FFF",
+                          backgroundColor: item.foodType === "veg" ? "#122619" : "#2B1416",
+                          color: item.foodType === "veg" ? "#4ADE80" : "#F87171",
+                          border: `1px solid ${item.foodType === "veg" ? "#1E4729" : "#4E2125"}`,
                         }}
                       >
                         {item.foodType === "veg" ? "● VEG" : "● NON-VEG"}
                       </span>
                       {item.isChefSpecial && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#B8860B] text-white shadow-sm">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#B87342] text-white shadow-sm">
                           👑 Special
                         </span>
                       )}
@@ -1514,7 +1516,7 @@ function CMenu({
                             {item.name}
                           </h3>
                         </div>
-                        <p className="font-bold text-base shrink-0" style={{ color: C.accent }}>
+                        <p className="font-bold text-base shrink-0" style={{ color: "#D49566" }}>
                           ₹ {item.price}
                         </p>
                       </div>
@@ -1523,7 +1525,7 @@ function CMenu({
                         {item.desc}
                       </p>
 
-                      <div className="flex items-center gap-3 mt-3 text-[11px] font-semibold" style={{ color: C.accentLight }}>
+                      <div className="flex items-center gap-3 mt-3 text-[11px] font-semibold" style={{ color: C.muted }}>
                         <span>🔥 {item.cal} kcal</span>
                         <span>💪 {item.protein}g protein</span>
                         <span>🌾 {item.carbs}g carbs</span>
@@ -1534,7 +1536,7 @@ function CMenu({
                       <button
                         onClick={() => { setFood(item); navigate("food-details"); }}
                         className="flex-1 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-colors text-center"
-                        style={{ backgroundColor: C.cream, color: C.accent, border: `1px solid ${C.border}` }}
+                        style={{ backgroundColor: C.cream, color: C.text, border: `1px solid ${C.border}` }}
                       >
                         Details
                       </button>
@@ -1542,8 +1544,8 @@ function CMenu({
                         onClick={() => addToCart(item)}
                         className="flex-1 py-2 rounded-xl text-xs font-bold cursor-pointer transition-colors text-center"
                         style={{
-                          background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
-                          color: "#120D0A",
+                          background: "linear-gradient(135deg, #B87342 0%, #9C5E32 100%)",
+                          color: "#FFFDF8",
                         }}
                       >
                         + Add to Cart
@@ -1556,15 +1558,15 @@ function CMenu({
           )}
         </div>
 
-        {/* ── COLORFUL & RICH PHOTO SEASONAL GARDEN (Col 9-12) ── */}
+        {/* ── SEASONAL GARDEN (Col 9-12) ── */}
         <div className="lg:col-span-4 flex flex-col gap-6 sticky top-24">
           <div className="rounded-3xl overflow-hidden shadow-xl border-2" style={{ borderColor: C.border }}>
-            {/* Colorful Hero Photo Header */}
+            {/* Seasonal Photo Header */}
             <div className="relative h-32 overflow-hidden text-white p-4 flex flex-col justify-between" style={{ background: curSeasonStyle.bgGradient }}>
               <img
                 src={curSeasonStyle.bannerImg}
                 alt="Seasonal Garden Background"
-                className="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-overlay"
+                className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
               />
               <div className="relative z-10 flex items-center justify-between">
                 <span className="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md">
@@ -1577,7 +1579,7 @@ function CMenu({
               <h3 className="relative z-10 font-serif text-xl font-bold">{curSeasonStyle.title}</h3>
             </div>
 
-            <div className="p-4" style={{ backgroundColor: "#1A130E" }}>
+            <div className="p-4" style={{ backgroundColor: "#1A140F" }}>
               {/* Season Tabs */}
               <div className="grid grid-cols-3 gap-1 p-1 rounded-2xl mb-4" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
                 {(["summer", "monsoon", "winter"] as const).map((s) => (
@@ -1586,8 +1588,8 @@ function CMenu({
                     onClick={() => setSelectedSeason(s)}
                     className="py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all text-center capitalize"
                     style={{
-                      backgroundColor: selectedSeason === s ? C.accent : "transparent",
-                      color: selectedSeason === s ? "#120D0A" : C.muted,
+                      backgroundColor: selectedSeason === s ? "#B87342" : "transparent",
+                      color: selectedSeason === s ? "#FFFDF8" : C.muted,
                     }}
                   >
                     {s === "summer" ? "☀️ Summer" : s === "monsoon" ? "🌧️ Monsoon" : "❄️ Winter"}
@@ -1601,15 +1603,15 @@ function CMenu({
                   <div key={pick.id} className="p-3 rounded-2xl flex gap-3 items-center shadow-sm" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
                     <FoodImage src={pick.img} alt={pick.imgAlt} name={pick.name} className="w-14 h-14 rounded-xl object-cover shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <p className="font-serif font-bold text-xs truncate" style={{ color: C.accent }}>{pick.name}</p>
-                      <p className="text-[11px] font-semibold" style={{ color: C.muted }}>₹ {pick.price} · {pick.cal} kcal</p>
+                      <p className="font-serif font-bold text-xs truncate" style={{ color: C.text }}>{pick.name}</p>
+                      <p className="text-[11px] font-semibold" style={{ color: "#D49566" }}>₹ {pick.price} · {pick.cal} kcal</p>
                     </div>
                     <button
                       onClick={() => addToCart(pick)}
                       className="px-2.5 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-transform hover:scale-105"
                       style={{
-                        background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
-                        color: "#120D0A",
+                        background: "linear-gradient(135deg, #B87342 0%, #9C5E32 100%)",
+                        color: "#FFFDF8",
                       }}
                     >
                       + Add
@@ -1659,7 +1661,7 @@ function CMenu({
               ].map((m) => (
                 <div key={m.label} className="rounded-xl p-2.5" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
                   <p className="text-[10px] font-bold uppercase" style={{ color: C.muted }}>{m.label}</p>
-                  <p className="font-bold text-sm mt-0.5" style={{ color: C.accent }}>{m.val}</p>
+                  <p className="font-bold text-sm mt-0.5" style={{ color: "#D49566" }}>{m.val}</p>
                 </div>
               ))}
             </div>
@@ -1687,7 +1689,7 @@ function CMenu({
                 <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Dietary Compatibility</p>
                 <div className="flex flex-wrap gap-1.5">
                   {nutritionModalItem.dietary.map((d) => (
-                    <span key={d} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
+                    <span key={d} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
                       ✓ {d}
                     </span>
                   ))}
@@ -1733,9 +1735,9 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
             <span
               className="text-[11px] font-bold rounded-full px-2.5 py-0.5 border"
               style={{
-                backgroundColor: food.foodType === "veg" ? "#14331E" : "#3D1416",
+                backgroundColor: food.foodType === "veg" ? "#122619" : "#2B1416",
                 color: food.foodType === "veg" ? "#4ADE80" : "#F87171",
-                borderColor: food.foodType === "veg" ? "#1E542C" : "#612225",
+                borderColor: food.foodType === "veg" ? "#1E4729" : "#4E2125",
               }}
             >
               {food.foodType === "veg" ? "● VEG" : "● NON-VEG"}
@@ -1748,7 +1750,7 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
           </div>
 
           <p className="text-base" style={{ color: C.muted, lineHeight: 1.7 }}>{food.desc}</p>
-          <p className="text-2xl font-bold" style={{ color: C.accent }}>₹ {food.price}</p>
+          <p className="text-2xl font-bold" style={{ color: "#D49566" }}>₹ {food.price}</p>
 
           <div className="grid grid-cols-4 gap-2">
             {[
@@ -1768,7 +1770,7 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
             <p className="text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>Dietary Suitability</p>
             <div className="flex flex-wrap gap-1.5">
               {food.dietary.map((d) => (
-                <span key={d} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
+                <span key={d} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
                   ✓ {d}
                 </span>
               ))}
@@ -1821,7 +1823,7 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
                   <span className="text-sm font-bold w-5 text-center">{item.qty}</span>
                   <button onClick={() => updateQty(item.id, 1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-white/10">+</button>
                 </div>
-                <p className="font-bold text-sm w-16 text-right" style={{ color: C.accent }}>₹ {item.price * item.qty}</p>
+                <p className="font-bold text-sm w-16 text-right" style={{ color: "#D49566" }}>₹ {item.price * item.qty}</p>
               </div>
             </CCard>
           ))}
@@ -1833,7 +1835,7 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
             <div className="h-px my-1" style={{ backgroundColor: C.border }} />
             <div className="flex justify-between items-center font-bold text-base">
               <span>Total Amount</span>
-              <span style={{ color: C.accent, fontSize: 18 }}>₹ {total}</span>
+              <span style={{ color: "#D49566", fontSize: 18 }}>₹ {total}</span>
             </div>
           </CCard>
 
@@ -1850,7 +1852,7 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
 function COrderConfirm({ navigate }: { navigate: (s: Screen) => void }) {
   return (
     <div className="max-w-md mx-auto px-4 sm:px-6 py-16 text-center flex flex-col items-center gap-4 animate-fade-in">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#14331E] text-[#4ADE80] border-2 border-[#22C55E]">
+      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
         ✓
       </div>
       <h1 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>Order Received!</h1>
@@ -1940,8 +1942,8 @@ function CSeats({
                   onClick={() => setDraft({ ...draft, guests: num })}
                   className="flex-1 py-1.5 text-xs font-bold rounded-lg cursor-pointer transition-all"
                   style={{
-                    backgroundColor: draft.guests === num ? C.accent : "transparent",
-                    color: draft.guests === num ? "#120D0A" : C.text,
+                    backgroundColor: draft.guests === num ? "#B87342" : "transparent",
+                    color: draft.guests === num ? "#FFFDF8" : C.text,
                   }}
                 >
                   {num}
@@ -1979,7 +1981,7 @@ function CSeats({
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b" style={{ borderColor: C.border }}>
               <div className="flex items-center gap-2">
                 <span className="font-serif font-bold text-base" style={{ color: C.accent }}>Architectural Floor Plan</span>
-                <span className="text-xs px-2 py-0.5 rounded bg-[#241A13] text-[#E2A955] font-semibold border border-[#382A20]">12 Residency Rd</span>
+                <span className="text-xs px-2 py-0.5 rounded bg-[#241A13] text-[#D49566] font-semibold border border-[#382A20]">12 Residency Rd</span>
               </div>
               <div className="flex items-center gap-3">
                 <StatusDot status="available" />
@@ -1992,27 +1994,27 @@ function CSeats({
               className="relative w-full rounded-2xl overflow-hidden select-none shadow-inner"
               style={{
                 height: 480,
-                backgroundColor: "#140E0A",
+                backgroundColor: "#16110D",
                 border: `2px solid ${C.border}`,
-                backgroundImage: "radial-gradient(#2A1F18 1.5px, transparent 1.5px)",
+                backgroundImage: "radial-gradient(#2A2018 1.5px, transparent 1.5px)",
                 backgroundSize: "24px 24px",
               }}
             >
-              <div className="absolute top-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#E2A955]">
+              <div className="absolute top-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
                 🏛️ INDOOR MAIN HALL
               </div>
-              <div className="absolute top-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#E2A955]">
+              <div className="absolute top-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
                 🌿 GARDEN VERANDAH &amp; PATIO
               </div>
-              <div className="absolute bottom-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#E2A955]">
+              <div className="absolute bottom-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
                 ☕ BARISTA ESPRESSO BAR
               </div>
-              <div className="absolute bottom-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#E2A955]">
+              <div className="absolute bottom-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
                 📚 HERITAGE QUIET ALCOVE
               </div>
 
-              <div className="absolute left-1/2 top-0 bottom-0 w-px border-r border-dashed border-[#382A20]" />
-              <div className="absolute top-1/2 left-0 right-0 h-px border-b border-dashed border-[#382A20]" />
+              <div className="absolute left-1/2 top-0 bottom-0 w-px border-r border-dashed border-[#382C23]" />
+              <div className="absolute top-1/2 left-0 right-0 h-px border-b border-dashed border-[#382C23]" />
 
               {filteredTables.map((t) => {
                 const isSelected = selected === t.id;
@@ -2040,30 +2042,30 @@ function CSeats({
                       height: h,
                       borderRadius: isRound || isBar ? "50%" : 16,
                       backgroundColor: isSelected
-                        ? "#E2A955"
+                        ? "#B87342"
                         : t.status === "occupied"
-                        ? "#221711"
+                        ? "#1C1511"
                         : t.status === "reserved"
-                        ? "#2E200C"
-                        : "#122E1A",
+                        ? "#261D15"
+                        : "#132619",
                       color: isSelected
-                        ? "#120D0A"
+                        ? "#FFFDF8"
                         : t.status === "occupied"
-                        ? "#665445"
+                        ? "#665448"
                         : t.status === "reserved"
-                        ? "#FCD34D"
+                        ? "#D49566"
                         : "#4ADE80",
                       border: isSelected
-                        ? "3px solid #FFFDF8"
+                        ? "2px solid #FFF8F0"
                         : t.status === "occupied"
-                        ? "1.5px solid #3D2B1F"
+                        ? "1.5px solid #33261F"
                         : t.status === "reserved"
-                        ? "1.5px solid #F59E0B"
-                        : "2px solid #22C55E",
+                        ? "1.5px solid #6E492B"
+                        : "2px solid #2E7D47",
                       boxShadow: isSelected
-                        ? "0 0 24px rgba(226, 169, 85, 0.6)"
+                        ? "0 0 16px rgba(184, 115, 66, 0.4)"
                         : "0 2px 8px rgba(0,0,0,0.3)",
-                      opacity: canSelect || isSelected ? 1 : 0.45,
+                      opacity: canSelect || isSelected ? 1 : 0.4,
                     }}
                   >
                     <span className="font-bold text-[11px] leading-none">{t.id}</span>
@@ -2079,7 +2081,7 @@ function CSeats({
           {selectedTableObj ? (
             <CCard className="p-6 flex flex-col gap-4 animate-fade-in shadow-xl">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#E2A955]">Selected Table</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#D49566]">Selected Table</span>
                 <StatusDot status={selectedTableObj.status} />
               </div>
 
@@ -2088,18 +2090,18 @@ function CSeats({
 
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="p-2.5 rounded-xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-                  <p className="text-[10px] font-bold uppercase text-[#B3A090]">Capacity</p>
+                  <p className="text-[10px] font-bold uppercase text-[#A08F81]">Capacity</p>
                   <p className="font-bold text-sm mt-0.5" style={{ color: C.text }}>{selectedTableObj.seats} Guests Max</p>
                 </div>
                 <div className="p-2.5 rounded-xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-                  <p className="text-[10px] font-bold uppercase text-[#B3A090]">Zone</p>
+                  <p className="text-[10px] font-bold uppercase text-[#A08F81]">Zone</p>
                   <p className="font-bold text-sm mt-0.5" style={{ color: C.text }}>{selectedTableObj.zone}</p>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-1.5">
                 {selectedTableObj.amenities.map((a) => (
-                  <span key={a} className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
+                  <span key={a} className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
                     ✓ {a}
                   </span>
                 ))}
@@ -2178,7 +2180,7 @@ function CReservation({ table, draft, setDraft, navigate }: { table: string | nu
 function CResConfirm({ table, draft, navigate }: { table: string | null; draft: ReservationDraft; navigate: (s: Screen) => void }) {
   return (
     <div className="max-w-md mx-auto px-4 sm:px-6 py-16 text-center flex flex-col items-center gap-4 animate-fade-in">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#14331E] text-[#4ADE80] border-2 border-[#22C55E]">
+      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
         ✓
       </div>
       <h1 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>Reservation Confirmed!</h1>
@@ -2208,13 +2210,13 @@ function CEvents({ navigate }: { navigate: (s: Screen) => void }) {
             <img src={e.img} alt={e.imgAlt} className="w-full h-48 object-cover" />
             <div className="p-5 flex-1 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#36270E] text-[#FCD34D] border border-[#5C4217]">{e.tag}</span>
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#291E15] text-[#D49566] border border-[#4A3525]">{e.tag}</span>
                 <h3 className="font-serif text-xl font-bold mt-2" style={{ color: C.text }}>{e.name}</h3>
                 <p className="text-xs font-bold mt-1" style={{ color: C.accent }}>📅 {e.date}</p>
                 <p className="text-xs mt-2 leading-relaxed" style={{ color: C.muted }}>{e.desc}</p>
               </div>
               <div className="mt-4 pt-3 border-t flex items-center justify-between" style={{ borderColor: C.border }}>
-                <span className="font-bold text-sm" style={{ color: C.accent }}>₹ {e.price} / person</span>
+                <span className="font-bold text-sm" style={{ color: "#D49566" }}>₹ {e.price} / person</span>
                 <CBtn label="Book Seat" onClick={() => navigate("seats")} size="sm" />
               </div>
             </div>
@@ -2299,7 +2301,7 @@ function CAccessibility({ setMode }: { setMode: (m: AppMode) => void }) {
             ["Rural / Multilingual", "English, Hindi & Marathi", () => setMode("rural")],
             ["Visually Impaired", "High contrast & audio", () => setMode("vi")],
           ].map(([label, sub, action]) => (
-            <button key={String(label)} onClick={action as () => void} className="rounded-2xl p-3 text-left cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#D4A359]" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
+            <button key={String(label)} onClick={action as () => void} className="rounded-2xl p-3 text-left cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#B87342]" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
               <p className="font-bold text-xs" style={{ color: C.accent }}>{label}</p>
               <p className="text-[11px] mt-1 leading-snug" style={{ color: C.muted }}>{sub}</p>
             </button>
@@ -2321,8 +2323,8 @@ function CAccessibility({ setMode }: { setMode: (m: AppMode) => void }) {
         </CCard>
 
         <CCard onClick={() => setMode("vi")} className="text-center">
-          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3" style={{ backgroundColor: "#0D0600", color: "#FFD166", border: "1px solid #C49A24" }}>👁</div>
-          <h3 className="font-bold text-base" style={{ color: C.accent }}>Visually Impaired</h3>
+          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3" style={{ backgroundColor: "#0D0600", color: "#FFD166" }}>👁</div>
+          <h3 className="font-bold text-base" style={{ color: "#FFD166" }}>Visually Impaired</h3>
           <p className="text-xs mt-1" style={{ color: C.muted }}>Ultra-high contrast dark theme &amp; image descriptions.</p>
         </CCard>
       </div>
@@ -2450,7 +2452,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                   <div className="flex gap-4 items-center">
                     <FoodImage src={item.img} alt={item.imgAlt} name={item.name} className="w-24 h-24 rounded-2xl object-cover shrink-0" />
                     <div>
-                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
+                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
                         {item.foodType === "veg" ? "● VEG" : "● NON-VEG"}
                       </span>
                       <h3 className="font-bold text-xl mt-1" style={{ color: EC.text }}>{item.name}</h3>
@@ -2462,7 +2464,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                     <button
                       onClick={() => { setSelectedFood(item); setScreen("e-food-details"); }}
                       className="flex-1 py-3 rounded-xl font-bold text-center cursor-pointer"
-                      style={{ backgroundColor: EC.cream, color: EC.accent, border: `2px solid ${EC.border}` }}
+                      style={{ backgroundColor: EC.cream, color: EC.text, border: `2px solid ${EC.border}` }}
                     >
                       Details
                     </button>
@@ -2492,7 +2494,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 <ReadAloudBtn text={`${selectedFood.name}. ${selectedFood.desc}. Priced at ${selectedFood.price} rupees.`} />
               </div>
               <p className="text-lg mt-2" style={{ color: EC.muted, lineHeight: 1.6 }}>{selectedFood.desc}</p>
-              <p className="text-3xl font-bold mt-3" style={{ color: EC.accent }}>₹ {selectedFood.price}</p>
+              <p className="text-3xl font-bold mt-3" style={{ color: "#D49566" }}>₹ {selectedFood.price}</p>
 
               <div className="p-4 rounded-2xl my-4" style={{ backgroundColor: EC.cream, border: `2px solid ${EC.border}` }}>
                 <p className="font-bold text-sm" style={{ color: EC.text }}>Key Ingredients:</p>
@@ -2529,7 +2531,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                   <div key={item.id} className="p-5 rounded-2xl flex items-center justify-between" style={{ backgroundColor: EC.card, border: `2px solid ${EC.border}` }}>
                     <div>
                       <p className="font-bold text-xl" style={{ color: EC.text }}>{item.name}</p>
-                      <p className="text-lg" style={{ color: EC.accent }}>₹ {item.price} each</p>
+                      <p className="text-lg" style={{ color: "#D49566" }}>₹ {item.price} each</p>
                     </div>
                     <div className="flex items-center gap-3">
                       <button onClick={() => updateQty(item.id, -1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-[#1F1610] text-[#FFF] border border-[#855831]">−</button>
@@ -2541,7 +2543,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 <div className="p-6 rounded-3xl mt-4" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
                   <div className="flex justify-between text-2xl font-bold">
                     <span style={{ color: EC.text }}>Total Bill:</span>
-                    <span style={{ color: EC.accent }}>₹ {cart.reduce((s, c) => s + c.price * c.qty, 0)}</span>
+                    <span style={{ color: "#D49566" }}>₹ {cart.reduce((s, c) => s + c.price * c.qty, 0)}</span>
                   </div>
                   <button onClick={() => { alert("Order received!"); setCart([]); setScreen("e-home"); }} className="w-full py-4 rounded-2xl font-bold text-xl mt-4 cursor-pointer" style={{ backgroundColor: EC.btn, color: EC.btnText }}>
                     Confirm &amp; Place Order
@@ -2588,7 +2590,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
 
         {screen === "e-res-confirm" && (
           <div className="rounded-3xl p-8 text-center flex flex-col items-center gap-4 animate-fade-in" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
-            <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#14331E] text-[#4ADE80] border-2 border-[#22C55E]">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
               ✓
             </div>
             <h2 className="font-serif text-3xl font-bold" style={{ color: EC.accent }}>Table Booked!</h2>
@@ -2666,8 +2668,8 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 onClick={() => setLang(l)}
                 className="rounded-xl px-3 py-1.5 text-xs font-bold cursor-pointer"
                 style={{
-                  backgroundColor: lang === l ? C.accent : C.cream,
-                  color: lang === l ? "#120D0A" : C.text,
+                  backgroundColor: lang === l ? "#B87342" : C.cream,
+                  color: lang === l ? "#FFFDF8" : C.text,
                   border: `1px solid ${C.border}`,
                 }}
               >
@@ -2714,7 +2716,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-serif text-2xl font-bold" style={{ color: C.accent }}>{t.menu}</h2>
-              <button onClick={() => setScreen("r-home")} className="text-xs font-bold underline" style={{ color: C.accent }}>← {t.home}</button>
+              <button onClick={() => setScreen("r-home")} className="text-xs font-bold underline" style={{ color: "#D49566" }}>← {t.home}</button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -2727,9 +2729,9 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-sm truncate" style={{ color: C.text }}>{name}</p>
                       <p className="text-xs line-clamp-1" style={{ color: C.muted }}>{desc}</p>
-                      <p className="text-xs font-bold mt-1" style={{ color: C.accent }}>₹ {item.price}</p>
+                      <p className="text-xs font-bold mt-1" style={{ color: "#D49566" }}>₹ {item.price}</p>
                     </div>
-                    <button onClick={() => addToCart(item)} className="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer" style={{ backgroundColor: C.accent, color: "#120D0A" }}>
+                    <button onClick={() => addToCart(item)} className="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer" style={{ backgroundColor: "#B87342", color: "#FFFDF8" }}>
                       + {t.addToCart}
                     </button>
                   </div>
@@ -2743,7 +2745,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-serif text-2xl font-bold" style={{ color: C.accent }}>{t.floorPlanTitle}</h2>
-              <button onClick={() => setScreen("r-home")} className="text-xs font-bold underline" style={{ color: C.accent }}>← {t.home}</button>
+              <button onClick={() => setScreen("r-home")} className="text-xs font-bold underline" style={{ color: "#D49566" }}>← {t.home}</button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -2767,7 +2769,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   VISUALLY IMPAIRED VERSION (ULTRA-HIGH CONTRAST DARK)
+   VISUALLY IMPAIRED VERSION (HIGH CONTRAST DARK & GOLD)
 ═══════════════════════════════════════════════════════════════════════ */
 function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
   const [screen, setScreen] = useState<"vi-home" | "vi-menu" | "vi-seats">("vi-home");
@@ -2779,7 +2781,7 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
   return (
     <div style={{ minHeight: "100%", backgroundColor: VI.bg, color: VI.text, fontFamily: "'DM Sans',sans-serif", fontSize: 18 }}>
       <div className="w-full py-2 px-6 flex items-center justify-between text-sm font-bold" style={{ backgroundColor: "#1C1005", color: VI.accent, borderBottom: `2px solid ${VI.border}` }}>
-        <span>👁 Visually Impaired Mode (Ultra-High Contrast Dark)</span>
+        <span>👁 Visually Impaired Mode (High Contrast Dark &amp; Gold)</span>
         <button onClick={() => setMode("common")} className="underline cursor-pointer" style={{ color: VI.muted }}>
           ← Return to Standard
         </button>
@@ -2998,7 +3000,7 @@ function CommonApp({ setMode }: { setMode: (m: AppMode) => void }) {
         {screen === "accessibility" && <CAccessibility setMode={setMode} />}
       </main>
 
-      <footer className="mt-16 py-12 text-center text-xs border-t" style={{ backgroundColor: "#0D0907", borderColor: "#2B1E16", color: C.muted }}>
+      <footer className="mt-16 py-12 text-center text-xs border-t" style={{ backgroundColor: "#0E0A08", borderColor: "#261C14", color: C.muted }}>
         <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-3">
           <AjabLogo size={52} />
           <p style={{ fontFamily: "'Playfair Display',serif", fontSize: 18, fontWeight: 700, color: C.accent, letterSpacing: 2 }}>
