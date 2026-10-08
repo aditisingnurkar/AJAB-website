@@ -1,0 +1,10 @@
+{
+  "description": "Explore a modern Indian café experience with an intuitive interface for browsing menus, reserving tables, and booking events, all in a warm, minimal design.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
