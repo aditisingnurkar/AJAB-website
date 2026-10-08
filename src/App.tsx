@@ -84,6 +84,152 @@ const VI = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════
+   CLEAN VECTOR GRAPHIC ICONS (HANDCRAFTED MINIMALIST SVGS)
+═══════════════════════════════════════════════════════════════════════ */
+const Icons = {
+  Home: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  ),
+  Menu: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  ),
+  Calendar: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+  ),
+  Clock: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+  ),
+  Users: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  ),
+  Sparkles: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+  ),
+  Info: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+  ),
+  Accessibility: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="4" r="2"/><path d="M9 9h6M12 9v9M9 21l3-3 3 3"/></svg>
+  ),
+  Cart: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+  ),
+  Search: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  ),
+  Mic: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+  ),
+  Shield: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  ),
+  Leaf: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+  ),
+  Sun: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  ),
+  CloudRain: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="16" y1="13" x2="16" y2="21"/><line x1="8" y1="13" x2="8" y2="21"/><line x1="12" y1="15" x2="12" y2="23"/><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/></svg>
+  ),
+  Snowflake: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="19.07" y1="4.93" x2="4.93" y2="19.07"/><polyline points="9 4 12 7 15 4"/><polyline points="9 20 12 17 15 20"/><polyline points="4 9 7 12 4 15"/><polyline points="20 9 17 12 20 15"/></svg>
+  ),
+  MapPin: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+  ),
+  Check: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 6 9 17 4 12"/></svg>
+  ),
+  Cross: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  ),
+  Coffee: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+  ),
+  Utensils: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/><path d="M15 11v11"/><path d="M5 2v10a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V2"/><path d="M7 14v8"/></svg>
+  ),
+  Flame: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+  ),
+  Globe: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+  ),
+  Eye: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+  ),
+  Star: ({ size = 16, filled = false, className = "" }: { size?: number; filled?: boolean; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+  ),
+  Mail: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+  ),
+  Car: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+  ),
+  Train: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="4" y="3" width="16" height="16" rx="2"/><line x1="4" y1="11" x2="20" y2="11"/><circle cx="8" cy="15" r="1"/><circle cx="16" cy="15" r="1"/><path d="M6 19l-2 3M18 19l2 3"/></svg>
+  ),
+  Tree: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 2L4 12h5v8h6v-8h5z"/></svg>
+  ),
+  Building: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="22" x2="9" y2="18"/><line x1="15" y1="22" x2="15" y2="18"/><line x1="8" y1="6" x2="8.01" y2="6"/><line x1="16" y1="6" x2="16.01" y2="6"/><line x1="8" y1="10" x2="8.01" y2="10"/><line x1="16" y1="10" x2="16.01" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/></svg>
+  ),
+  // Clean Allergen Icons
+  AllergenMilk: ({ size = 13 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 2h10l-1 5H8L7 2z"/><path d="M6 7h12v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7z"/></svg>
+  ),
+  AllergenGluten: ({ size = 13 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 22 16 8"/><path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/><path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z"/></svg>
+  ),
+  AllergenNut: ({ size = 13 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5 4 10 8 12 4-2 8-7 8-12a8 8 0 0 0-8-8z"/></svg>
+  ),
+  AllergenSoy: ({ size = 13 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="12" r="3"/><circle cx="16" cy="12" r="3"/><path d="M4 12a8 8 0 0 0 16 0"/></svg>
+  ),
+  AllergenEgg: ({ size = 13 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22c4.97 0 9-4.03 9-9 0-4.97-4.03-11-9-11s-9 6.03-9 11c0 4.97 4.03 9 9 9z"/></svg>
+  ),
+  AllergenShellfish: ({ size = 13 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a9 9 0 0 0-9 9c0 4 3 7 7 8l2 2 2-2c4-1 7-4 7-8a9 9 0 0 0-9-9z"/></svg>
+  ),
+  AllergenSesame: ({ size = 13 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8 6 6 10 6 14a6 6 0 0 0 12 0c0-4-2-8-6-12z"/></svg>
+  ),
+};
+
+function FoodTypeBadge({ type }: { type: "veg" | "nonVeg" }) {
+  const isVeg = type === "veg";
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold select-none border"
+      style={{
+        backgroundColor: isVeg ? "#122619" : "#2B1416",
+        color: isVeg ? "#4ADE80" : "#F87171",
+        borderColor: isVeg ? "#1E4729" : "#4E2125",
+      }}
+    >
+      <span
+        className="w-2.5 h-2.5 rounded-sm flex items-center justify-center border"
+        style={{
+          borderColor: isVeg ? "#4ADE80" : "#F87171",
+          backgroundColor: isVeg ? "#122619" : "#2B1416",
+        }}
+      >
+        <span
+          className="w-1.5 h-1.5 rounded-full"
+          style={{ backgroundColor: isVeg ? "#4ADE80" : "#F87171" }}
+        />
+      </span>
+      <span>{isVeg ? "VEG" : "NON-VEG"}</span>
+    </span>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
    UI COMPONENTS
 ═══════════════════════════════════════════════════════════════════════ */
 function AjabLogo({ size = 48, className = "" }: { size?: number; className?: string }) {
@@ -156,7 +302,7 @@ function CBtn({
   size?: "sm" | "md" | "lg";
   full?: boolean;
   disabled?: boolean;
-  icon?: string;
+  icon?: React.ReactNode;
 }) {
   const pad = size === "sm" ? "px-3.5 py-1.5 text-xs" : size === "lg" ? "px-6 py-3.5 text-base font-bold" : "px-5 py-2.5 text-sm";
   const bg =
@@ -276,7 +422,11 @@ function ReadAloudBtn({ text }: { text: string }) {
         border: `1.5px solid ${C.accent}`,
       }}
     >
-      <span className="text-sm">{speaking ? "⏹" : "🔊"}</span>
+      {speaking ? (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2" /></svg>
+      ) : (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14" /></svg>
+      )}
     </button>
   );
 }
@@ -293,25 +443,16 @@ function FoodImage({
   className?: string;
 }) {
   const [failed, setFailed] = useState(false);
-  const emoji = /coffee|chai|kahwa|lassi|chaas|matcha|doodh|latte|brew/i.test(name)
-    ? "☕"
-    : /samosa|vada|kachori|dim sum|falafel|tikka|salad|soup|maki/i.test(name)
-    ? "🥟"
-    : /biryani|rice|dal|chicken|paneer|stew|curry|noodles|pasta|pizza|taco|burrito|naan|thepla|dosa/i.test(name)
-    ? "🍽️"
-    : /gulab|kulfi|tiramisu|sorbet|doi|halwa|churros|dessert/i.test(name)
-    ? "🍮"
-    : "🍴";
 
   if (failed) {
     return (
       <div
         role="img"
         aria-label={`${alt}. Image unavailable; showing a menu illustration instead.`}
-        className={className + " flex flex-col items-center justify-center gap-2"}
+        className={className + " flex flex-col items-center justify-center gap-2 p-4"}
         style={{ background: "linear-gradient(135deg, #241A13 0%, #17100B 100%)", color: C.accent, border: `1px solid ${C.border}` }}
       >
-        <span className="text-5xl" aria-hidden="true">{emoji}</span>
+        <Icons.Coffee size={36} className="opacity-80" />
         <span className="text-xs font-semibold text-center px-4" style={{ color: C.muted }}>{name}</span>
       </div>
     );
@@ -329,7 +470,7 @@ function FoodImage({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   REALISTIC OUTSIDE SURROUNDINGS & NEIGHBORHOOD MAP (REFINED DARK MAP)
+   REALISTIC OUTSIDE SURROUNDINGS & NEIGHBORHOOD MAP
 ═══════════════════════════════════════════════════════════════════════ */
 function CafeSurroundingsMap() {
   const [activeTab, setActiveTab] = useState<"map" | "landmarks" | "transit">("map");
@@ -338,9 +479,9 @@ function CafeSurroundingsMap() {
     <div className="rounded-3xl p-6 sm:p-8" style={{ backgroundColor: C.card, border: `2px solid ${C.border}` }}>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729] mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729] mb-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>🟢 Open Daily · 8:00 AM – 11:00 PM</span>
+            <span>Open Daily · 8:00 AM – 11:00 PM</span>
           </div>
           <h2 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>
             Café Location &amp; Outside Surroundings
@@ -351,17 +492,22 @@ function CafeSurroundingsMap() {
         </div>
 
         <div className="flex rounded-2xl p-1 shrink-0" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-          {(["map", "landmarks", "transit"] as const).map((tab) => (
+          {[
+            { id: "map" as const, label: "Interactive Map", icon: <Icons.MapPin size={13} /> },
+            { id: "landmarks" as const, label: "Landmarks", icon: <Icons.Building size={13} /> },
+            { id: "transit" as const, label: "Transit & Parking", icon: <Icons.Car size={13} /> },
+          ].map((tab) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className="px-3.5 py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all capitalize"
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className="px-3.5 py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all flex items-center gap-1.5"
               style={{
-                backgroundColor: activeTab === tab ? C.accent : "transparent",
-                color: activeTab === tab ? "#FFFDF8" : C.muted,
+                backgroundColor: activeTab === tab.id ? C.accent : "transparent",
+                color: activeTab === tab.id ? "#FFFDF8" : C.muted,
               }}
             >
-              {tab === "map" ? "🗺️ Interactive Map" : tab === "landmarks" ? "🏛️ Landmarks" : "🚗 Transit &amp; Parking"}
+              {tab.icon}
+              <span>{tab.label}</span>
             </button>
           ))}
         </div>
@@ -373,9 +519,9 @@ function CafeSurroundingsMap() {
           <svg className="w-full h-full" viewBox="0 0 900 450" preserveAspectRatio="none">
             {/* Parks / Green Areas */}
             <path d="M 0 0 L 260 0 L 240 180 L 0 140 Z" fill="#14261A" opacity="0.9" stroke="#1D3E25" strokeWidth="1" />
-            <text x="50" y="70" fill="#4ADE80" fontSize="12" fontWeight="bold" fontFamily="sans-serif">🌳 CUBBON PARK (800m)</text>
+            <text x="50" y="70" fill="#4ADE80" fontSize="12" fontWeight="bold" fontFamily="sans-serif">CUBBON PARK (800m)</text>
             <path d="M 680 280 L 900 240 L 900 450 L 620 450 Z" fill="#14261A" opacity="0.85" stroke="#1D3E25" strokeWidth="1" />
-            <text x="700" y="380" fill="#4ADE80" fontSize="11" fontWeight="bold" fontFamily="sans-serif">🌿 HERITAGE BOTANICAL VERANDAH</text>
+            <text x="700" y="380" fill="#4ADE80" fontSize="11" fontWeight="bold" fontFamily="sans-serif">HERITAGE BOTANICAL VERANDAH</text>
 
             {/* Roads */}
             {/* MG Road Boulevard */}
@@ -422,7 +568,10 @@ function CafeSurroundingsMap() {
 
           {/* Floating Directions Card */}
           <div className="absolute bottom-4 left-4 p-3.5 rounded-2xl backdrop-blur-md border shadow-lg max-w-xs" style={{ backgroundColor: "rgba(26, 20, 15, 0.95)", borderColor: C.border }}>
-            <p className="font-bold text-xs" style={{ color: C.accent }}>📍 How to reach AJAB:</p>
+            <div className="flex items-center gap-1.5 font-bold text-xs" style={{ color: C.accent }}>
+              <Icons.MapPin size={14} />
+              <span>How to reach AJAB:</span>
+            </div>
             <p className="text-[11px] mt-1 leading-relaxed" style={{ color: C.muted }}>
               • 3 min walk from MG Road Metro (Exit Gate 2)<br />
               • Complimentary Valet Parking at Café Gate 1<br />
@@ -435,17 +584,23 @@ function CafeSurroundingsMap() {
       {activeTab === "landmarks" && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in">
           <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <span className="text-2xl mb-1 block">🚇</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
+              <Icons.Train size={18} />
+            </div>
             <h4 className="font-bold text-sm" style={{ color: C.accent }}>MG Road Metro Station</h4>
             <p className="text-xs mt-1" style={{ color: C.muted }}>250m walk (Purple Line). Direct connectivity to Indiranagar, Majestic, and Whitefield.</p>
           </div>
           <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <span className="text-2xl mb-1 block">🌳</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: "#4ADE80" }}>
+              <Icons.Tree size={18} />
+            </div>
             <h4 className="font-bold text-sm" style={{ color: C.accent }}>Cubbon Park &amp; Library</h4>
             <p className="text-xs mt-1" style={{ color: C.muted }}>800m away. Perfect for morning strolls followed by our South Indian Filter Coffee.</p>
           </div>
           <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <span className="text-2xl mb-1 block">🏛️</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
+              <Icons.Building size={18} />
+            </div>
             <h4 className="font-bold text-sm" style={{ color: C.accent }}>Heritage Residency Arcade</h4>
             <p className="text-xs mt-1" style={{ color: C.muted }}>Historical 1920s architecture with boutique bookshops, art galleries, and antique stores.</p>
           </div>
@@ -455,17 +610,23 @@ function CafeSurroundingsMap() {
       {activeTab === "transit" && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in">
           <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <span className="text-2xl mb-1 block">🚗</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
+              <Icons.Car size={18} />
+            </div>
             <h4 className="font-bold text-sm" style={{ color: C.accent }}>Valet Parking</h4>
             <p className="text-xs mt-1" style={{ color: C.muted }}>Complimentary valet parking for up to 40 vehicles with EV charging stations.</p>
           </div>
           <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <span className="text-2xl mb-1 block">♿</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
+              <Icons.Accessibility size={18} />
+            </div>
             <h4 className="font-bold text-sm" style={{ color: C.accent }}>Universal Access Ramp</h4>
             <p className="text-xs mt-1" style={{ color: C.muted }}>Gentle 1:12 slope ramp from car drop-off directly into main dining hall and patio.</p>
           </div>
           <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <span className="text-2xl mb-1 block">🚕</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
+              <Icons.Car size={18} />
+            </div>
             <h4 className="font-bold text-sm" style={{ color: C.accent }}>Cab &amp; Auto Stand</h4>
             <p className="text-xs mt-1" style={{ color: C.muted }}>Designated pickup and drop bay right outside our bougainvillea arch.</p>
           </div>
@@ -476,7 +637,7 @@ function CafeSurroundingsMap() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   VOICE ASSISTANT (SMART QUERY & FILTER PROCESSOR)
+   VOICE ASSISTANT
 ═══════════════════════════════════════════════════════════════════════ */
 function VoiceAssistantModal({
   navigate,
@@ -513,60 +674,60 @@ function VoiceAssistantModal({
 
     if (cmd.includes("reserve") || cmd.includes("table") || cmd.includes("seat") || cmd.includes("book table")) {
       navigate("seats");
-      reply = "Opening the live restaurant floor plan to choose your table 📅";
+      reply = "Opening the live restaurant floor plan to choose your table";
     } else if (cmd.includes("event") || cmd.includes("workshop") || cmd.includes("sufi") || cmd.includes("music")) {
       navigate("events");
-      reply = "Opening upcoming café events and cultural workshops 🎉";
+      reply = "Opening upcoming café events and cultural workshops";
     } else if (cmd.includes("cart") || cmd.includes("checkout") || cmd.includes("my order")) {
       navigate("cart");
-      reply = "Opening your dining cart 🛒";
+      reply = "Opening your dining cart";
     } else if (cmd.includes("about") || cmd.includes("contact") || cmd.includes("location") || cmd.includes("map")) {
       navigate("about");
-      reply = "Here is AJAB's story, surroundings map, and contact details ℹ️";
+      reply = "Here is AJAB's story, surroundings map, and contact details";
     } else {
       navigate("menu");
 
       if (cmd.includes("summer") || cmd.includes("mango") || cmd.includes("lassi") || cmd.includes("ice") || cmd.includes("cold")) {
         vf.season = "summer";
-        vf.badgeLabel = "Summer Specials ☀️";
-        reply = "Showing summer specials including Alphonso Mango Lassi and Cold Brew ☀️";
+        vf.badgeLabel = "Summer Specials";
+        reply = "Showing summer specials including Alphonso Mango Lassi and Cold Brew";
       } else if (cmd.includes("monsoon") || cmd.includes("rain") || cmd.includes("chai") || cmd.includes("samosa") || cmd.includes("vada pav")) {
         vf.season = "monsoon";
-        vf.badgeLabel = "Monsoon Warmers 🌧️";
-        reply = "Showing monsoon warmers including Masala Chai and Samosas 🌧️";
+        vf.badgeLabel = "Monsoon Warmers";
+        reply = "Showing monsoon warmers including Masala Chai and Samosas";
       } else if (cmd.includes("winter") || cmd.includes("halwa") || cmd.includes("kahwa") || cmd.includes("dal makhani")) {
         vf.season = "winter";
-        vf.badgeLabel = "Winter Warmers ❄️";
-        reply = "Showing winter comfort foods including Saffron Kahwa and Gajar Halwa ❄️";
+        vf.badgeLabel = "Winter Warmers";
+        reply = "Showing winter comfort foods including Saffron Kahwa and Gajar Halwa";
       }
 
       if (cmd.includes("jain")) {
         vf.diet = "Jain";
-        vf.badgeLabel = "Jain-Friendly 🌱";
-        reply = "Filtering for pure Jain-friendly dishes prepared without root vegetables 🌱";
+        vf.badgeLabel = "Jain-Friendly";
+        reply = "Filtering for pure Jain-friendly dishes prepared without root vegetables";
       } else if (cmd.includes("vegan")) {
         vf.diet = "Vegan";
-        vf.badgeLabel = "100% Vegan 🌿";
-        reply = "Showing 100% plant-based vegan dishes 🌿";
+        vf.badgeLabel = "100% Vegan";
+        reply = "Showing 100% plant-based vegan dishes";
       } else if (cmd.includes("gluten free") || cmd.includes("gluten-free") || cmd.includes("gluten")) {
         vf.diet = "Gluten-Free";
-        vf.badgeLabel = "Gluten-Free 🌾";
-        reply = "Showing certified gluten-free options 🌾";
+        vf.badgeLabel = "Gluten-Free";
+        reply = "Showing certified gluten-free options";
       } else if (cmd.includes("protein") || cmd.includes("gym")) {
         vf.diet = "High Protein";
-        vf.badgeLabel = "High Protein (15g+) 💪";
-        reply = "Showing high-protein dishes with 15g+ protein 💪";
+        vf.badgeLabel = "High Protein (15g+)";
+        reply = "Showing high-protein dishes with 15g+ protein";
       }
 
       if (cmd.includes("non veg") || cmd.includes("non-veg") || cmd.includes("chicken") || cmd.includes("biryani")) {
         vf.foodType = "Non-Veg";
-        if (!vf.badgeLabel) vf.badgeLabel = "Non-Vegetarian 🔴";
-        if (!reply) reply = "Showing non-vegetarian dishes including Butter Chicken and Biryani 🔴";
+        if (!vf.badgeLabel) vf.badgeLabel = "Non-Vegetarian";
+        if (!reply) reply = "Showing non-vegetarian dishes including Butter Chicken and Biryani";
       } else if (cmd.includes("pure veg") || cmd.includes("vegetarian") || cmd.includes("veg")) {
         if (!cmd.includes("non")) {
           vf.foodType = "Veg";
-          if (!vf.badgeLabel) vf.badgeLabel = "Pure Vegetarian 🟢";
-          if (!reply) reply = "Showing pure vegetarian dishes 🟢";
+          if (!vf.badgeLabel) vf.badgeLabel = "Pure Vegetarian";
+          if (!reply) reply = "Showing pure vegetarian dishes";
         }
       }
 
@@ -575,7 +736,7 @@ function VoiceAssistantModal({
         if (cmd.includes(kw)) {
           vf.searchKeyword = kw;
           vf.badgeLabel = `Search: "${kw}"`;
-          reply = `Found “${kw}” in our artisanal menu 🍽️`;
+          reply = `Found “${kw}” in our artisanal menu`;
           break;
         }
       }
@@ -583,7 +744,7 @@ function VoiceAssistantModal({
       if (!reply) {
         vf.searchKeyword = q.replace(/^(show|find|search|get|give me|filter for|dishes with)\s+/i, "").trim();
         vf.badgeLabel = `Search: "${vf.searchKeyword}"`;
-        reply = `Searching menu for “${vf.searchKeyword}” 🔍`;
+        reply = `Searching menu for “${vf.searchKeyword}”`;
       }
     }
 
@@ -641,12 +802,7 @@ function VoiceAssistantModal({
           boxShadow: "0 8px 24px rgba(184, 115, 66, 0.35)",
         }}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-          <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-          <line x1="12" y1="19" x2="12" y2="23" />
-          <line x1="8" y1="23" x2="16" y2="23" />
-        </svg>
+        <Icons.Mic size={24} />
       </button>
 
       {open && (
@@ -664,27 +820,29 @@ function VoiceAssistantModal({
         >
           <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ backgroundColor: "#241B14", color: C.text, borderColor: C.border }}>
             <div className="flex items-center gap-2">
-              <span className="text-lg">🎙️</span>
+              <Icons.Mic size={18} className="text-[#D49566]" />
               <div>
                 <p className="font-serif font-bold text-sm" style={{ color: C.accent }}>AJAB Voice Assistant</p>
                 <p className="text-[10px] opacity-80" style={{ color: C.muted }}>Speak or tap any prompt</p>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="text-base cursor-pointer opacity-70 hover:opacity-100">✕</button>
+            <button onClick={() => setOpen(false)} className="cursor-pointer opacity-70 hover:opacity-100">
+              <Icons.Cross size={16} />
+            </button>
           </div>
 
           <div className="p-4 flex flex-col gap-3">
             <div className="text-center py-2">
               <button
                 onClick={startListening}
-                className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center cursor-pointer transition-transform ${listening ? "scale-110 animate-pulse bg-red-600 text-white" : "hover:scale-105"}`}
+                className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center cursor-pointer transition-transform ${listening ? "scale-110 animate-pulse bg-red-700 text-white" : "hover:scale-105"}`}
                 style={{
-                  backgroundColor: listening ? "#991B1B" : C.cream,
+                  backgroundColor: listening ? "#8B2326" : C.cream,
                   border: `2px solid ${C.accent}`,
                   color: listening ? "#FFF" : C.accent,
                 }}
               >
-                <span className="text-2xl">{listening ? "🔴" : "🎤"}</span>
+                <Icons.Mic size={26} />
               </button>
               <p className="text-xs font-semibold mt-2" style={{ color: C.text }}>
                 {listening ? "Listening... Speak your filter or order..." : "Tap mic to speak"}
@@ -727,7 +885,7 @@ function VoiceAssistantModal({
 
             {activeFilter && (
               <div className="pt-2 border-t flex justify-between items-center" style={{ borderColor: C.border }}>
-                <span className="text-xs font-bold text-emerald-400">✓ Filter active: {activeFilter.badgeLabel}</span>
+                <span className="text-xs font-bold text-emerald-400">Filter active: {activeFilter.badgeLabel}</span>
                 <button onClick={onClearVoiceFilter} className="text-xs underline font-semibold cursor-pointer text-red-400">Clear</button>
               </div>
             )}
@@ -760,10 +918,7 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
           boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
         }}
       >
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="4" r="2" />
-          <path d="M9 9h6M12 9v9M9 21l3-3 3 3" />
-        </svg>
+        <Icons.Accessibility size={24} />
       </button>
 
       {open && (
@@ -781,13 +936,15 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
         >
           <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ borderColor: C.border, backgroundColor: "#241B14", color: C.text }}>
             <div className="flex items-center gap-2">
-              <span className="text-lg">♿</span>
+              <Icons.Accessibility size={18} className="text-[#D49566]" />
               <div>
                 <p className="font-semibold text-sm" style={{ color: C.accent }}>Inclusive Display Modes</p>
                 <p className="text-[11px]" style={{ color: C.muted }}>Choose a view tailored to you</p>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="text-base cursor-pointer opacity-70 hover:opacity-100">✕</button>
+            <button onClick={() => setOpen(false)} className="cursor-pointer opacity-70 hover:opacity-100">
+              <Icons.Cross size={16} />
+            </button>
           </div>
 
           <div className="p-3 flex flex-col gap-2">
@@ -796,7 +953,7 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
               className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#B87342]"
               style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg" style={{ backgroundColor: "#3D1F00", color: "#FFFEF8" }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-base" style={{ backgroundColor: "#3D1F00", color: "#FFFEF8" }}>
                 Aa
               </div>
               <div className="flex-1">
@@ -810,8 +967,8 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
               className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#B87342]"
               style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ backgroundColor: "#203810", color: "#A7F3D0" }}>
-                🌐
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#203810", color: "#A7F3D0" }}>
+                <Icons.Globe size={20} />
               </div>
               <div className="flex-1">
                 <p className="font-bold text-sm" style={{ color: "#4ADE80" }}>Rural / Multilingual</p>
@@ -824,8 +981,8 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
               className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#B87342]"
               style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ backgroundColor: "#0D0600", color: "#FFD166", border: "1px solid #C49A24" }}>
-                👁
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#0D0600", color: "#FFD166", border: "1px solid #C49A24" }}>
+                <Icons.Eye size={20} />
               </div>
               <div className="flex-1">
                 <p className="font-bold text-sm" style={{ color: C.accent }}>Visually Impaired Mode</p>
@@ -840,16 +997,16 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   COMMON NAVBAR (WARM ROAST)
+   COMMON NAVBAR
 ═══════════════════════════════════════════════════════════════════════ */
 function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; active: Screen; cartCount: number }) {
-  const links: { label: string; screen: Screen; icon: string }[] = [
-    { label: "Home", screen: "home", icon: "🏠" },
-    { label: "Menu", screen: "menu", icon: "🍵" },
-    { label: "Reserve", screen: "seats", icon: "📅" },
-    { label: "Events", screen: "events", icon: "🎉" },
-    { label: "About", screen: "about", icon: "ℹ️" },
-    { label: "Accessibility", screen: "accessibility", icon: "♿" },
+  const links: { label: string; screen: Screen }[] = [
+    { label: "Home", screen: "home" },
+    { label: "Menu", screen: "menu" },
+    { label: "Reserve", screen: "seats" },
+    { label: "Events", screen: "events" },
+    { label: "About", screen: "about" },
+    { label: "Accessibility", screen: "accessibility" },
   ];
 
   return (
@@ -890,7 +1047,7 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-full cursor-pointer"
             style={{ backgroundColor: C.card, color: C.accent, border: `1px solid ${C.border}` }}
           >
-            ♿
+            <Icons.Accessibility size={18} />
           </button>
           <button
             onClick={() => navigate("cart")}
@@ -901,7 +1058,7 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
               color: "#FFFDF8",
             }}
           >
-            <span>🛒</span>
+            <Icons.Cart size={16} />
             <span className="hidden sm:inline">Cart</span>
             {cartCount > 0 && (
               <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold bg-[#14100D] text-[#EDE4DB]">
@@ -967,7 +1124,8 @@ function CHome({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-[#261D15] text-[#D49566] border border-[#423122] mb-2">
-              <span>👑 Chef's Highlights</span>
+              <Icons.Sparkles size={12} />
+              <span>Chef's Highlights</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold" style={{ color: C.accent }}>
               Signature Delights
@@ -1000,16 +1158,7 @@ function CHome({
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-3 left-3 flex gap-1.5">
-                  <span
-                    className="text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm"
-                    style={{
-                      backgroundColor: item.foodType === "veg" ? "#122619" : "#2B1416",
-                      color: item.foodType === "veg" ? "#4ADE80" : "#F87171",
-                      border: `1px solid ${item.foodType === "veg" ? "#1E4729" : "#4E2125"}`,
-                    }}
-                  >
-                    {item.foodType === "veg" ? "● VEG" : "● NON-VEG"}
-                  </span>
+                  <FoodTypeBadge type={item.foodType} />
                   {item.seasonBadge && (
                     <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#B87342] text-white shadow-sm">
                       {item.seasonBadge}
@@ -1039,8 +1188,8 @@ function CHome({
                   </p>
 
                   <div className="flex items-center gap-3 mt-3 text-xs font-semibold" style={{ color: C.muted }}>
-                    <span>🔥 {item.cal} kcal</span>
-                    <span>💪 {item.protein}g protein</span>
+                    <span className="flex items-center gap-1"><Icons.Flame size={12} /> {item.cal} kcal</span>
+                    <span>{item.protein}g protein</span>
                   </div>
                 </div>
 
@@ -1071,8 +1220,8 @@ function CHome({
         {/* Heritage Pairing Combo Banner */}
         <div className="mt-8 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border" style={{ backgroundColor: "#221811", borderColor: "#4A3525", color: "#EDE4DB" }}>
           <div className="flex items-center gap-5">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shrink-0 bg-white/5 border border-white/10">
-              ☕🥟
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 bg-white/5 border border-white/10 text-[#D49566]">
+              <Icons.Coffee size={26} />
             </div>
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#D49566]">Special Heritage Combo</span>
@@ -1118,9 +1267,9 @@ function CHome({
               Choose your exact table across 4 distinct ambient zones: Indoor Main Hall, Garden Verandah Patio, Heritage Quiet Alcove, or the Barista Coffee Bar.
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">✓ 20 Distinct Tables</span>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">✓ Live Availability</span>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">✓ Wheelchair Accessible</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1.5"><Icons.Check size={13} className="text-[#4ADE80]" /> 20 Distinct Tables</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1.5"><Icons.Check size={13} className="text-[#4ADE80]" /> Live Availability</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1.5"><Icons.Check size={13} className="text-[#4ADE80]" /> Wheelchair Accessible</span>
             </div>
             <div className="pt-2">
               <CBtn label="Open Table Reservation Floor Plan" onClick={() => navigate("seats")} size="lg" />
@@ -1129,7 +1278,7 @@ function CHome({
 
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden shadow-md border-2" style={{ height: 220, borderColor: C.border, backgroundColor: "#16110D" }}>
             <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center">
-              <span className="text-3xl mb-2">🏛️</span>
+              <Icons.Building size={34} className="mb-2 text-[#D49566]" />
               <p className="font-serif font-bold text-lg" style={{ color: C.accent }}>14 Tables Currently Available</p>
               <p className="text-xs mt-1" style={{ color: C.muted }}>Instant booking with zero reservation fees</p>
             </div>
@@ -1141,7 +1290,7 @@ function CHome({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   MENU WITH VIBRANT COLORFUL SEASONAL GARDEN WIDGET
+   MENU
 ═══════════════════════════════════════════════════════════════════════ */
 function CMenu({
   navigate,
@@ -1190,22 +1339,22 @@ function CMenu({
   ];
 
   const allDiets = [
-    { label: "🌱 Jain Friendly", value: "Jain" },
-    { label: "🌿 100% Vegan", value: "Vegan" },
-    { label: "🥑 Keto / Low Carb", value: "Keto" },
-    { label: "💪 High Protein (15g+)", value: "High Protein" },
-    { label: "🌾 Gluten-Free", value: "Gluten-Free" },
-    { label: "🥗 Low Calorie (<300 kcal)", value: "Low Calorie" },
+    { label: "Jain Friendly", value: "Jain" },
+    { label: "100% Vegan", value: "Vegan" },
+    { label: "Keto / Low Carb", value: "Keto" },
+    { label: "High Protein (15g+)", value: "High Protein" },
+    { label: "Gluten-Free", value: "Gluten-Free" },
+    { label: "Low Calorie (<300 kcal)", value: "Low Calorie" },
   ];
 
   const allergenList = [
-    { name: "Dairy", icon: "🥛" },
-    { name: "Gluten", icon: "🌾" },
-    { name: "Nuts", icon: "🥜" },
-    { name: "Soy", icon: "🫘" },
-    { name: "Egg", icon: "🥚" },
-    { name: "Shellfish", icon: "🦐" },
-    { name: "Sesame", icon: "🌰" },
+    { name: "Dairy", icon: <Icons.AllergenMilk /> },
+    { name: "Gluten", icon: <Icons.AllergenGluten /> },
+    { name: "Nuts", icon: <Icons.AllergenNut /> },
+    { name: "Soy", icon: <Icons.AllergenSoy /> },
+    { name: "Egg", icon: <Icons.AllergenEgg /> },
+    { name: "Shellfish", icon: <Icons.AllergenShellfish /> },
+    { name: "Sesame", icon: <Icons.AllergenSesame /> },
   ];
 
   const toggleAllergen = (a: string) => {
@@ -1241,10 +1390,9 @@ function CMenu({
     return typeMatch && cuisineMatch && categoryMatch && dietMatch && allergenMatch && seasonMatch && queryMatch;
   });
 
-  // Seasonal configuration for the Garden widget
   const seasonConfig = {
     summer: {
-      title: "☀️ Summer Garden Coolers",
+      title: "Summer Garden Coolers",
       temp: "32°C Sunny Weather Active",
       bannerImg: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&h=400&fit=crop&auto=format",
       bgGradient: "linear-gradient(135deg, #7C3A16 0%, #4D1E08 100%)",
@@ -1252,7 +1400,7 @@ function CMenu({
       accentText: "#D49566",
     },
     monsoon: {
-      title: "🌧️ Monsoon Rain Comforts",
+      title: "Monsoon Rain Comforts",
       temp: "23°C Refreshing Petrichor",
       bannerImg: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=800&h=400&fit=crop&auto=format",
       bgGradient: "linear-gradient(135deg, #064E3B 0%, #033628 100%)",
@@ -1260,7 +1408,7 @@ function CMenu({
       accentText: "#4ADE80",
     },
     winter: {
-      title: "❄️ Winter Hearth Warmers",
+      title: "Winter Hearth Warmers",
       temp: "17°C Chilly Evening Warmth",
       bannerImg: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&h=400&fit=crop&auto=format",
       bgGradient: "linear-gradient(135deg, #5C1D2A 0%, #3B1019 100%)",
@@ -1268,7 +1416,7 @@ function CMenu({
       accentText: "#F87171",
     },
     All: {
-      title: "🌿 All-Season Classics",
+      title: "All-Season Classics",
       temp: "Signature Year-Round Menu",
       bannerImg: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&h=400&fit=crop&auto=format",
       bgGradient: "linear-gradient(135deg, #4A2E1A 0%, #261608 100%)",
@@ -1294,8 +1442,9 @@ function CMenu({
         </div>
         <div className="flex items-center gap-2">
           {voiceFilter && (
-            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
-              🎙️ {voiceFilter.badgeLabel}
+            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729] flex items-center gap-1.5">
+              <Icons.Mic size={12} />
+              <span>{voiceFilter.badgeLabel}</span>
             </span>
           )}
           <button
@@ -1313,7 +1462,7 @@ function CMenu({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-6 flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <span className="text-base">🛡️</span>
+              <Icons.Shield size={16} className="text-[#D49566]" />
               <span className="font-serif font-bold text-sm" style={{ color: C.accent }}>Allergen Safety Shield (Exclude Allergens)</span>
             </div>
             <p className="text-xs" style={{ color: C.muted }}>Tap any allergen to instantly hide all dishes containing it:</p>
@@ -1341,7 +1490,7 @@ function CMenu({
 
           <div className="lg:col-span-6 flex flex-col gap-2 border-t lg:border-t-0 lg:border-l pt-4 lg:pt-0 lg:pl-6" style={{ borderColor: C.border }}>
             <div className="flex items-center gap-2">
-              <span className="text-base">🥗</span>
+              <Icons.Leaf size={16} className="text-[#4ADE80]" />
               <span className="font-serif font-bold text-sm" style={{ color: C.accent }}>Dietary Lifestyles &amp; Nutrition</span>
             </div>
             <p className="text-xs" style={{ color: C.muted }}>Filter for specific nutritional goals or faith-based preferences:</p>
@@ -1380,9 +1529,13 @@ function CMenu({
               className="w-full rounded-2xl px-11 py-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[#B87342]"
               style={{ backgroundColor: "#1E1813", border: `1px solid ${C.border}`, color: C.text }}
             />
-            <span className="absolute left-4 top-3.5 text-base opacity-60">🔍</span>
+            <span className="absolute left-4 top-3.5 text-base opacity-60">
+              <Icons.Search size={16} />
+            </span>
             {searchQuery && (
-              <button onClick={() => setSearchQuery("")} className="absolute right-4 top-3.5 text-xs font-bold opacity-60 cursor-pointer">✕</button>
+              <button onClick={() => setSearchQuery("")} className="absolute right-4 top-3.5 text-xs font-bold opacity-60 cursor-pointer">
+                <Icons.Cross size={14} />
+              </button>
             )}
           </div>
 
@@ -1391,14 +1544,14 @@ function CMenu({
               <button
                 key={t}
                 onClick={() => setFoodType(t)}
-                className="flex-1 py-2 text-xs font-bold rounded-xl cursor-pointer transition-all text-center flex items-center justify-center gap-1"
+                className="flex-1 py-2 text-xs font-bold rounded-xl cursor-pointer transition-all text-center flex items-center justify-center gap-1.5"
                 style={{
                   backgroundColor: foodType === t ? (t === "Veg" ? "#166534" : t === "Non-Veg" ? "#991B1B" : "#B87342") : "transparent",
                   color: foodType === t ? "#FFFDF8" : C.muted,
                 }}
               >
-                {t === "Veg" && <span>🟢</span>}
-                {t === "Non-Veg" && <span>🔴</span>}
+                {t === "Veg" && <span className="w-2 h-2 rounded-full bg-[#4ADE80]" />}
+                {t === "Non-Veg" && <span className="w-2 h-2 rounded-full bg-[#F87171]" />}
                 <span>{t}</span>
               </button>
             ))}
@@ -1444,7 +1597,7 @@ function CMenu({
         </div>
       </div>
 
-      {/* ── DISHES GRID & COLORFUL VIBRANT SEASONAL GARDEN WIDGET ── */}
+      {/* ── DISHES GRID & COLORFUL SEASONAL GARDEN WIDGET ── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Dishes Grid (Col 1-8) */}
         <div className="lg:col-span-8">
@@ -1456,7 +1609,7 @@ function CMenu({
 
           {filteredItems.length === 0 ? (
             <div className="text-center py-16 rounded-3xl p-8" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
-              <p className="text-4xl mb-3">🍽️</p>
+              <Icons.Utensils size={36} className="mx-auto mb-3 text-[#D49566]" />
               <h3 className="font-serif text-xl font-bold" style={{ color: C.accent }}>No dishes match your active filters</h3>
               <p className="text-xs mt-1" style={{ color: C.muted }}>Try clearing allergens, broadening cuisine selection, or reset filters.</p>
               <div className="mt-4">
@@ -1479,19 +1632,10 @@ function CMenu({
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
-                      <span
-                        className="text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm"
-                        style={{
-                          backgroundColor: item.foodType === "veg" ? "#122619" : "#2B1416",
-                          color: item.foodType === "veg" ? "#4ADE80" : "#F87171",
-                          border: `1px solid ${item.foodType === "veg" ? "#1E4729" : "#4E2125"}`,
-                        }}
-                      >
-                        {item.foodType === "veg" ? "● VEG" : "● NON-VEG"}
-                      </span>
+                      <FoodTypeBadge type={item.foodType} />
                       {item.isChefSpecial && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#B87342] text-white shadow-sm">
-                          👑 Special
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#B87342] text-white shadow-sm flex items-center gap-1">
+                          <Icons.Sparkles size={10} /> Special
                         </span>
                       )}
                     </div>
@@ -1499,9 +1643,10 @@ function CMenu({
                     <button
                       onClick={() => setNutritionModalItem(item)}
                       aria-label="View Nutrition & Allergen info"
-                      className="absolute bottom-2.5 right-2.5 px-2 py-1 rounded-lg text-[10px] font-bold cursor-pointer backdrop-blur-md bg-black/70 text-white hover:bg-black/90 border border-white/20"
+                      className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-lg text-[10px] font-bold cursor-pointer backdrop-blur-md bg-black/70 text-white hover:bg-black/90 border border-white/20 flex items-center gap-1"
                     >
-                      🛡️ Nutrition &amp; Allergens
+                      <Icons.Shield size={11} />
+                      <span>Nutrition &amp; Allergens</span>
                     </button>
                   </div>
 
@@ -1526,9 +1671,9 @@ function CMenu({
                       </p>
 
                       <div className="flex items-center gap-3 mt-3 text-[11px] font-semibold" style={{ color: C.muted }}>
-                        <span>🔥 {item.cal} kcal</span>
-                        <span>💪 {item.protein}g protein</span>
-                        <span>🌾 {item.carbs}g carbs</span>
+                        <span className="flex items-center gap-1"><Icons.Flame size={11} /> {item.cal} kcal</span>
+                        <span>{item.protein}g protein</span>
+                        <span>{item.carbs}g carbs</span>
                       </div>
                     </div>
 
@@ -1569,8 +1714,8 @@ function CMenu({
                 className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
               />
               <div className="relative z-10 flex items-center justify-between">
-                <span className="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md">
-                  🌱 AJAB Seasonal Garden
+                <span className="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md flex items-center gap-1">
+                  <Icons.Leaf size={11} /> AJAB Seasonal Garden
                 </span>
                 <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-md">
                   {curSeasonStyle.temp}
@@ -1582,17 +1727,22 @@ function CMenu({
             <div className="p-4" style={{ backgroundColor: "#1A140F" }}>
               {/* Season Tabs */}
               <div className="grid grid-cols-3 gap-1 p-1 rounded-2xl mb-4" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
-                {(["summer", "monsoon", "winter"] as const).map((s) => (
+                {[
+                  { id: "summer" as const, label: "Summer", icon: <Icons.Sun size={12} /> },
+                  { id: "monsoon" as const, label: "Monsoon", icon: <Icons.CloudRain size={12} /> },
+                  { id: "winter" as const, label: "Winter", icon: <Icons.Snowflake size={12} /> },
+                ].map((s) => (
                   <button
-                    key={s}
-                    onClick={() => setSelectedSeason(s)}
-                    className="py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all text-center capitalize"
+                    key={s.id}
+                    onClick={() => setSelectedSeason(s.id)}
+                    className="py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all text-center capitalize flex items-center justify-center gap-1"
                     style={{
-                      backgroundColor: selectedSeason === s ? "#B87342" : "transparent",
-                      color: selectedSeason === s ? "#FFFDF8" : C.muted,
+                      backgroundColor: selectedSeason === s.id ? "#B87342" : "transparent",
+                      color: selectedSeason === s.id ? "#FFFDF8" : C.muted,
                     }}
                   >
-                    {s === "summer" ? "☀️ Summer" : s === "monsoon" ? "🌧️ Monsoon" : "❄️ Winter"}
+                    {s.icon}
+                    <span>{s.label}</span>
                   </button>
                 ))}
               </div>
@@ -1648,7 +1798,7 @@ function CMenu({
                 className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm cursor-pointer"
                 style={{ backgroundColor: C.cream, color: C.text }}
               >
-                ✕
+                <Icons.Cross size={14} />
               </button>
             </div>
 
@@ -1673,14 +1823,14 @@ function CMenu({
               </div>
 
               <div>
-                <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Allergen Warning</p>
+                <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Allergen Notice</p>
                 {nutritionModalItem.allergens.length > 0 ? (
                   <p className="font-semibold text-amber-200 bg-amber-950/60 p-2.5 rounded-xl border border-amber-800">
-                    ⚠️ Contains: {nutritionModalItem.allergens.join(", ")}. Please inform servers of severe allergies.
+                    Contains: {nutritionModalItem.allergens.join(", ")}. Please inform servers of severe allergies.
                   </p>
                 ) : (
                   <p className="font-semibold text-emerald-200 bg-emerald-950/60 p-2.5 rounded-xl border border-emerald-800">
-                    ✓ No major allergens listed in base ingredients.
+                    No major allergens listed in base ingredients.
                   </p>
                 )}
               </div>
@@ -1689,8 +1839,8 @@ function CMenu({
                 <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Dietary Compatibility</p>
                 <div className="flex flex-wrap gap-1.5">
                   {nutritionModalItem.dietary.map((d) => (
-                    <span key={d} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
-                      ✓ {d}
+                    <span key={d} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1">
+                      <Icons.Check size={12} className="text-[#4ADE80]" /> {d}
                     </span>
                   ))}
                 </div>
@@ -1732,16 +1882,7 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
           <div className="flex gap-2 flex-wrap items-center">
             <CTag label={food.category} />
             <CTag label={food.cuisine} />
-            <span
-              className="text-[11px] font-bold rounded-full px-2.5 py-0.5 border"
-              style={{
-                backgroundColor: food.foodType === "veg" ? "#122619" : "#2B1416",
-                color: food.foodType === "veg" ? "#4ADE80" : "#F87171",
-                borderColor: food.foodType === "veg" ? "#1E4729" : "#4E2125",
-              }}
-            >
-              {food.foodType === "veg" ? "● VEG" : "● NON-VEG"}
-            </span>
+            <FoodTypeBadge type={food.foodType} />
           </div>
 
           <div className="flex items-start justify-between gap-3">
@@ -1770,8 +1911,8 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
             <p className="text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>Dietary Suitability</p>
             <div className="flex flex-wrap gap-1.5">
               {food.dietary.map((d) => (
-                <span key={d} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
-                  ✓ {d}
+                <span key={d} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1">
+                  <Icons.Check size={12} className="text-[#4ADE80]" /> {d}
                 </span>
               ))}
             </div>
@@ -1798,7 +1939,7 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
 
       {cart.length === 0 ? (
         <CCard className="text-center py-16">
-          <p className="text-5xl mb-4">🛒</p>
+          <Icons.Cart size={48} className="mx-auto mb-4 text-[#A08F81]" />
           <p className="font-serif text-xl font-bold" style={{ color: C.accent }}>Your cart is empty</p>
           <p className="text-sm mt-1" style={{ color: C.muted }}>Explore our artisanal drinks, starters, and savory delights.</p>
           <div className="mt-6">
@@ -1819,9 +1960,9 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
 
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2 rounded-xl p-1" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-                  <button onClick={() => updateQty(item.id, -1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-white/10">−</button>
+                  <button onClick={() => updateQty(item.id, -1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-white/10 flex items-center justify-center">−</button>
                   <span className="text-sm font-bold w-5 text-center">{item.qty}</span>
-                  <button onClick={() => updateQty(item.id, 1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-white/10">+</button>
+                  <button onClick={() => updateQty(item.id, 1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-white/10 flex items-center justify-center">+</button>
                 </div>
                 <p className="font-bold text-sm w-16 text-right" style={{ color: "#D49566" }}>₹ {item.price * item.qty}</p>
               </div>
@@ -1852,15 +1993,15 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
 function COrderConfirm({ navigate }: { navigate: (s: Screen) => void }) {
   return (
     <div className="max-w-md mx-auto px-4 sm:px-6 py-16 text-center flex flex-col items-center gap-4 animate-fade-in">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
-        ✓
+      <div className="w-20 h-20 rounded-full flex items-center justify-center bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
+        <Icons.Check size={36} />
       </div>
       <h1 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>Order Received!</h1>
       <p className="text-sm" style={{ color: C.muted }}>Your order is now being freshly prepared by our chefs.</p>
       <CCard className="w-full text-left flex flex-col gap-2 mt-2">
         <div className="flex justify-between text-sm font-semibold"><span>Order Number:</span><span style={{ color: C.accent }}>AJB-9482</span></div>
         <div className="flex justify-between text-sm font-semibold"><span>Estimated Prep Time:</span><span>15–20 minutes</span></div>
-        <div className="flex justify-between text-sm font-semibold"><span>Status:</span><span className="text-amber-400 font-bold">Kitchen Preparing 🔥</span></div>
+        <div className="flex justify-between text-sm font-semibold"><span>Status:</span><span className="text-amber-400 font-bold flex items-center gap-1"><Icons.Flame size={12} /> Kitchen Preparing</span></div>
       </CCard>
       <div className="mt-4">
         <CBtn label="Back to Home" onClick={() => navigate("home")} />
@@ -1903,8 +2044,9 @@ function CSeats({
       <CCard className="mb-8 p-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>
-              📅 Reservation Date
+            <label className="text-xs font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5" style={{ color: C.muted }}>
+              <Icons.Calendar size={13} />
+              <span>Reservation Date</span>
             </label>
             <input
               type="date"
@@ -1916,8 +2058,9 @@ function CSeats({
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>
-              ⏰ Arrival Time Slot
+            <label className="text-xs font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5" style={{ color: C.muted }}>
+              <Icons.Clock size={13} />
+              <span>Arrival Time Slot</span>
             </label>
             <select
               value={draft.time || "7:30 PM"}
@@ -1932,8 +2075,9 @@ function CSeats({
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>
-              👥 Number of Guests
+            <label className="text-xs font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5" style={{ color: C.muted }}>
+              <Icons.Users size={13} />
+              <span>Number of Guests</span>
             </label>
             <div className="flex items-center rounded-xl p-1" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
               {[1, 2, 4, 6, 8].map((num) => (
@@ -1953,8 +2097,9 @@ function CSeats({
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>
-              🌿 Seating Ambiance
+            <label className="text-xs font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5" style={{ color: C.muted }}>
+              <Icons.Sparkles size={13} />
+              <span>Seating Ambiance</span>
             </label>
             <select
               value={activeZone}
@@ -2001,16 +2146,16 @@ function CSeats({
               }}
             >
               <div className="absolute top-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
-                🏛️ INDOOR MAIN HALL
+                INDOOR MAIN HALL
               </div>
               <div className="absolute top-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
-                🌿 GARDEN VERANDAH &amp; PATIO
+                GARDEN VERANDAH &amp; PATIO
               </div>
               <div className="absolute bottom-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
-                ☕ BARISTA ESPRESSO BAR
+                BARISTA ESPRESSO BAR
               </div>
               <div className="absolute bottom-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
-                📚 HERITAGE QUIET ALCOVE
+                HERITAGE QUIET ALCOVE
               </div>
 
               <div className="absolute left-1/2 top-0 bottom-0 w-px border-r border-dashed border-[#382C23]" />
@@ -2101,8 +2246,8 @@ function CSeats({
 
               <div className="flex flex-wrap gap-1.5">
                 {selectedTableObj.amenities.map((a) => (
-                  <span key={a} className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
-                    ✓ {a}
+                  <span key={a} className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1">
+                    <Icons.Check size={11} className="text-[#4ADE80]" /> {a}
                   </span>
                 ))}
               </div>
@@ -2113,7 +2258,7 @@ function CSeats({
             </CCard>
           ) : (
             <CCard className="text-center py-12">
-              <p className="text-4xl mb-3">📍</p>
+              <Icons.MapPin size={34} className="mx-auto mb-3 text-[#A08F81]" />
               <h3 className="font-serif text-lg font-bold" style={{ color: C.accent }}>Select a Table on Floor Plan</h3>
               <p className="text-xs mt-1" style={{ color: C.muted }}>Tap any green available table to review its features and reserve.</p>
             </CCard>
@@ -2180,8 +2325,8 @@ function CReservation({ table, draft, setDraft, navigate }: { table: string | nu
 function CResConfirm({ table, draft, navigate }: { table: string | null; draft: ReservationDraft; navigate: (s: Screen) => void }) {
   return (
     <div className="max-w-md mx-auto px-4 sm:px-6 py-16 text-center flex flex-col items-center gap-4 animate-fade-in">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
-        ✓
+      <div className="w-20 h-20 rounded-full flex items-center justify-center bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
+        <Icons.Check size={36} />
       </div>
       <h1 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>Reservation Confirmed!</h1>
       <p className="text-sm" style={{ color: C.muted }}>We look forward to welcoming you to AJAB.</p>
@@ -2212,7 +2357,9 @@ function CEvents({ navigate }: { navigate: (s: Screen) => void }) {
               <div>
                 <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#291E15] text-[#D49566] border border-[#4A3525]">{e.tag}</span>
                 <h3 className="font-serif text-xl font-bold mt-2" style={{ color: C.text }}>{e.name}</h3>
-                <p className="text-xs font-bold mt-1" style={{ color: C.accent }}>📅 {e.date}</p>
+                <p className="text-xs font-bold mt-1 flex items-center gap-1.5" style={{ color: C.accent }}>
+                  <Icons.Calendar size={13} /> {e.date}
+                </p>
                 <p className="text-xs mt-2 leading-relaxed" style={{ color: C.muted }}>{e.desc}</p>
               </div>
               <div className="mt-4 pt-3 border-t flex items-center justify-between" style={{ borderColor: C.border }}>
@@ -2238,9 +2385,27 @@ function CAbout() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <CCard><h3 className="font-bold text-base mb-1" style={{ color: C.accent }}>🌱 Organic Sourcing</h3><p className="text-xs" style={{ color: C.muted }}>Estate coffee, pure A2 dairy, and organic herbs with zero artificial flavorings.</p></CCard>
-        <CCard><h3 className="font-bold text-base mb-1" style={{ color: C.accent }}>♿ Universal Inclusion</h3><p className="text-xs" style={{ color: C.muted }}>Senior citizen typography, screen reader tags, low-data modes, and step-free wheelchair access.</p></CCard>
-        <CCard><h3 className="font-bold text-base mb-1" style={{ color: C.accent }}>📍 Visit Us</h3><p className="text-xs" style={{ color: C.muted }}>12 Residency Road, Bangalore · Open Daily 8:00 AM – 11:00 PM</p></CCard>
+        <CCard>
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.cream, color: "#4ADE80" }}>
+            <Icons.Leaf size={18} />
+          </div>
+          <h3 className="font-bold text-base mb-1" style={{ color: C.accent }}>Organic Sourcing</h3>
+          <p className="text-xs" style={{ color: C.muted }}>Estate coffee, pure A2 dairy, and organic herbs with zero artificial flavorings.</p>
+        </CCard>
+        <CCard>
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.cream, color: C.accent }}>
+            <Icons.Accessibility size={18} />
+          </div>
+          <h3 className="font-bold text-base mb-1" style={{ color: C.accent }}>Universal Inclusion</h3>
+          <p className="text-xs" style={{ color: C.muted }}>Senior citizen typography, screen reader tags, low-data modes, and step-free wheelchair access.</p>
+        </CCard>
+        <CCard>
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.cream, color: C.accent }}>
+            <Icons.MapPin size={18} />
+          </div>
+          <h3 className="font-bold text-base mb-1" style={{ color: C.accent }}>Visit Us</h3>
+          <p className="text-xs" style={{ color: C.muted }}>12 Residency Road, Bangalore · Open Daily 8:00 AM – 11:00 PM</p>
+        </CCard>
       </div>
 
       {/* Surroundings Map */}
@@ -2251,6 +2416,7 @@ function CAbout() {
 
 function CFeedback() {
   const [submitted, setSubmitted] = useState(false);
+  const [rating, setRating] = useState(5);
 
   return (
     <div className="max-w-xl mx-auto px-4 sm:px-6 py-12 animate-fade-in">
@@ -2259,7 +2425,7 @@ function CFeedback() {
 
       {submitted ? (
         <CCard className="text-center py-10">
-          <p className="text-4xl mb-2">💌</p>
+          <Icons.Mail size={40} className="mx-auto mb-2 text-[#D49566]" />
           <h3 className="font-serif text-xl font-bold" style={{ color: C.accent }}>Thank you for your thoughts!</h3>
           <p className="text-xs mt-1" style={{ color: C.muted }}>Our founding team reviews every piece of guest feedback personally.</p>
         </CCard>
@@ -2267,9 +2433,16 @@ function CFeedback() {
         <CCard className="flex flex-col gap-4">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>Your Experience Rating</label>
-            <div className="flex gap-2 text-2xl">
-              {["⭐", "⭐", "⭐", "⭐", "⭐"].map((s, i) => (
-                <button key={i} className="cursor-pointer hover:scale-125 transition-transform">{s}</button>
+            <div className="flex gap-2">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setRating(s)}
+                  className="cursor-pointer hover:scale-110 transition-transform p-1"
+                  style={{ color: s <= rating ? "#D49566" : "#4A3B30" }}
+                >
+                  <Icons.Star size={24} filled={s <= rating} />
+                </button>
               ))}
             </div>
           </div>
@@ -2311,19 +2484,23 @@ function CAccessibility({ setMode }: { setMode: (m: AppMode) => void }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <CCard onClick={() => setMode("elderly")} className="text-center">
-          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center font-bold text-xl mb-3" style={{ backgroundColor: "#3D1F00", color: "#FFF" }}>Aa</div>
+          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center font-bold text-lg mb-3" style={{ backgroundColor: "#3D1F00", color: "#FFF" }}>Aa</div>
           <h3 className="font-bold text-base" style={{ color: C.accent }}>Senior Citizen Mode</h3>
           <p className="text-xs mt-1" style={{ color: C.muted }}>Large touch buttons, high readability, spoken audio.</p>
         </CCard>
 
         <CCard onClick={() => setMode("rural")} className="text-center">
-          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3" style={{ backgroundColor: "#203810", color: "#A7F3D0" }}>🌐</div>
+          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center mb-3" style={{ backgroundColor: "#203810", color: "#A7F3D0" }}>
+            <Icons.Globe size={22} />
+          </div>
           <h3 className="font-bold text-base" style={{ color: "#4ADE80" }}>Rural / Multilingual</h3>
           <p className="text-xs mt-1" style={{ color: C.muted }}>English, हिंदी &amp; मराठी with full translation &amp; offline mode.</p>
         </CCard>
 
         <CCard onClick={() => setMode("vi")} className="text-center">
-          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3" style={{ backgroundColor: "#0D0600", color: "#FFD166" }}>👁</div>
+          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center mb-3" style={{ backgroundColor: "#0D0600", color: "#FFD166" }}>
+            <Icons.Eye size={22} />
+          </div>
           <h3 className="font-bold text-base" style={{ color: "#FFD166" }}>Visually Impaired</h3>
           <p className="text-xs mt-1" style={{ color: C.muted }}>Ultra-high contrast dark theme &amp; image descriptions.</p>
         </CCard>
@@ -2360,7 +2537,10 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
   return (
     <div style={{ minHeight: "100%", backgroundColor: EC.bg, color: EC.text, fontFamily: "'DM Sans',sans-serif", fontSize: textSize === "Extra Large" ? 20 : 17 }}>
       <div className="w-full py-2.5 px-6 flex items-center justify-between text-sm font-bold" style={{ backgroundColor: "#2A180E", color: EC.accent, borderBottom: `2px solid ${EC.border}` }}>
-        <span>👓 Senior Citizen Display — High Contrast &amp; Large Buttons</span>
+        <span className="flex items-center gap-2">
+          <Icons.Accessibility size={16} />
+          <span>Senior Citizen Display — High Contrast &amp; Large Buttons</span>
+        </span>
         <button onClick={() => setMode("common")} className="underline cursor-pointer text-xs font-semibold px-3 py-1 rounded bg-white/10 hover:bg-white/20" style={{ color: "#FFFDF8" }}>
           ← Return to Standard
         </button>
@@ -2377,10 +2557,10 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
 
           <nav className="hidden md:flex items-center gap-2">
             {[
-              { label: "🏠 HOME", s: "e-home" as const },
-              { label: "🍵 MENU", s: "e-menu" as const },
-              { label: "📅 RESERVE", s: "e-seats" as const },
-              { label: "⚙ SETTINGS", s: "e-settings" as const },
+              { label: "HOME", s: "e-home" as const },
+              { label: "MENU", s: "e-menu" as const },
+              { label: "RESERVE", s: "e-seats" as const },
+              { label: "SETTINGS", s: "e-settings" as const },
             ].map((l) => (
               <button
                 key={l.label}
@@ -2398,7 +2578,8 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
           </nav>
 
           <button onClick={() => setScreen("e-cart")} className="rounded-xl px-4 py-2 font-bold cursor-pointer flex items-center gap-2" style={{ backgroundColor: EC.btn, color: EC.btnText }}>
-            🛒 Cart ({cartCount})
+            <Icons.Cart size={18} />
+            <span>Cart ({cartCount})</span>
           </button>
         </div>
       </header>
@@ -2412,11 +2593,13 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button onClick={() => setScreen("e-menu")} className="rounded-2xl p-6 font-bold cursor-pointer text-left" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}`, fontSize: 20, color: EC.text }}>
-                🍵  Browse All 44 Dishes
+              <button onClick={() => setScreen("e-menu")} className="rounded-2xl p-6 font-bold cursor-pointer text-left flex items-center gap-3" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}`, fontSize: 20, color: EC.text }}>
+                <Icons.Utensils size={24} className="text-[#D49566]" />
+                <span>Browse All 44 Dishes</span>
               </button>
-              <button onClick={() => setScreen("e-seats")} className="rounded-2xl p-6 font-bold cursor-pointer text-left" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}`, fontSize: 20, color: EC.text }}>
-                📅  Reserve a Dining Table
+              <button onClick={() => setScreen("e-seats")} className="rounded-2xl p-6 font-bold cursor-pointer text-left flex items-center gap-3" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}`, fontSize: 20, color: EC.text }}>
+                <Icons.Calendar size={24} className="text-[#D49566]" />
+                <span>Reserve a Dining Table</span>
               </button>
             </div>
           </div>
@@ -2452,9 +2635,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                   <div className="flex gap-4 items-center">
                     <FoodImage src={item.img} alt={item.imgAlt} name={item.name} className="w-24 h-24 rounded-2xl object-cover shrink-0" />
                     <div>
-                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
-                        {item.foodType === "veg" ? "● VEG" : "● NON-VEG"}
-                      </span>
+                      <FoodTypeBadge type={item.foodType} />
                       <h3 className="font-bold text-xl mt-1" style={{ color: EC.text }}>{item.name}</h3>
                       <p className="font-bold text-xl mt-1" style={{ color: EC.accent }}>₹ {item.price}</p>
                     </div>
@@ -2519,7 +2700,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
             <h2 className="font-serif text-3xl font-bold" style={{ color: EC.accent }}>Your Order Cart</h2>
             {cart.length === 0 ? (
               <div className="p-8 rounded-3xl text-center" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
-                <p className="text-3xl mb-2">🛒</p>
+                <Icons.Cart size={40} className="mx-auto mb-2 text-[#A08F81]" />
                 <p className="text-xl font-bold" style={{ color: EC.text }}>Your cart is empty.</p>
                 <button onClick={() => setScreen("e-menu")} className="mt-4 px-6 py-3 rounded-2xl font-bold text-base cursor-pointer" style={{ backgroundColor: EC.btn, color: EC.btnText }}>
                   Browse Food Menu
@@ -2534,9 +2715,9 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                       <p className="text-lg" style={{ color: "#D49566" }}>₹ {item.price} each</p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <button onClick={() => updateQty(item.id, -1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-[#1F1610] text-[#FFF] border border-[#855831]">−</button>
+                      <button onClick={() => updateQty(item.id, -1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-[#1F1610] text-[#FFF] border border-[#855831] flex items-center justify-center">−</button>
                       <span className="font-bold text-xl w-6 text-center" style={{ color: EC.text }}>{item.qty}</span>
-                      <button onClick={() => updateQty(item.id, 1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-[#1F1610] text-[#FFF] border border-[#855831]">+</button>
+                      <button onClick={() => updateQty(item.id, 1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-[#1F1610] text-[#FFF] border border-[#855831] flex items-center justify-center">+</button>
                     </div>
                   </div>
                 ))}
@@ -2590,8 +2771,8 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
 
         {screen === "e-res-confirm" && (
           <div className="rounded-3xl p-8 text-center flex flex-col items-center gap-4 animate-fade-in" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
-            <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
-              ✓
+            <div className="w-20 h-20 rounded-full flex items-center justify-center bg-[#122619] text-[#4ADE80] border-2 border-[#2E7D47]">
+              <Icons.Check size={36} />
             </div>
             <h2 className="font-serif text-3xl font-bold" style={{ color: EC.accent }}>Table Booked!</h2>
             <p className="text-lg" style={{ color: EC.muted }}>We have reserved Table {selectedTable} for your visit.</p>
@@ -2611,7 +2792,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                   <button
                     key={sz}
                     onClick={() => setTextSize(sz)}
-                    className="py-3 rounded-2xl font-bold text-lg"
+                    className="py-3 rounded-2xl font-bold text-lg cursor-pointer"
                     style={{
                       backgroundColor: textSize === sz ? EC.btn : EC.cream,
                       color: textSize === sz ? EC.btnText : EC.text,
@@ -2631,7 +2812,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   RURAL / MULTILINGUAL VERSION (100% TRANSLATED)
+   RURAL / MULTILINGUAL VERSION
 ═══════════════════════════════════════════════════════════════════════ */
 function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
   const [screen, setScreen] = useState<"r-home" | "r-menu" | "r-seats" | "r-cart">("r-home");
@@ -2702,11 +2883,13 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
             </CCard>
 
             <div className="grid grid-cols-2 gap-4">
-              <button onClick={() => setScreen("r-menu")} className="rounded-2xl p-5 text-center font-bold text-lg cursor-pointer" style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, color: C.text }}>
-                🍵 {t.viewMenu}
+              <button onClick={() => setScreen("r-menu")} className="rounded-2xl p-5 text-center font-bold text-lg cursor-pointer flex items-center justify-center gap-2" style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, color: C.text }}>
+                <Icons.Utensils size={18} />
+                <span>{t.viewMenu}</span>
               </button>
-              <button onClick={() => setScreen("r-seats")} className="rounded-2xl p-5 text-center font-bold text-lg cursor-pointer" style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, color: C.text }}>
-                📅 {t.reserveTable}
+              <button onClick={() => setScreen("r-seats")} className="rounded-2xl p-5 text-center font-bold text-lg cursor-pointer flex items-center justify-center gap-2" style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, color: C.text }}>
+                <Icons.Calendar size={18} />
+                <span>{t.reserveTable}</span>
               </button>
             </div>
           </div>
@@ -2769,7 +2952,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   VISUALLY IMPAIRED VERSION (HIGH CONTRAST DARK & GOLD)
+   VISUALLY IMPAIRED VERSION
 ═══════════════════════════════════════════════════════════════════════ */
 function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
   const [screen, setScreen] = useState<"vi-home" | "vi-menu" | "vi-seats">("vi-home");
@@ -2781,7 +2964,10 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
   return (
     <div style={{ minHeight: "100%", backgroundColor: VI.bg, color: VI.text, fontFamily: "'DM Sans',sans-serif", fontSize: 18 }}>
       <div className="w-full py-2 px-6 flex items-center justify-between text-sm font-bold" style={{ backgroundColor: "#1C1005", color: VI.accent, borderBottom: `2px solid ${VI.border}` }}>
-        <span>👁 Visually Impaired Mode (High Contrast Dark &amp; Gold)</span>
+        <span className="flex items-center gap-2">
+          <Icons.Eye size={18} />
+          <span>Visually Impaired Mode (High Contrast Dark &amp; Gold)</span>
+        </span>
         <button onClick={() => setMode("common")} className="underline cursor-pointer" style={{ color: VI.muted }}>
           ← Return to Standard
         </button>
@@ -2793,9 +2979,9 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
             AJAB CAFÉ
           </button>
           <div className="flex gap-3">
-            <button onClick={() => setScreen("vi-home")} className="px-3 py-1.5 font-bold rounded-lg" style={{ color: VI.accent }}>Home</button>
-            <button onClick={() => setScreen("vi-menu")} className="px-3 py-1.5 font-bold rounded-lg" style={{ color: VI.accent }}>Menu (44)</button>
-            <button onClick={() => setScreen("vi-seats")} className="px-3 py-1.5 font-bold rounded-lg" style={{ color: VI.accent }}>Tables</button>
+            <button onClick={() => setScreen("vi-home")} className="px-3 py-1.5 font-bold rounded-lg cursor-pointer" style={{ color: VI.accent }}>Home</button>
+            <button onClick={() => setScreen("vi-menu")} className="px-3 py-1.5 font-bold rounded-lg cursor-pointer" style={{ color: VI.accent }}>Menu (44)</button>
+            <button onClick={() => setScreen("vi-seats")} className="px-3 py-1.5 font-bold rounded-lg cursor-pointer" style={{ color: VI.accent }}>Tables</button>
           </div>
         </div>
       </header>
@@ -2810,7 +2996,7 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
               </p>
               {showImgDesc && (
                 <div className="mt-4 p-3 rounded-xl bg-black/80 border border-[#FFD166]">
-                  <p className="text-xs font-bold text-[#FFD166]">📷 Image Description:</p>
+                  <p className="text-xs font-bold text-[#FFD166]">Image Description:</p>
                   <p className="text-sm mt-1">"Warm wooden chairs, glowing amber lamps, and brass davarah filter coffee tumblers."</p>
                 </div>
               )}
@@ -2831,7 +3017,7 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <h2 className="font-serif text-3xl font-bold" style={{ color: VI.accent }}>Accessible Menu (44 Dishes)</h2>
-              <button onClick={() => setShowImgDesc(!showImgDesc)} className="text-xs font-bold underline text-[#FFD166]">
+              <button onClick={() => setShowImgDesc(!showImgDesc)} className="text-xs font-bold underline text-[#FFD166] cursor-pointer">
                 {showImgDesc ? "Hide Image Descriptions" : "Show Image Descriptions"}
               </button>
             </div>
@@ -2855,7 +3041,7 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
 
                 {showImgDesc && (
                   <p className="text-xs p-2 rounded bg-black/40 text-[#FFD166] border border-[#FFD166]/40">
-                    📷 Photo: "{item.imgAlt}"
+                    Photo: "{item.imgAlt}"
                   </p>
                 )}
 
