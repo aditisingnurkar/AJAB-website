@@ -6,7 +6,7 @@ import { cafeEvents, CafeEvent } from "./data/eventsData";
 import { T, Lang } from "./data/translations";
 
 /* ═══════════════════════════════════════════════════════════════════════
-   TYPES & PALETTES
+   TYPES & PALETTES (LUXURY DARK ESPRESSO & ARTISAN GOLD THEME)
 ═══════════════════════════════════════════════════════════════════════ */
 type AppMode = "common" | "elderly" | "rural" | "vi";
 
@@ -45,59 +45,98 @@ interface VoiceFilterState {
   badgeLabel?: string;
 }
 
+// ── Dark Espresso & Warm Amber Gold Palette (Default Overall Mode) ──
 const C = {
-  bg: "#F5F0E8",
-  card: "#EDE7DA",
-  cardHover: "#E5DDD0",
-  border: "#D4C8B4",
-  borderFocus: "#8B6040",
-  text: "#2C1A0E",
-  muted: "#7A6654",
-  accent: "#5C3D1E",
-  accentLight: "#8B6040",
-  cream: "#FAF7F2",
-  tag: "#DDD3C2",
+  bg: "#120D0A",
+  card: "#1C1510",
+  cardHover: "#261D16",
+  border: "#382A20",
+  borderFocus: "#D4A359",
+  text: "#FDF7F0",
+  muted: "#B3A090",
+  accent: "#E2A955",
+  accentLight: "#F4C77D",
+  cream: "#241B14",
+  tag: "#2E2219",
 };
 
 const EC = {
-  bg: "#FBF6EC",
-  card: "#EDE7DA",
-  border: "#A89278",
-  text: "#1A0A00",
-  muted: "#3D2410",
-  accent: "#3D1F00",
-  btn: "#3D1F00",
-  btnText: "#FFFEF8",
-  cream: "#FFFEF8",
+  bg: "#18120D",
+  card: "#261D15",
+  border: "#855831",
+  text: "#FFFDF8",
+  muted: "#DBCAB6",
+  accent: "#F4C77D",
+  btn: "#D49B4B",
+  btnText: "#120D0A",
+  cream: "#1F1610",
 };
 
 const VI = {
-  bg: "#0D0600",
-  card: "#1E1005",
-  border: "#C49A24",
-  text: "#FFF8E8",
-  muted: "#E0CAA0",
+  bg: "#0A0502",
+  card: "#1A0E04",
+  border: "#FFD166",
+  text: "#FFFFFF",
+  muted: "#FCE7B2",
   accent: "#FFD166",
   btn: "#FFD166",
-  btnText: "#0D0600",
+  btnText: "#0A0502",
 };
 
 /* ═══════════════════════════════════════════════════════════════════════
    UI COMPONENTS
 ═══════════════════════════════════════════════════════════════════════ */
 function AjabLogo({ size = 48, className = "" }: { size?: number; className?: string }) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <div
-      className={`relative rounded-full overflow-hidden flex items-center justify-center shrink-0 shadow-sm ${className}`}
+      className={`relative rounded-full overflow-hidden flex items-center justify-center shrink-0 transition-transform ${className}`}
       style={{
         width: size,
         height: size,
-        backgroundColor: "#FDFBF7",
-        border: "2px solid #B8860B",
-        boxShadow: "0 2px 8px rgba(92,61,30,0.18)",
+        backgroundColor: "#1A120B",
+        border: "2px solid #D4A359",
+        boxShadow: "0 0 16px rgba(212,163,89,0.35)",
       }}
     >
-      <img src={ajabLogo} alt="AJAB Logo" className="w-full h-full object-contain p-1" />
+      {!imgError ? (
+        <img
+          src={ajabLogo}
+          alt="AJAB Logo"
+          className="w-full h-full object-contain p-1"
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        <svg viewBox="0 0 100 100" className="w-full h-full p-1" fill="none">
+          <circle cx="50" cy="50" r="46" stroke="#D4A359" strokeWidth="2.5" strokeDasharray="3,2" />
+          <circle cx="50" cy="50" r="41" stroke="#D4A359" strokeWidth="1" />
+          <text
+            x="50"
+            y="54"
+            textAnchor="middle"
+            fontFamily="'Playfair Display', Georgia, serif"
+            fontSize="26"
+            fontWeight="bold"
+            fill="#FDF7F0"
+            letterSpacing="2"
+          >
+            AJAB
+          </text>
+          <text
+            x="50"
+            y="70"
+            textAnchor="middle"
+            fontFamily="'DM Sans', sans-serif"
+            fontSize="8"
+            fontWeight="600"
+            fill="#D4A359"
+            letterSpacing="2.5"
+          >
+            CAFÉ
+          </text>
+        </svg>
+      )}
     </div>
   );
 }
@@ -119,12 +158,22 @@ function CBtn({
   disabled?: boolean;
   icon?: string;
 }) {
-  const pad = size === "sm" ? "px-3.5 py-1.5 text-xs" : size === "lg" ? "px-6 py-3 text-base font-bold" : "px-5 py-2.5 text-sm";
+  const pad = size === "sm" ? "px-3.5 py-1.5 text-xs" : size === "lg" ? "px-6 py-3.5 text-base font-bold" : "px-5 py-2.5 text-sm";
   const bg =
     variant === "primary"
-      ? { backgroundColor: C.accent, color: C.cream, border: "none" }
+      ? {
+          background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
+          color: "#120D0A",
+          border: "none",
+          boxShadow: "0 4px 16px rgba(226, 169, 85, 0.35)",
+        }
       : variant === "gold"
-      ? { backgroundColor: "#B8860B", color: "#FFFDF8", border: "none" }
+      ? {
+          background: "linear-gradient(135deg, #F4C77D 0%, #D49B4B 100%)",
+          color: "#120D0A",
+          border: "none",
+          boxShadow: "0 4px 16px rgba(244, 199, 125, 0.35)",
+        }
       : variant === "secondary"
       ? { backgroundColor: C.card, color: C.text, border: `1px solid ${C.border}` }
       : { backgroundColor: "transparent", color: C.accent, border: `1.5px solid ${C.accent}` };
@@ -133,7 +182,7 @@ function CBtn({
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`rounded-2xl font-semibold cursor-pointer transition-all duration-150 inline-flex items-center justify-center gap-2 select-none hover:opacity-90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${pad} ${full ? "w-full" : ""}`}
+      className={`rounded-2xl font-bold cursor-pointer transition-all duration-150 inline-flex items-center justify-center gap-2 select-none hover:opacity-95 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${pad} ${full ? "w-full" : ""}`}
       style={bg}
     >
       {icon && <span>{icon}</span>}
@@ -146,8 +195,13 @@ function CCard({ children, className = "", style = {}, onClick }: { children: Re
   return (
     <div
       onClick={onClick}
-      className={`rounded-3xl p-6 transition-all ${onClick ? "cursor-pointer hover:shadow-md hover:-translate-y-0.5" : ""} ${className}`}
-      style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, ...style }}
+      className={`rounded-3xl p-6 transition-all ${onClick ? "cursor-pointer hover:shadow-xl hover:border-[#D4A359]/70 hover:-translate-y-0.5" : ""} ${className}`}
+      style={{
+        backgroundColor: C.card,
+        border: `1px solid ${C.border}`,
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+        ...style,
+      }}
     >
       {children}
     </div>
@@ -157,19 +211,19 @@ function CCard({ children, className = "", style = {}, onClick }: { children: Re
 function CTag({ label, color = "default" }: { label: string; color?: "default" | "green" | "red" | "gold" | "season" }) {
   const c =
     color === "green"
-      ? { bg: "#E8F5E9", text: "#166534" }
+      ? { bg: "#14331E", text: "#4ADE80", border: "#1E542C" }
       : color === "red"
-      ? { bg: "#FFEBEE", text: "#C62828" }
+      ? { bg: "#3D1416", text: "#F87171", border: "#612225" }
       : color === "gold"
-      ? { bg: "#FEF9C3", text: "#854D0E" }
+      ? { bg: "#36270E", text: "#FCD34D", border: "#5C4217" }
       : color === "season"
-      ? { bg: "#FFF7ED", text: "#C2410C" }
-      : { bg: C.tag, text: C.text };
+      ? { bg: "#3D1E0E", text: "#FB923C", border: "#693318" }
+      : { bg: C.tag, text: C.text, border: C.border };
 
   return (
     <span
-      className="text-xs font-semibold px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 select-none"
-      style={{ backgroundColor: c.bg, color: c.text }}
+      className="text-xs font-semibold px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 select-none border"
+      style={{ backgroundColor: c.bg, color: c.text, borderColor: c.border }}
     >
       {label}
     </span>
@@ -178,13 +232,13 @@ function CTag({ label, color = "default" }: { label: string; color?: "default" |
 
 function StatusDot({ status }: { status: "available" | "reserved" | "occupied" }) {
   const map = {
-    available: { bg: "#166534", text: "Available", light: "#DCFCE7" },
-    reserved: { bg: "#D97706", text: "Reserved", light: "#FEF3C7" },
-    occupied: { bg: "#991B1B", text: "Occupied", light: "#FEE2E2" },
+    available: { bg: "#22C55E", text: "Available", light: "#102E1B", border: "#1E542C" },
+    reserved: { bg: "#F59E0B", text: "Reserved", light: "#2E200C", border: "#5C4217" },
+    occupied: { bg: "#EF4444", text: "Occupied", light: "#331214", border: "#612225" },
   };
   const cur = map[status] || map.available;
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold" style={{ backgroundColor: cur.light, color: cur.bg }}>
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border" style={{ backgroundColor: cur.light, color: cur.bg, borderColor: cur.border }}>
       <span className="w-2 h-2 rounded-full" style={{ backgroundColor: cur.bg }} />
       {cur.text}
     </span>
@@ -218,7 +272,7 @@ function ReadAloudBtn({ text }: { text: string }) {
       className="rounded-full flex items-center justify-center p-2 cursor-pointer transition-all hover:scale-110 active:scale-95"
       style={{
         backgroundColor: speaking ? C.accent : C.cream,
-        color: speaking ? C.cream : C.accent,
+        color: speaking ? "#120D0A" : C.accent,
         border: `1.5px solid ${C.accent}`,
       }}
     >
@@ -226,7 +280,6 @@ function ReadAloudBtn({ text }: { text: string }) {
     </button>
   );
 }
-
 
 function FoodImage({
   src,
@@ -256,10 +309,10 @@ function FoodImage({
         role="img"
         aria-label={`${alt}. Image unavailable; showing a menu illustration instead.`}
         className={className + " flex flex-col items-center justify-center gap-2"}
-        style={{ background: "linear-gradient(135deg, #E9DDCC 0%, #D7C5AE 100%)", color: C.accent }}
+        style={{ background: "linear-gradient(135deg, #241A13 0%, #17100B 100%)", color: C.accent, border: `1px solid ${C.border}` }}
       >
         <span className="text-5xl" aria-hidden="true">{emoji}</span>
-        <span className="text-xs font-semibold text-center px-4">{name}</span>
+        <span className="text-xs font-semibold text-center px-4" style={{ color: C.muted }}>{name}</span>
       </div>
     );
   }
@@ -276,28 +329,28 @@ function FoodImage({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   REALISTIC OUTSIDE SURROUNDINGS & NEIGHBORHOOD MAP
+   REALISTIC OUTSIDE SURROUNDINGS & NEIGHBORHOOD MAP (DARK CARTOGRAPHY)
 ═══════════════════════════════════════════════════════════════════════ */
 function CafeSurroundingsMap() {
   const [activeTab, setActiveTab] = useState<"map" | "landmarks" | "transit">("map");
 
   return (
-    <div className="rounded-3xl p-6 sm:p-8" style={{ backgroundColor: "#EDE5D6", border: `2px solid ${C.border}` }}>
+    <div className="rounded-3xl p-6 sm:p-8" style={{ backgroundColor: C.card, border: `2px solid ${C.border}` }}>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#E8F5E9] text-[#166534] mb-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#14331E] text-[#4ADE80] border border-[#1E542C] mb-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             <span>🟢 Open Daily · 8:00 AM – 11:00 PM</span>
           </div>
           <h2 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>
             Café Location &amp; Outside Surroundings
           </h2>
-          <p className="text-sm mt-0.5" style={{ color: C.muted }}>
+          <p className="text-sm mt-1" style={{ color: C.muted }}>
             12 Residency Road, Central Heritage District, Bangalore · Valet Parking Available
           </p>
         </div>
 
-        <div className="flex rounded-2xl p-1 shrink-0" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
+        <div className="flex rounded-2xl p-1 shrink-0" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
           {(["map", "landmarks", "transit"] as const).map((tab) => (
             <button
               key={tab}
@@ -305,7 +358,7 @@ function CafeSurroundingsMap() {
               className="px-3.5 py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all capitalize"
               style={{
                 backgroundColor: activeTab === tab ? C.accent : "transparent",
-                color: activeTab === tab ? C.cream : C.muted,
+                color: activeTab === tab ? "#120D0A" : C.muted,
               }}
             >
               {tab === "map" ? "🗺️ Interactive Map" : tab === "landmarks" ? "🏛️ Landmarks" : "🚗 Transit &amp; Parking"}
@@ -315,62 +368,62 @@ function CafeSurroundingsMap() {
       </div>
 
       {activeTab === "map" && (
-        <div className="relative w-full rounded-2xl overflow-hidden shadow-inner border-2" style={{ height: 380, borderColor: C.border, backgroundColor: "#D8CDBA" }}>
-          {/* Realistic Map Canvas */}
+        <div className="relative w-full rounded-2xl overflow-hidden shadow-inner border-2" style={{ height: 380, borderColor: C.border, backgroundColor: "#140E0A" }}>
+          {/* Dark Luxury Map Canvas */}
           <svg className="w-full h-full" viewBox="0 0 900 450" preserveAspectRatio="none">
             {/* Parks / Green Areas */}
-            <path d="M 0 0 L 260 0 L 240 180 L 0 140 Z" fill="#B7D5A8" opacity="0.7" />
-            <text x="50" y="70" fill="#2E5C1E" fontSize="13" fontWeight="bold" fontFamily="sans-serif">🌳 CUBBON PARK (800m)</text>
-            <path d="M 680 280 L 900 240 L 900 450 L 620 450 Z" fill="#B7D5A8" opacity="0.6" />
-            <text x="710" y="380" fill="#2E5C1E" fontSize="12" fontWeight="bold" fontFamily="sans-serif">🌿 HERITAGE BOTANICAL VERANDAH</text>
+            <path d="M 0 0 L 260 0 L 240 180 L 0 140 Z" fill="#142B1A" opacity="0.9" stroke="#1E4426" strokeWidth="1" />
+            <text x="50" y="70" fill="#4ADE80" fontSize="12" fontWeight="bold" fontFamily="sans-serif">🌳 CUBBON PARK (800m)</text>
+            <path d="M 680 280 L 900 240 L 900 450 L 620 450 Z" fill="#142B1A" opacity="0.85" stroke="#1E4426" strokeWidth="1" />
+            <text x="700" y="380" fill="#4ADE80" fontSize="11" fontWeight="bold" fontFamily="sans-serif">🌿 HERITAGE BOTANICAL VERANDAH</text>
 
             {/* Roads */}
             {/* MG Road Boulevard */}
-            <line x1="0" y1="210" x2="900" y2="210" stroke="#FAF7F2" strokeWidth="26" />
-            <line x1="0" y1="210" x2="900" y2="210" stroke="#C4B49A" strokeWidth="2" strokeDasharray="12,12" />
-            <text x="40" y="205" fill="#5C3D1E" fontSize="11" fontWeight="bold" letterSpacing="2">MG ROAD BOULEVARD</text>
+            <line x1="0" y1="210" x2="900" y2="210" stroke="#2A1E16" strokeWidth="28" />
+            <line x1="0" y1="210" x2="900" y2="210" stroke="#E2A955" strokeWidth="2" strokeDasharray="14,14" opacity="0.6" />
+            <text x="40" y="205" fill="#E2A955" fontSize="11" fontWeight="bold" letterSpacing="2">MG ROAD BOULEVARD</text>
 
             {/* Residency Road */}
-            <line x1="420" y1="0" x2="420" y2="450" stroke="#FAF7F2" strokeWidth="32" />
-            <line x1="420" y1="0" x2="420" y2="450" stroke="#C4B49A" strokeWidth="2" strokeDasharray="12,12" />
-            <text x="435" y="60" fill="#5C3D1E" fontSize="11" fontWeight="bold" letterSpacing="1.5">RESIDENCY ROAD</text>
+            <line x1="420" y1="0" x2="420" y2="450" stroke="#2A1E16" strokeWidth="34" />
+            <line x1="420" y1="0" x2="420" y2="450" stroke="#E2A955" strokeWidth="2" strokeDasharray="14,14" opacity="0.6" />
+            <text x="435" y="60" fill="#E2A955" fontSize="11" fontWeight="bold" letterSpacing="1.5">RESIDENCY ROAD</text>
 
             {/* Brigade Road */}
-            <line x1="680" y1="0" x2="680" y2="450" stroke="#EFE9DC" strokeWidth="18" />
-            <text x="692" y="100" fill="#7A6654" fontSize="10" fontWeight="bold">BRIGADE RD</text>
+            <line x1="680" y1="0" x2="680" y2="450" stroke="#241912" strokeWidth="18" />
+            <text x="692" y="100" fill="#A8927F" fontSize="10" fontWeight="bold">BRIGADE RD</text>
 
             {/* Richmond Circle Link */}
-            <line x1="0" y1="360" x2="900" y2="360" stroke="#EFE9DC" strokeWidth="18" />
-            <text x="80" y="354" fill="#7A6654" fontSize="10" fontWeight="bold">RICHMOND CIRCLE FLYOVER</text>
+            <line x1="0" y1="360" x2="900" y2="360" stroke="#241912" strokeWidth="18" />
+            <text x="80" y="354" fill="#A8927F" fontSize="10" fontWeight="bold">RICHMOND CIRCLE FLYOVER</text>
 
             {/* Surrounding Buildings Blocks */}
-            <rect x="290" y="60" width="100" height="110" rx="8" fill="#DFD5C4" stroke="#C4B49A" strokeWidth="1.5" />
-            <text x="305" y="120" fill="#7A6654" fontSize="10" fontWeight="bold">COMMERCIAL</text>
-            <text x="305" y="135" fill="#7A6654" fontSize="9">PLAZA</text>
+            <rect x="290" y="60" width="100" height="110" rx="8" fill="#201711" stroke="#38291F" strokeWidth="1.5" />
+            <text x="305" y="120" fill="#B3A090" fontSize="10" fontWeight="bold">COMMERCIAL</text>
+            <text x="305" y="135" fill="#8A7868" fontSize="9">PLAZA</text>
 
-            <rect x="470" y="60" width="160" height="110" rx="8" fill="#DFD5C4" stroke="#C4B49A" strokeWidth="1.5" />
-            <text x="485" y="120" fill="#7A6654" fontSize="10" fontWeight="bold">VICTORIA HERITAGE</text>
-            <text x="485" y="135" fill="#7A6654" fontSize="9">MANSION</text>
+            <rect x="470" y="60" width="160" height="110" rx="8" fill="#201711" stroke="#38291F" strokeWidth="1.5" />
+            <text x="485" y="120" fill="#B3A090" fontSize="10" fontWeight="bold">VICTORIA HERITAGE</text>
+            <text x="485" y="135" fill="#8A7868" fontSize="9">MANSION</text>
 
-            <rect x="180" y="250" width="180" height="80" rx="8" fill="#DFD5C4" stroke="#C4B49A" strokeWidth="1.5" />
-            <text x="195" y="295" fill="#7A6654" fontSize="10" fontWeight="bold">METRO STATION (250m)</text>
-            <text x="195" y="310" fill="#7A6654" fontSize="9">MG Road Purple Line</text>
+            <rect x="180" y="250" width="180" height="80" rx="8" fill="#201711" stroke="#38291F" strokeWidth="1.5" />
+            <text x="195" y="295" fill="#E2A955" fontSize="10" fontWeight="bold">METRO STATION (250m)</text>
+            <text x="195" y="310" fill="#8A7868" fontSize="9">MG Road Purple Line</text>
 
-            {/* AJAB CAFE PLOT */}
-            <rect x="460" y="240" width="180" height="90" rx="14" fill="#5C3D1E" stroke="#B8860B" strokeWidth="3" />
-            <text x="480" y="278" fill="#FFFDF8" fontSize="14" fontWeight="bold" fontFamily="serif" letterSpacing="1.5">AJAB CAFÉ</text>
-            <text x="480" y="296" fill="#FDE68A" fontSize="10" fontWeight="bold">12 Residency Rd · Entrance</text>
-            <text x="480" y="312" fill="#D4C8B4" fontSize="9">Valet Parking &amp; Ramp Access</text>
+            {/* AJAB CAFE PLOT (Glowing Dark Roast Highlight) */}
+            <rect x="460" y="240" width="180" height="90" rx="14" fill="#3D200E" stroke="#E2A955" strokeWidth="2.5" />
+            <text x="480" y="276" fill="#FDF7F0" fontSize="14" fontWeight="bold" fontFamily="serif" letterSpacing="1.5">AJAB CAFÉ</text>
+            <text x="480" y="295" fill="#F4C77D" fontSize="10" fontWeight="bold">12 Residency Rd · Entrance</text>
+            <text x="480" y="312" fill="#B3A090" fontSize="9">Valet Parking &amp; Ramp Access</text>
 
             {/* Radar Pulse on AJAB Pin */}
-            <circle cx="440" cy="285" r="14" fill="#B8860B" opacity="0.35" />
-            <circle cx="440" cy="285" r="7" fill="#B8860B" />
+            <circle cx="440" cy="285" r="16" fill="#E2A955" opacity="0.35" className="animate-ping" />
+            <circle cx="440" cy="285" r="8" fill="#E2A955" />
           </svg>
 
           {/* Floating Directions Card */}
-          <div className="absolute bottom-4 left-4 p-3.5 rounded-2xl backdrop-blur-md bg-white/90 border shadow-md max-w-xs" style={{ borderColor: C.border }}>
+          <div className="absolute bottom-4 left-4 p-3.5 rounded-2xl backdrop-blur-md border shadow-lg max-w-xs" style={{ backgroundColor: "rgba(28, 21, 16, 0.95)", borderColor: C.border }}>
             <p className="font-bold text-xs" style={{ color: C.accent }}>📍 How to reach AJAB:</p>
-            <p className="text-[11px] mt-0.5" style={{ color: C.muted }}>
+            <p className="text-[11px] mt-1 leading-relaxed" style={{ color: C.muted }}>
               • 3 min walk from MG Road Metro (Exit Gate 2)<br />
               • Complimentary Valet Parking at Café Gate 1<br />
               • 100% Step-free wheelchair accessible ramp
@@ -575,19 +628,20 @@ function VoiceAssistantModal({
         onClick={() => setOpen(true)}
         aria-label="Open Voice Assistant"
         title="Voice Search & Assistant"
-        className="fixed z-40 flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 shadow-lg"
+        className="fixed z-40 flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 shadow-xl"
         style={{
           bottom: 96,
           right: 24,
           width: 56,
           height: 56,
           borderRadius: "50%",
-          backgroundColor: C.accent,
-          border: `2.5px solid ${C.cream}`,
-          color: C.cream,
+          background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
+          border: `2px solid #F4C77D`,
+          color: "#120D0A",
+          boxShadow: "0 8px 24px rgba(226, 169, 85, 0.4)",
         }}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
           <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
           <line x1="12" y1="19" x2="12" y2="23" />
@@ -604,16 +658,16 @@ function VoiceAssistantModal({
             bottom: 164,
             right: 20,
             width: 340,
-            backgroundColor: C.cream,
+            backgroundColor: C.card,
             border: `1.5px solid ${C.border}`,
           }}
         >
-          <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ backgroundColor: C.accent, color: C.cream, borderColor: C.border }}>
+          <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ backgroundColor: "#261A12", color: C.text, borderColor: C.border }}>
             <div className="flex items-center gap-2">
               <span className="text-lg">🎙️</span>
               <div>
-                <p className="font-serif font-bold text-sm">AJAB Voice Assistant</p>
-                <p className="text-[10px] opacity-80">Speak or tap any prompt</p>
+                <p className="font-serif font-bold text-sm" style={{ color: C.accent }}>AJAB Voice Assistant</p>
+                <p className="text-[10px] opacity-80" style={{ color: C.muted }}>Speak or tap any prompt</p>
               </div>
             </div>
             <button onClick={() => setOpen(false)} className="text-base cursor-pointer opacity-70 hover:opacity-100">✕</button>
@@ -625,7 +679,7 @@ function VoiceAssistantModal({
                 onClick={startListening}
                 className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center cursor-pointer transition-transform ${listening ? "scale-110 animate-pulse bg-red-600 text-white" : "hover:scale-105"}`}
                 style={{
-                  backgroundColor: listening ? "#991B1B" : C.card,
+                  backgroundColor: listening ? "#991B1B" : C.cream,
                   border: `2px solid ${C.accent}`,
                   color: listening ? "#FFF" : C.accent,
                 }}
@@ -638,13 +692,13 @@ function VoiceAssistantModal({
             </div>
 
             {transcript && (
-              <div className="p-2.5 rounded-xl text-xs bg-white/80 border" style={{ borderColor: C.border }}>
-                <span className="font-bold text-[#5C3D1E]">Heard:</span> “{transcript}”
+              <div className="p-2.5 rounded-xl text-xs border" style={{ backgroundColor: "#241A13", borderColor: C.border }}>
+                <span className="font-bold text-[#E2A955]">Heard:</span> “{transcript}”
               </div>
             )}
 
             {response && (
-              <div className="p-3 rounded-xl text-xs" style={{ backgroundColor: "#F0E8DC", border: `1px solid ${C.border}` }}>
+              <div className="p-3 rounded-xl text-xs" style={{ backgroundColor: "#241A13", border: `1px solid ${C.border}` }}>
                 <p className="font-semibold" style={{ color: C.text }}>{response}</p>
               </div>
             )}
@@ -663,7 +717,7 @@ function VoiceAssistantModal({
                     key={p}
                     onClick={() => processQuery(p)}
                     className="text-[11px] font-semibold rounded-full px-2.5 py-1 cursor-pointer transition-colors"
-                    style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, color: C.text }}
+                    style={{ backgroundColor: C.cream, border: `1px solid ${C.border}`, color: C.text }}
                   >
                     {p}
                   </button>
@@ -673,8 +727,8 @@ function VoiceAssistantModal({
 
             {activeFilter && (
               <div className="pt-2 border-t flex justify-between items-center" style={{ borderColor: C.border }}>
-                <span className="text-xs font-bold text-emerald-800">✓ Filter active: {activeFilter.badgeLabel}</span>
-                <button onClick={onClearVoiceFilter} className="text-xs underline font-semibold cursor-pointer text-red-700">Clear</button>
+                <span className="text-xs font-bold text-emerald-400">✓ Filter active: {activeFilter.badgeLabel}</span>
+                <button onClick={onClearVoiceFilter} className="text-xs underline font-semibold cursor-pointer text-red-400">Clear</button>
               </div>
             )}
           </div>
@@ -693,16 +747,17 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
         onClick={() => setOpen((v) => !v)}
         aria-label="Open Inclusive Display Modes"
         title="Accessibility Modes"
-        className="fixed z-40 flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 shadow-lg"
+        className="fixed z-40 flex items-center justify-center cursor-pointer transition-transform hover:scale-110 active:scale-95 shadow-xl"
         style={{
           bottom: 24,
           right: 24,
           width: 56,
           height: 56,
           borderRadius: "50%",
-          backgroundColor: C.cream,
-          border: `2.5px solid ${C.accent}`,
+          backgroundColor: C.card,
+          border: `2px solid ${C.accent}`,
           color: C.accent,
+          boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
         }}
       >
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -720,16 +775,16 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
             bottom: 90,
             right: 20,
             width: 320,
-            backgroundColor: C.cream,
+            backgroundColor: C.card,
             border: `1.5px solid ${C.border}`,
           }}
         >
-          <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ borderColor: C.border, backgroundColor: "#1A0C04", color: C.cream }}>
+          <div className="px-5 py-3.5 flex items-center justify-between border-b" style={{ borderColor: C.border, backgroundColor: "#261A12", color: C.text }}>
             <div className="flex items-center gap-2">
               <span className="text-lg">♿</span>
               <div>
-                <p className="font-semibold text-sm">Inclusive Display Modes</p>
-                <p className="text-[11px] text-[#C4A882]">Choose a view tailored to you</p>
+                <p className="font-semibold text-sm" style={{ color: C.accent }}>Inclusive Display Modes</p>
+                <p className="text-[11px]" style={{ color: C.muted }}>Choose a view tailored to you</p>
               </div>
             </div>
             <button onClick={() => setOpen(false)} className="text-base cursor-pointer opacity-70 hover:opacity-100">✕</button>
@@ -738,43 +793,43 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
           <div className="p-3 flex flex-col gap-2">
             <button
               onClick={() => { setMode("elderly"); setOpen(false); }}
-              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:bg-[#EFE8DD]"
-              style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}
+              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#D4A359]"
+              style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg" style={{ backgroundColor: "#3D1F00", color: "#FFFEF8" }}>
                 Aa
               </div>
               <div className="flex-1">
                 <p className="font-bold text-sm" style={{ color: C.accent }}>Senior Citizen Mode</p>
-                <p className="text-[11px]" style={{ color: C.muted }}>Big text, large touch buttons & full menu</p>
+                <p className="text-[11px]" style={{ color: C.muted }}>Big text, large touch buttons &amp; full menu</p>
               </div>
             </button>
 
             <button
               onClick={() => { setMode("rural"); setOpen(false); }}
-              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:bg-[#EFE8DD]"
-              style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}
+              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#D4A359]"
+              style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ backgroundColor: "#3D5A1E", color: "#F0FAE8" }}>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ backgroundColor: "#203810", color: "#A7F3D0" }}>
                 🌐
               </div>
               <div className="flex-1">
-                <p className="font-bold text-sm" style={{ color: "#3D5A1E" }}>Rural / Multilingual</p>
-                <p className="text-[11px]" style={{ color: C.muted }}>Full Hindi & Marathi translation + offline mode</p>
+                <p className="font-bold text-sm" style={{ color: "#4ADE80" }}>Rural / Multilingual</p>
+                <p className="text-[11px]" style={{ color: C.muted }}>Full Hindi &amp; Marathi translation + offline mode</p>
               </div>
             </button>
 
             <button
               onClick={() => { setMode("vi"); setOpen(false); }}
-              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:bg-[#EFE8DD]"
-              style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}
+              className="w-full text-left p-3 rounded-2xl cursor-pointer flex items-center gap-3 transition-colors hover:border-[#D4A359]"
+              style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style={{ backgroundColor: "#0D0600", color: "#FFD166", border: "1px solid #C49A24" }}>
                 👁
               </div>
               <div className="flex-1">
                 <p className="font-bold text-sm" style={{ color: C.accent }}>Visually Impaired Mode</p>
-                <p className="text-[11px]" style={{ color: C.muted }}>High contrast dark theme & spoken audio</p>
+                <p className="text-[11px]" style={{ color: C.muted }}>High contrast dark theme &amp; spoken audio</p>
               </div>
             </button>
           </div>
@@ -785,7 +840,7 @@ function AccessibilityMenuModal({ setMode }: { setMode: (m: AppMode) => void }) 
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   COMMON NAVBAR
+   COMMON NAVBAR (DARK ROAST)
 ═══════════════════════════════════════════════════════════════════════ */
 function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; active: Screen; cartCount: number }) {
   const links: { label: string; screen: Screen; icon: string }[] = [
@@ -798,7 +853,7 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
   ];
 
   return (
-    <header style={{ backgroundColor: C.cream, borderBottom: `1px solid ${C.border}` }} className="sticky top-0 z-40 w-full backdrop-blur-md bg-opacity-95">
+    <header style={{ backgroundColor: "rgba(18, 13, 10, 0.95)", borderBottom: `1px solid ${C.border}` }} className="sticky top-0 z-40 w-full backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
         <button onClick={() => navigate("home")} className="cursor-pointer flex items-center gap-3 text-left" aria-label="AJAB Cafe & Restaurant">
           <AjabLogo size={46} />
@@ -841,12 +896,15 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
             onClick={() => navigate("cart")}
             aria-label={`Cart with ${cartCount} items`}
             className="relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold cursor-pointer transition-transform hover:scale-105"
-            style={{ backgroundColor: C.accent, color: C.cream }}
+            style={{
+              background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
+              color: "#120D0A",
+            }}
           >
             <span>🛒</span>
             <span className="hidden sm:inline">Cart</span>
             {cartCount > 0 && (
-              <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold bg-[#FAF7F2] text-[#5C3D1E]">
+              <span className="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold bg-[#120D0A] text-[#FDF7F0]">
                 {cartCount}
               </span>
             )}
@@ -858,7 +916,7 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   FRONT PAGE (HOME) WITH FOOD PHOTOS UNDER MAIN HERO & SURROUNDINGS MAP
+   FRONT PAGE (HOME)
 ═══════════════════════════════════════════════════════════════════════ */
 function CHome({
   navigate,
@@ -869,30 +927,29 @@ function CHome({
   addToCart: (f: FoodItem) => void;
   setFood: (f: FoodItem) => void;
 }) {
-  const t = T.en;
-  // Spotlight star dishes for the front page food photo showcase
   const featuredDishes = menuItems.filter((m) => [1, 5, 9, 11, 21, 39].includes(m.id));
 
   return (
     <div className="flex flex-col gap-14 pb-16 animate-fade-in">
-      {/* ── 1. MAIN HERO BANNER — restored to the original centered AJAB landing layout ── */}
+      {/* ── 1. MAIN HERO BANNER ── */}
       <section className="relative flex flex-col items-center justify-center text-center px-6 py-24 overflow-hidden" style={{ backgroundColor: C.bg, borderBottom: `1px solid ${C.border}` }}>
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1600&h=1000&fit=crop&auto=format"
             alt="Warm AJAB café interior"
-            className="w-full h-full object-cover opacity-15"
+            className="w-full h-full object-cover opacity-20"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#120D0A] via-transparent to-[#120D0A]" />
         </div>
         <div className="relative z-10 flex flex-col items-center max-w-4xl">
           <AjabLogo size={104} className="mb-4" />
-          <p className="text-xs tracking-widest uppercase mb-4" style={{ color: C.muted }}>Modern Indian Café · Est. 2024</p>
-          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(36px,6vw,64px)", color: C.accent, lineHeight: 1.1 }}>
-            Warmth in every<br /><em>cup and corner.</em>
+          <p className="text-xs tracking-widest uppercase mb-4" style={{ color: C.accent }}>Modern Indian Café · Est. 2024</p>
+          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(36px,6vw,64px)", color: C.text, lineHeight: 1.1 }}>
+            Warmth in every<br /><em style={{ color: C.accent }}>cup and corner.</em>
           </h1>
           <div className="mt-4 flex items-start gap-2 max-w-xl">
             <p className="text-base sm:text-lg flex-1" style={{ color: C.muted, lineHeight: 1.7 }}>
-              AJAB blends the unhurried rhythms of Indian chai culture with a contemporary café experience.
+              AJAB blends the unhurried rhythms of Indian chai culture with a contemporary accessible café experience.
             </p>
             <ReadAloudBtn text="AJAB Cafe and Restaurant. Warmth in every cup and corner. Modern Indian Cafe established 2024. AJAB blends the unhurried rhythms of Indian chai culture with a contemporary cafe experience." />
           </div>
@@ -905,11 +962,11 @@ function CHome({
         </div>
       </section>
 
-      {/* ── 2. FEATURED SIGNATURE FOOD PHOTOS SHOWCASE (RIGHT UNDER MAIN HERO PIC) ── */}
+      {/* ── 2. FEATURED SIGNATURE FOOD PHOTOS SHOWCASE ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-[#FEF9C3] text-[#854D0E] mb-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-[#36270E] text-[#FCD34D] border border-[#5C4217] mb-2">
               <span>👑 Chef's Highlights</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold" style={{ color: C.accent }}>
@@ -933,7 +990,7 @@ function CHome({
           {featuredDishes.map((item) => (
             <div
               key={item.id}
-              className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-xl hover:-translate-y-1.5 group"
+              className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-2xl hover:border-[#D4A359]/70 hover:-translate-y-1.5 group"
               style={{ backgroundColor: C.card, border: `1.5px solid ${C.border}` }}
             >
               <div className="relative h-48 overflow-hidden">
@@ -997,7 +1054,10 @@ function CHome({
                   <button
                     onClick={() => addToCart(item)}
                     className="flex-1 py-2.5 rounded-xl text-xs font-bold cursor-pointer transition-colors text-center"
-                    style={{ backgroundColor: C.accent, color: C.cream }}
+                    style={{
+                      background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
+                      color: "#120D0A",
+                    }}
                   >
                     + Add to Cart
                   </button>
@@ -1008,7 +1068,7 @@ function CHome({
         </div>
 
         {/* Heritage Pairing Combo Banner */}
-        <div className="mt-8 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md" style={{ backgroundColor: "#3D2410", color: "#FFFDF8" }}>
+        <div className="mt-8 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border" style={{ backgroundColor: "#24160C", borderColor: "#D4A359", color: "#FFFDF8" }}>
           <div className="flex items-center gap-5">
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shrink-0 bg-white/10 border border-white/20">
               ☕🥟
@@ -1022,7 +1082,7 @@ function CHome({
 
           <div className="flex items-center gap-4 shrink-0">
             <div className="text-right">
-              <span className="text-xs line-through text-[#C4B49A]">₹ 205</span>
+              <span className="text-xs line-through text-[#8A7868]">₹ 205</span>
               <p className="text-2xl font-bold text-[#FDE68A]">₹ 175</p>
             </div>
             <button
@@ -1034,7 +1094,7 @@ function CHome({
                 navigate("cart");
               }}
               className="px-5 py-3 rounded-2xl font-bold text-sm cursor-pointer shadow-lg transition-transform hover:scale-105"
-              style={{ backgroundColor: "#B8860B", color: "#FFFDF8" }}
+              style={{ backgroundColor: "#E2A955", color: "#120D0A" }}
             >
               Order Combo →
             </button>
@@ -1051,22 +1111,22 @@ function CHome({
       <section className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-3xl p-8 shadow-sm" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
           <div className="lg:col-span-7 flex flex-col gap-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#B8860B]">Live Seat Picker</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#E2A955]">Live Seat Picker</span>
             <h2 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>Architectural Floor Plan Reservation</h2>
             <p className="text-sm leading-relaxed" style={{ color: C.muted }}>
               Choose your exact table across 4 distinct ambient zones: Indoor Main Hall, Garden Verandah Patio, Heritage Quiet Alcove, or the Barista Coffee Bar.
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#E8F5E9] text-[#166534]">✓ 20 Distinct Tables</span>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#E8F5E9] text-[#166534]">✓ Live Availability</span>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#E8F5E9] text-[#166534]">✓ Wheelchair Accessible</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">✓ 20 Distinct Tables</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">✓ Live Availability</span>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">✓ Wheelchair Accessible</span>
             </div>
             <div className="pt-2">
               <CBtn label="Open Table Reservation Floor Plan" onClick={() => navigate("seats")} size="lg" />
             </div>
           </div>
 
-          <div className="lg:col-span-5 relative rounded-2xl overflow-hidden shadow-md border-2" style={{ height: 220, borderColor: C.border, backgroundColor: "#EAE3D6" }}>
+          <div className="lg:col-span-5 relative rounded-2xl overflow-hidden shadow-md border-2" style={{ height: 220, borderColor: C.border, backgroundColor: "#150F0A" }}>
             <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center">
               <span className="text-3xl mb-2">🏛️</span>
               <p className="font-serif font-bold text-lg" style={{ color: C.accent }}>14 Tables Currently Available</p>
@@ -1186,33 +1246,33 @@ function CMenu({
       title: "☀️ Summer Garden Coolers",
       temp: "32°C Sunny Weather Active",
       bannerImg: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&h=400&fit=crop&auto=format",
-      bgGradient: "linear-gradient(135deg, #D97706 0%, #B45309 100%)",
-      accentBg: "#FEF3C7",
-      accentText: "#92400E",
+      bgGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
+      accentBg: "#36270E",
+      accentText: "#FCD34D",
     },
     monsoon: {
       title: "🌧️ Monsoon Rain Comforts",
       temp: "23°C Refreshing Petrichor",
       bannerImg: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=800&h=400&fit=crop&auto=format",
-      bgGradient: "linear-gradient(135deg, #047857 0%, #065F46 100%)",
-      accentBg: "#D1FAE5",
-      accentText: "#065F46",
+      bgGradient: "linear-gradient(135deg, #065F46 0%, #064E3B 100%)",
+      accentBg: "#14331E",
+      accentText: "#4ADE80",
     },
     winter: {
       title: "❄️ Winter Hearth Warmers",
       temp: "17°C Chilly Evening Warmth",
       bannerImg: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&h=400&fit=crop&auto=format",
       bgGradient: "linear-gradient(135deg, #881337 0%, #4C0519 100%)",
-      accentBg: "#FFE4E6",
-      accentText: "#881337",
+      accentBg: "#3D1416",
+      accentText: "#F87171",
     },
     All: {
       title: "🌿 All-Season Classics",
       temp: "Signature Year-Round Menu",
       bannerImg: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&h=400&fit=crop&auto=format",
-      bgGradient: "linear-gradient(135deg, #5C3D1E 0%, #3D2410 100%)",
-      accentBg: "#EDE7DA",
-      accentText: "#5C3D1E",
+      bgGradient: "linear-gradient(135deg, #5C3D1E 0%, #261608 100%)",
+      accentBg: "#241B14",
+      accentText: "#E2A955",
     }
   };
 
@@ -1233,7 +1293,7 @@ function CMenu({
         </div>
         <div className="flex items-center gap-2">
           {voiceFilter && (
-            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+            <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
               🎙️ {voiceFilter.badgeLabel}
             </span>
           )}
@@ -1248,7 +1308,7 @@ function CMenu({
       </div>
 
       {/* ── TOP SECTION: ALLERGEN SAFETY SHIELD & NUTRITION HUB ── */}
-      <div className="rounded-3xl p-5 mb-8 shadow-sm" style={{ backgroundColor: "#F0E9DC", border: `1.5px solid ${C.border}` }}>
+      <div className="rounded-3xl p-5 mb-8 shadow-sm" style={{ backgroundColor: "#1A130E", border: `1.5px solid ${C.border}` }}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-6 flex flex-col gap-2">
             <div className="flex items-center gap-2">
@@ -1294,8 +1354,9 @@ function CMenu({
                     className="rounded-full px-3 py-1.5 text-xs font-semibold cursor-pointer transition-all select-none"
                     style={{
                       backgroundColor: active ? C.accent : C.cream,
-                      color: active ? C.cream : C.text,
+                      color: active ? "#120D0A" : C.text,
                       border: `1.5px solid ${active ? C.accent : C.border}`,
+                      fontWeight: active ? 700 : 600,
                     }}
                   >
                     {d.label}
@@ -1315,8 +1376,8 @@ function CMenu({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search dishes (e.g., Filter Coffee, Samosa, Butter Chicken, Biryani, Tiramisu)..."
-              className="w-full rounded-2xl px-11 py-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[#8B6040]"
-              style={{ backgroundColor: C.cream, border: `1px solid ${C.border}`, color: C.text }}
+              className="w-full rounded-2xl px-11 py-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[#D4A359]"
+              style={{ backgroundColor: "#1F1712", border: `1px solid ${C.border}`, color: C.text }}
             />
             <span className="absolute left-4 top-3.5 text-base opacity-60">🔍</span>
             {searchQuery && (
@@ -1332,7 +1393,7 @@ function CMenu({
                 className="flex-1 py-2 text-xs font-bold rounded-xl cursor-pointer transition-all text-center flex items-center justify-center gap-1"
                 style={{
                   backgroundColor: foodType === t ? (t === "Veg" ? "#166534" : t === "Non-Veg" ? "#991B1B" : C.accent) : "transparent",
-                  color: foodType === t ? "#FFFDF9" : C.muted,
+                  color: foodType === t ? (t === "All" ? "#120D0A" : "#FFF") : C.muted,
                 }}
               >
                 {t === "Veg" && <span>🟢</span>}
@@ -1352,8 +1413,9 @@ function CMenu({
               className="rounded-full px-3.5 py-1.5 text-xs font-semibold cursor-pointer shrink-0 transition-all select-none"
               style={{
                 backgroundColor: selectedCategory === c ? C.accent : C.card,
-                color: selectedCategory === c ? C.cream : C.text,
+                color: selectedCategory === c ? "#120D0A" : C.text,
                 border: `1px solid ${selectedCategory === c ? C.accent : C.border}`,
+                fontWeight: selectedCategory === c ? 700 : 500,
               }}
             >
               {c}
@@ -1369,9 +1431,10 @@ function CMenu({
               onClick={() => setSelectedCuisine(c)}
               className="rounded-full px-3 py-1 text-xs font-semibold cursor-pointer shrink-0 transition-all select-none"
               style={{
-                backgroundColor: selectedCuisine === c ? "#8B6040" : C.cream,
-                color: selectedCuisine === c ? "#FFF" : C.muted,
-                border: `1px solid ${selectedCuisine === c ? "#8B6040" : C.border}`,
+                backgroundColor: selectedCuisine === c ? "#D49B4B" : C.cream,
+                color: selectedCuisine === c ? "#120D0A" : C.muted,
+                border: `1px solid ${selectedCuisine === c ? "#D49B4B" : C.border}`,
+                fontWeight: selectedCuisine === c ? 700 : 500,
               }}
             >
               {c}
@@ -1404,7 +1467,7 @@ function CMenu({
               {filteredItems.map((item) => (
                 <div
                   key={item.id}
-                  className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-lg hover:-translate-y-1 group"
+                  className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-xl hover:border-[#D4A359]/70 hover:-translate-y-1 group"
                   style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}
                 >
                   <div className="relative h-44 overflow-hidden">
@@ -1434,7 +1497,7 @@ function CMenu({
                     <button
                       onClick={() => setNutritionModalItem(item)}
                       aria-label="View Nutrition & Allergen info"
-                      className="absolute bottom-2.5 right-2.5 px-2 py-1 rounded-lg text-[10px] font-bold cursor-pointer backdrop-blur-md bg-black/60 text-white hover:bg-black/80"
+                      className="absolute bottom-2.5 right-2.5 px-2 py-1 rounded-lg text-[10px] font-bold cursor-pointer backdrop-blur-md bg-black/70 text-white hover:bg-black/90 border border-white/20"
                     >
                       🛡️ Nutrition &amp; Allergens
                     </button>
@@ -1478,7 +1541,10 @@ function CMenu({
                       <button
                         onClick={() => addToCart(item)}
                         className="flex-1 py-2 rounded-xl text-xs font-bold cursor-pointer transition-colors text-center"
-                        style={{ backgroundColor: C.accent, color: C.cream }}
+                        style={{
+                          background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
+                          color: "#120D0A",
+                        }}
                       >
                         + Add to Cart
                       </button>
@@ -1492,7 +1558,7 @@ function CMenu({
 
         {/* ── COLORFUL & RICH PHOTO SEASONAL GARDEN (Col 9-12) ── */}
         <div className="lg:col-span-4 flex flex-col gap-6 sticky top-24">
-          <div className="rounded-3xl overflow-hidden shadow-lg border-2" style={{ borderColor: C.border }}>
+          <div className="rounded-3xl overflow-hidden shadow-xl border-2" style={{ borderColor: C.border }}>
             {/* Colorful Hero Photo Header */}
             <div className="relative h-32 overflow-hidden text-white p-4 flex flex-col justify-between" style={{ background: curSeasonStyle.bgGradient }}>
               <img
@@ -1504,16 +1570,16 @@ function CMenu({
                 <span className="text-[11px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md">
                   🌱 AJAB Seasonal Garden
                 </span>
-                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-black/30 backdrop-blur-md">
+                <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-md">
                   {curSeasonStyle.temp}
                 </span>
               </div>
               <h3 className="relative z-10 font-serif text-xl font-bold">{curSeasonStyle.title}</h3>
             </div>
 
-            <div className="p-4" style={{ backgroundColor: "#FAF5ED" }}>
+            <div className="p-4" style={{ backgroundColor: "#1A130E" }}>
               {/* Season Tabs */}
-              <div className="grid grid-cols-3 gap-1 p-1 rounded-2xl mb-4" style={{ backgroundColor: C.card }}>
+              <div className="grid grid-cols-3 gap-1 p-1 rounded-2xl mb-4" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
                 {(["summer", "monsoon", "winter"] as const).map((s) => (
                   <button
                     key={s}
@@ -1521,7 +1587,7 @@ function CMenu({
                     className="py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all text-center capitalize"
                     style={{
                       backgroundColor: selectedSeason === s ? C.accent : "transparent",
-                      color: selectedSeason === s ? C.cream : C.muted,
+                      color: selectedSeason === s ? "#120D0A" : C.muted,
                     }}
                   >
                     {s === "summer" ? "☀️ Summer" : s === "monsoon" ? "🌧️ Monsoon" : "❄️ Winter"}
@@ -1541,7 +1607,10 @@ function CMenu({
                     <button
                       onClick={() => addToCart(pick)}
                       className="px-2.5 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-transform hover:scale-105"
-                      style={{ backgroundColor: C.accent, color: C.cream }}
+                      style={{
+                        background: "linear-gradient(135deg, #E2A955 0%, #C48E38 100%)",
+                        color: "#120D0A",
+                      }}
                     >
                       + Add
                     </button>
@@ -1558,12 +1627,12 @@ function CMenu({
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in"
           onClick={() => setNutritionModalItem(null)}
         >
           <div
             className="rounded-3xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto"
-            style={{ backgroundColor: C.cream, border: `2px solid ${C.border}` }}
+            style={{ backgroundColor: C.card, border: `2px solid ${C.border}` }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4 mb-4">
@@ -1575,7 +1644,7 @@ function CMenu({
               <button
                 onClick={() => setNutritionModalItem(null)}
                 className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm cursor-pointer"
-                style={{ backgroundColor: C.card, color: C.text }}
+                style={{ backgroundColor: C.cream, color: C.text }}
               >
                 ✕
               </button>
@@ -1588,7 +1657,7 @@ function CMenu({
                 { label: "Carbs", val: `${nutritionModalItem.carbs}g` },
                 { label: "Fats", val: `${nutritionModalItem.fat}g` },
               ].map((m) => (
-                <div key={m.label} className="rounded-xl p-2.5" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
+                <div key={m.label} className="rounded-xl p-2.5" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
                   <p className="text-[10px] font-bold uppercase" style={{ color: C.muted }}>{m.label}</p>
                   <p className="font-bold text-sm mt-0.5" style={{ color: C.accent }}>{m.val}</p>
                 </div>
@@ -1604,11 +1673,11 @@ function CMenu({
               <div>
                 <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Allergen Warning</p>
                 {nutritionModalItem.allergens.length > 0 ? (
-                  <p className="font-semibold text-amber-900 bg-amber-50 p-2.5 rounded-xl border border-amber-200">
+                  <p className="font-semibold text-amber-200 bg-amber-950/60 p-2.5 rounded-xl border border-amber-800">
                     ⚠️ Contains: {nutritionModalItem.allergens.join(", ")}. Please inform servers of severe allergies.
                   </p>
                 ) : (
-                  <p className="font-semibold text-emerald-900 bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
+                  <p className="font-semibold text-emerald-200 bg-emerald-950/60 p-2.5 rounded-xl border border-emerald-800">
                     ✓ No major allergens listed in base ingredients.
                   </p>
                 )}
@@ -1618,7 +1687,7 @@ function CMenu({
                 <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Dietary Compatibility</p>
                 <div className="flex flex-wrap gap-1.5">
                   {nutritionModalItem.dietary.map((d) => (
-                    <span key={d} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#E8F5E9] text-[#166534]">
+                    <span key={d} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
                       ✓ {d}
                     </span>
                   ))}
@@ -1653,7 +1722,7 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
       </button>
 
       <div className="grid md:grid-cols-2 gap-8 items-start">
-        <div className="rounded-3xl overflow-hidden shadow-md">
+        <div className="rounded-3xl overflow-hidden shadow-xl border" style={{ borderColor: C.border }}>
           <FoodImage src={food.img} alt={food.imgAlt} name={food.name} className="w-full h-80 object-cover" />
         </div>
 
@@ -1662,10 +1731,11 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
             <CTag label={food.category} />
             <CTag label={food.cuisine} />
             <span
-              className="text-[11px] font-bold rounded-full px-2.5 py-0.5"
+              className="text-[11px] font-bold rounded-full px-2.5 py-0.5 border"
               style={{
-                backgroundColor: food.foodType === "veg" ? "#E8F5E9" : "#FFEBEE",
-                color: food.foodType === "veg" ? "#166534" : "#C62828",
+                backgroundColor: food.foodType === "veg" ? "#14331E" : "#3D1416",
+                color: food.foodType === "veg" ? "#4ADE80" : "#F87171",
+                borderColor: food.foodType === "veg" ? "#1E542C" : "#612225",
               }}
             >
               {food.foodType === "veg" ? "● VEG" : "● NON-VEG"}
@@ -1687,7 +1757,7 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
               ["Carbs", `${food.carbs}g`],
               ["Fat", `${food.fat}g`],
             ].map(([k, v]) => (
-              <CCard key={k} style={{ padding: "8px 10px", textAlign: "center" }}>
+              <CCard key={k} style={{ padding: "8px 10px", textAlign: "center", backgroundColor: C.cream }}>
                 <p className="text-[10px] font-bold uppercase" style={{ color: C.muted }}>{k}</p>
                 <p className="text-sm font-bold mt-0.5" style={{ color: C.text }}>{v}</p>
               </CCard>
@@ -1698,7 +1768,7 @@ function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; na
             <p className="text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>Dietary Suitability</p>
             <div className="flex flex-wrap gap-1.5">
               {food.dietary.map((d) => (
-                <span key={d} className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ backgroundColor: "#E8F5E9", color: "#166534" }}>
+                <span key={d} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
                   ✓ {d}
                 </span>
               ))}
@@ -1746,10 +1816,10 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 rounded-xl p-1" style={{ backgroundColor: C.bg, border: `1px solid ${C.border}` }}>
-                  <button onClick={() => updateQty(item.id, -1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-black/5">−</button>
+                <div className="flex items-center gap-2 rounded-xl p-1" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
+                  <button onClick={() => updateQty(item.id, -1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-white/10">−</button>
                   <span className="text-sm font-bold w-5 text-center">{item.qty}</span>
-                  <button onClick={() => updateQty(item.id, 1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-black/5">+</button>
+                  <button onClick={() => updateQty(item.id, 1)} className="w-7 h-7 rounded-lg font-bold cursor-pointer hover:bg-white/10">+</button>
                 </div>
                 <p className="font-bold text-sm w-16 text-right" style={{ color: C.accent }}>₹ {item.price * item.qty}</p>
               </div>
@@ -1759,7 +1829,7 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
           <CCard className="flex flex-col gap-2.5 mt-2">
             <div className="flex justify-between text-sm"><span style={{ color: C.muted }}>Subtotal</span><span>₹ {subtotal}</span></div>
             <div className="flex justify-between text-sm"><span style={{ color: C.muted }}>GST (5%)</span><span>₹ {gst}</span></div>
-            <div className="flex justify-between text-sm"><span style={{ color: C.muted }}>Packaging &amp; Service</span><span className="text-emerald-700 font-bold">FREE</span></div>
+            <div className="flex justify-between text-sm"><span style={{ color: C.muted }}>Packaging &amp; Service</span><span className="text-emerald-400 font-bold">FREE</span></div>
             <div className="h-px my-1" style={{ backgroundColor: C.border }} />
             <div className="flex justify-between items-center font-bold text-base">
               <span>Total Amount</span>
@@ -1780,7 +1850,7 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
 function COrderConfirm({ navigate }: { navigate: (s: Screen) => void }) {
   return (
     <div className="max-w-md mx-auto px-4 sm:px-6 py-16 text-center flex flex-col items-center gap-4 animate-fade-in">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-emerald-100 text-emerald-800 border-2 border-emerald-400">
+      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#14331E] text-[#4ADE80] border-2 border-[#22C55E]">
         ✓
       </div>
       <h1 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>Order Received!</h1>
@@ -1788,7 +1858,7 @@ function COrderConfirm({ navigate }: { navigate: (s: Screen) => void }) {
       <CCard className="w-full text-left flex flex-col gap-2 mt-2">
         <div className="flex justify-between text-sm font-semibold"><span>Order Number:</span><span style={{ color: C.accent }}>AJB-9482</span></div>
         <div className="flex justify-between text-sm font-semibold"><span>Estimated Prep Time:</span><span>15–20 minutes</span></div>
-        <div className="flex justify-between text-sm font-semibold"><span>Status:</span><span className="text-amber-800 font-bold">Kitchen Preparing 🔥</span></div>
+        <div className="flex justify-between text-sm font-semibold"><span>Status:</span><span className="text-amber-400 font-bold">Kitchen Preparing 🔥</span></div>
       </CCard>
       <div className="mt-4">
         <CBtn label="Back to Home" onClick={() => navigate("home")} />
@@ -1871,7 +1941,7 @@ function CSeats({
                   className="flex-1 py-1.5 text-xs font-bold rounded-lg cursor-pointer transition-all"
                   style={{
                     backgroundColor: draft.guests === num ? C.accent : "transparent",
-                    color: draft.guests === num ? C.cream : C.text,
+                    color: draft.guests === num ? "#120D0A" : C.text,
                   }}
                 >
                   {num}
@@ -1909,7 +1979,7 @@ function CSeats({
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b" style={{ borderColor: C.border }}>
               <div className="flex items-center gap-2">
                 <span className="font-serif font-bold text-base" style={{ color: C.accent }}>Architectural Floor Plan</span>
-                <span className="text-xs px-2 py-0.5 rounded bg-[#EDE7DA] text-[#7A6654] font-semibold">12 Residency Rd</span>
+                <span className="text-xs px-2 py-0.5 rounded bg-[#241A13] text-[#E2A955] font-semibold border border-[#382A20]">12 Residency Rd</span>
               </div>
               <div className="flex items-center gap-3">
                 <StatusDot status="available" />
@@ -1919,30 +1989,30 @@ function CSeats({
             </div>
 
             <div
-              className="relative w-full rounded-2xl overflow-hidden select-none"
+              className="relative w-full rounded-2xl overflow-hidden select-none shadow-inner"
               style={{
                 height: 480,
-                backgroundColor: "#EAE3D6",
+                backgroundColor: "#140E0A",
                 border: `2px solid ${C.border}`,
-                backgroundImage: "radial-gradient(#D8CBB8 1px, transparent 1px)",
+                backgroundImage: "radial-gradient(#2A1F18 1.5px, transparent 1.5px)",
                 backgroundSize: "24px 24px",
               }}
             >
-              <div className="absolute top-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#5C3D1E]">
+              <div className="absolute top-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#E2A955]">
                 🏛️ INDOOR MAIN HALL
               </div>
-              <div className="absolute top-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#5C3D1E]">
+              <div className="absolute top-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#E2A955]">
                 🌿 GARDEN VERANDAH &amp; PATIO
               </div>
-              <div className="absolute bottom-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#5C3D1E]">
+              <div className="absolute bottom-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#E2A955]">
                 ☕ BARISTA ESPRESSO BAR
               </div>
-              <div className="absolute bottom-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#5C3D1E]">
+              <div className="absolute bottom-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#E2A955]">
                 📚 HERITAGE QUIET ALCOVE
               </div>
 
-              <div className="absolute left-1/2 top-0 bottom-0 w-px border-r border-dashed border-[#C4B49A]/60" />
-              <div className="absolute top-1/2 left-0 right-0 h-px border-b border-dashed border-[#C4B49A]/60" />
+              <div className="absolute left-1/2 top-0 bottom-0 w-px border-r border-dashed border-[#382A20]" />
+              <div className="absolute top-1/2 left-0 right-0 h-px border-b border-dashed border-[#382A20]" />
 
               {filteredTables.map((t) => {
                 const isSelected = selected === t.id;
@@ -1965,39 +2035,39 @@ function CSeats({
                     style={{
                       left: `${t.x}%`,
                       top: `${t.y}%`,
-                      transform: `translate(-50%, -50%) ${isSelected ? "scale(1.12)" : "scale(1)"}`,
+                      transform: `translate(-50%, -50%) ${isSelected ? "scale(1.15)" : "scale(1)"}`,
                       width: w,
                       height: h,
                       borderRadius: isRound || isBar ? "50%" : 16,
                       backgroundColor: isSelected
-                        ? "#5C3D1E"
+                        ? "#E2A955"
                         : t.status === "occupied"
-                        ? "#D1C7B7"
+                        ? "#221711"
                         : t.status === "reserved"
-                        ? "#FDE68A"
-                        : "#FFFFFF",
+                        ? "#2E200C"
+                        : "#122E1A",
                       color: isSelected
-                        ? "#FFFDF9"
+                        ? "#120D0A"
                         : t.status === "occupied"
-                        ? "#8A7E6E"
+                        ? "#665445"
                         : t.status === "reserved"
-                        ? "#92400E"
-                        : "#2C1A0E",
+                        ? "#FCD34D"
+                        : "#4ADE80",
                       border: isSelected
-                        ? "3px solid #B8860B"
+                        ? "3px solid #FFFDF8"
                         : t.status === "occupied"
-                        ? "1.5px solid #C4B49A"
+                        ? "1.5px solid #3D2B1F"
                         : t.status === "reserved"
                         ? "1.5px solid #F59E0B"
-                        : "2px solid #166534",
+                        : "2px solid #22C55E",
                       boxShadow: isSelected
-                        ? "0 8px 24px rgba(92,61,30,0.4)"
-                        : "0 2px 6px rgba(0,0,0,0.08)",
-                      opacity: canSelect || isSelected ? 1 : 0.6,
+                        ? "0 0 24px rgba(226, 169, 85, 0.6)"
+                        : "0 2px 8px rgba(0,0,0,0.3)",
+                      opacity: canSelect || isSelected ? 1 : 0.45,
                     }}
                   >
                     <span className="font-bold text-[11px] leading-none">{t.id}</span>
-                    <span className="text-[9px] mt-0.5 opacity-80">{t.seats} Seats</span>
+                    <span className="text-[9px] mt-0.5 opacity-90">{t.seats} Seats</span>
                   </button>
                 );
               })}
@@ -2007,9 +2077,9 @@ function CSeats({
 
         <div className="lg:col-span-4 flex flex-col gap-5">
           {selectedTableObj ? (
-            <CCard className="p-6 flex flex-col gap-4 animate-fade-in shadow-md">
+            <CCard className="p-6 flex flex-col gap-4 animate-fade-in shadow-xl">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#B8860B]">Selected Table</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#E2A955]">Selected Table</span>
                 <StatusDot status={selectedTableObj.status} />
               </div>
 
@@ -2017,19 +2087,19 @@ function CSeats({
               <p className="text-sm" style={{ color: C.muted }}>{selectedTableObj.desc}</p>
 
               <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="p-2 rounded-xl" style={{ backgroundColor: C.cream }}>
-                  <p className="text-[10px] font-bold uppercase text-[#7A6654]">Capacity</p>
-                  <p className="font-bold text-sm mt-0.5">{selectedTableObj.seats} Guests Max</p>
+                <div className="p-2.5 rounded-xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
+                  <p className="text-[10px] font-bold uppercase text-[#B3A090]">Capacity</p>
+                  <p className="font-bold text-sm mt-0.5" style={{ color: C.text }}>{selectedTableObj.seats} Guests Max</p>
                 </div>
-                <div className="p-2 rounded-xl" style={{ backgroundColor: C.cream }}>
-                  <p className="text-[10px] font-bold uppercase text-[#7A6654]">Zone</p>
-                  <p className="font-bold text-sm mt-0.5">{selectedTableObj.zone}</p>
+                <div className="p-2.5 rounded-xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
+                  <p className="text-[10px] font-bold uppercase text-[#B3A090]">Zone</p>
+                  <p className="font-bold text-sm mt-0.5" style={{ color: C.text }}>{selectedTableObj.zone}</p>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-1.5">
                 {selectedTableObj.amenities.map((a) => (
-                  <span key={a} className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8F5E9] text-[#166534]">
+                  <span key={a} className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
                     ✓ {a}
                   </span>
                 ))}
@@ -2108,7 +2178,7 @@ function CReservation({ table, draft, setDraft, navigate }: { table: string | nu
 function CResConfirm({ table, draft, navigate }: { table: string | null; draft: ReservationDraft; navigate: (s: Screen) => void }) {
   return (
     <div className="max-w-md mx-auto px-4 sm:px-6 py-16 text-center flex flex-col items-center gap-4 animate-fade-in">
-      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-emerald-100 text-emerald-800 border-2 border-emerald-400">
+      <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#14331E] text-[#4ADE80] border-2 border-[#22C55E]">
         ✓
       </div>
       <h1 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>Reservation Confirmed!</h1>
@@ -2138,7 +2208,7 @@ function CEvents({ navigate }: { navigate: (s: Screen) => void }) {
             <img src={e.img} alt={e.imgAlt} className="w-full h-48 object-cover" />
             <div className="p-5 flex-1 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#FEF9C3] text-[#854D0E]">{e.tag}</span>
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#36270E] text-[#FCD34D] border border-[#5C4217]">{e.tag}</span>
                 <h3 className="font-serif text-xl font-bold mt-2" style={{ color: C.text }}>{e.name}</h3>
                 <p className="text-xs font-bold mt-1" style={{ color: C.accent }}>📅 {e.date}</p>
                 <p className="text-xs mt-2 leading-relaxed" style={{ color: C.muted }}>{e.desc}</p>
@@ -2229,7 +2299,7 @@ function CAccessibility({ setMode }: { setMode: (m: AppMode) => void }) {
             ["Rural / Multilingual", "English, Hindi & Marathi", () => setMode("rural")],
             ["Visually Impaired", "High contrast & audio", () => setMode("vi")],
           ].map(([label, sub, action]) => (
-            <button key={String(label)} onClick={action as () => void} className="rounded-2xl p-3 text-left cursor-pointer transition-all hover:-translate-y-0.5" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
+            <button key={String(label)} onClick={action as () => void} className="rounded-2xl p-3 text-left cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#D4A359]" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
               <p className="font-bold text-xs" style={{ color: C.accent }}>{label}</p>
               <p className="text-[11px] mt-1 leading-snug" style={{ color: C.muted }}>{sub}</p>
             </button>
@@ -2245,13 +2315,13 @@ function CAccessibility({ setMode }: { setMode: (m: AppMode) => void }) {
         </CCard>
 
         <CCard onClick={() => setMode("rural")} className="text-center">
-          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3" style={{ backgroundColor: "#3D5A1E", color: "#FFF" }}>🌐</div>
-          <h3 className="font-bold text-base" style={{ color: "#3D5A1E" }}>Rural / Multilingual</h3>
+          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3" style={{ backgroundColor: "#203810", color: "#A7F3D0" }}>🌐</div>
+          <h3 className="font-bold text-base" style={{ color: "#4ADE80" }}>Rural / Multilingual</h3>
           <p className="text-xs mt-1" style={{ color: C.muted }}>English, हिंदी &amp; मराठी with full translation &amp; offline mode.</p>
         </CCard>
 
         <CCard onClick={() => setMode("vi")} className="text-center">
-          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3" style={{ backgroundColor: "#0D0600", color: "#FFD166" }}>👁</div>
+          <div className="w-12 h-12 rounded-2xl mx-auto flex items-center justify-center text-xl mb-3" style={{ backgroundColor: "#0D0600", color: "#FFD166", border: "1px solid #C49A24" }}>👁</div>
           <h3 className="font-bold text-base" style={{ color: C.accent }}>Visually Impaired</h3>
           <p className="text-xs mt-1" style={{ color: C.muted }}>Ultra-high contrast dark theme &amp; image descriptions.</p>
         </CCard>
@@ -2287,7 +2357,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
 
   return (
     <div style={{ minHeight: "100%", backgroundColor: EC.bg, color: EC.text, fontFamily: "'DM Sans',sans-serif", fontSize: textSize === "Extra Large" ? 20 : 17 }}>
-      <div className="w-full py-2.5 px-6 flex items-center justify-between text-sm font-bold" style={{ backgroundColor: EC.accent, color: EC.btnText }}>
+      <div className="w-full py-2.5 px-6 flex items-center justify-between text-sm font-bold" style={{ backgroundColor: "#2A180E", color: EC.accent, borderBottom: `2px solid ${EC.border}` }}>
         <span>👓 Senior Citizen Display — High Contrast &amp; Large Buttons</span>
         <button onClick={() => setMode("common")} className="underline cursor-pointer text-xs font-semibold px-3 py-1 rounded bg-white/10 hover:bg-white/20" style={{ color: "#FFFDF8" }}>
           ← Return to Standard
@@ -2340,10 +2410,10 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button onClick={() => setScreen("e-menu")} className="rounded-2xl p-6 font-bold cursor-pointer text-left" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}`, fontSize: 20 }}>
+              <button onClick={() => setScreen("e-menu")} className="rounded-2xl p-6 font-bold cursor-pointer text-left" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}`, fontSize: 20, color: EC.text }}>
                 🍵  Browse All 44 Dishes
               </button>
-              <button onClick={() => setScreen("e-seats")} className="rounded-2xl p-6 font-bold cursor-pointer text-left" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}`, fontSize: 20 }}>
+              <button onClick={() => setScreen("e-seats")} className="rounded-2xl p-6 font-bold cursor-pointer text-left" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}`, fontSize: 20, color: EC.text }}>
                 📅  Reserve a Dining Table
               </button>
             </div>
@@ -2380,7 +2450,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                   <div className="flex gap-4 items-center">
                     <FoodImage src={item.img} alt={item.imgAlt} name={item.name} className="w-24 h-24 rounded-2xl object-cover shrink-0" />
                     <div>
-                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-white text-emerald-800 border border-emerald-300">
+                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-[#14331E] text-[#4ADE80] border border-[#1E542C]">
                         {item.foodType === "veg" ? "● VEG" : "● NON-VEG"}
                       </span>
                       <h3 className="font-bold text-xl mt-1" style={{ color: EC.text }}>{item.name}</h3>
@@ -2425,10 +2495,10 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
               <p className="text-3xl font-bold mt-3" style={{ color: EC.accent }}>₹ {selectedFood.price}</p>
 
               <div className="p-4 rounded-2xl my-4" style={{ backgroundColor: EC.cream, border: `2px solid ${EC.border}` }}>
-                <p className="font-bold text-sm">Key Ingredients:</p>
-                <p className="text-base mt-1">{selectedFood.ingredients.join(", ")}</p>
-                <p className="font-bold text-sm mt-3">Allergen Notice:</p>
-                <p className="text-base mt-1">{selectedFood.allergens.length ? `Contains: ${selectedFood.allergens.join(", ")}` : "No major allergens."}</p>
+                <p className="font-bold text-sm" style={{ color: EC.text }}>Key Ingredients:</p>
+                <p className="text-base mt-1" style={{ color: EC.muted }}>{selectedFood.ingredients.join(", ")}</p>
+                <p className="font-bold text-sm mt-3" style={{ color: EC.text }}>Allergen Notice:</p>
+                <p className="text-base mt-1" style={{ color: EC.muted }}>{selectedFood.allergens.length ? `Contains: ${selectedFood.allergens.join(", ")}` : "No major allergens."}</p>
               </div>
 
               <button
@@ -2448,8 +2518,8 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
             {cart.length === 0 ? (
               <div className="p-8 rounded-3xl text-center" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
                 <p className="text-3xl mb-2">🛒</p>
-                <p className="text-xl font-bold">Your cart is empty.</p>
-                <button onClick={() => setScreen("e-menu")} className="mt-4 px-6 py-3 rounded-2xl font-bold text-base" style={{ backgroundColor: EC.btn, color: EC.btnText }}>
+                <p className="text-xl font-bold" style={{ color: EC.text }}>Your cart is empty.</p>
+                <button onClick={() => setScreen("e-menu")} className="mt-4 px-6 py-3 rounded-2xl font-bold text-base cursor-pointer" style={{ backgroundColor: EC.btn, color: EC.btnText }}>
                   Browse Food Menu
                 </button>
               </div>
@@ -2458,19 +2528,19 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 {cart.map((item) => (
                   <div key={item.id} className="p-5 rounded-2xl flex items-center justify-between" style={{ backgroundColor: EC.card, border: `2px solid ${EC.border}` }}>
                     <div>
-                      <p className="font-bold text-xl">{item.name}</p>
+                      <p className="font-bold text-xl" style={{ color: EC.text }}>{item.name}</p>
                       <p className="text-lg" style={{ color: EC.accent }}>₹ {item.price} each</p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <button onClick={() => updateQty(item.id, -1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-white border">−</button>
-                      <span className="font-bold text-xl w-6 text-center">{item.qty}</span>
-                      <button onClick={() => updateQty(item.id, 1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-white border">+</button>
+                      <button onClick={() => updateQty(item.id, -1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-[#1F1610] text-[#FFF] border border-[#855831]">−</button>
+                      <span className="font-bold text-xl w-6 text-center" style={{ color: EC.text }}>{item.qty}</span>
+                      <button onClick={() => updateQty(item.id, 1)} className="w-10 h-10 rounded-xl font-bold text-xl bg-[#1F1610] text-[#FFF] border border-[#855831]">+</button>
                     </div>
                   </div>
                 ))}
                 <div className="p-6 rounded-3xl mt-4" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
                   <div className="flex justify-between text-2xl font-bold">
-                    <span>Total Bill:</span>
+                    <span style={{ color: EC.text }}>Total Bill:</span>
                     <span style={{ color: EC.accent }}>₹ {cart.reduce((s, c) => s + c.price * c.qty, 0)}</span>
                   </div>
                   <button onClick={() => { alert("Order received!"); setCart([]); setScreen("e-home"); }} className="w-full py-4 rounded-2xl font-bold text-xl mt-4 cursor-pointer" style={{ backgroundColor: EC.btn, color: EC.btnText }}>
@@ -2496,14 +2566,14 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
                     backgroundColor: selectedTable === t.id ? EC.btn : EC.card,
                     color: selectedTable === t.id ? EC.btnText : EC.text,
                     border: `3px solid ${EC.border}`,
-                    opacity: t.status === "available" ? 1 : 0.5,
+                    opacity: t.status === "available" ? 1 : 0.4,
                   }}
                 >
                   <div className="flex justify-between items-center">
                     <span className="text-2xl font-bold">{t.name}</span>
                     <StatusDot status={t.status} />
                   </div>
-                  <p className="text-base mt-1">{t.zone} · {t.seats} Persons · {t.feature}</p>
+                  <p className="text-base mt-1" style={{ color: selectedTable === t.id ? EC.btnText : EC.muted }}>{t.zone} · {t.seats} Persons · {t.feature}</p>
                 </button>
               ))}
             </div>
@@ -2518,7 +2588,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
 
         {screen === "e-res-confirm" && (
           <div className="rounded-3xl p-8 text-center flex flex-col items-center gap-4 animate-fade-in" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
-            <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-emerald-100 text-emerald-800 border-2 border-emerald-400">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold bg-[#14331E] text-[#4ADE80] border-2 border-[#22C55E]">
               ✓
             </div>
             <h2 className="font-serif text-3xl font-bold" style={{ color: EC.accent }}>Table Booked!</h2>
@@ -2533,7 +2603,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
           <div className="animate-fade-in flex flex-col gap-6">
             <h2 className="font-serif text-3xl font-bold" style={{ color: EC.accent }}>Settings</h2>
             <div className="rounded-3xl p-6 flex flex-col gap-4" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
-              <p className="font-bold text-lg">Text Size:</p>
+              <p className="font-bold text-lg" style={{ color: EC.text }}>Text Size:</p>
               <div className="grid grid-cols-2 gap-3">
                 {(["Large", "Extra Large"] as const).map((sz) => (
                   <button
@@ -2575,14 +2645,14 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
 
   return (
     <div style={{ minHeight: "100%", backgroundColor: C.bg, color: C.text, fontFamily: "'DM Sans',sans-serif" }}>
-      <div className="w-full py-2 px-6 flex items-center justify-between text-sm font-semibold" style={{ backgroundColor: "#3D5A1E", color: "#F0FAE8" }}>
+      <div className="w-full py-2 px-6 flex items-center justify-between text-sm font-semibold" style={{ backgroundColor: "#203810", color: "#A7F3D0" }}>
         <span>{t.ruralBanner}</span>
         <button onClick={() => setMode("common")} className="underline cursor-pointer text-xs" style={{ color: "#D4E8C4" }}>
           {t.returnToStandard}
         </button>
       </div>
 
-      <header style={{ backgroundColor: C.cream, borderBottom: `1px solid ${C.border}` }} className="sticky top-0 z-40">
+      <header style={{ backgroundColor: C.card, borderBottom: `1px solid ${C.border}` }} className="sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <AjabLogo size={38} />
@@ -2596,8 +2666,8 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 onClick={() => setLang(l)}
                 className="rounded-xl px-3 py-1.5 text-xs font-bold cursor-pointer"
                 style={{
-                  backgroundColor: lang === l ? C.accent : C.card,
-                  color: lang === l ? C.cream : C.text,
+                  backgroundColor: lang === l ? C.accent : C.cream,
+                  color: lang === l ? "#120D0A" : C.text,
                   border: `1px solid ${C.border}`,
                 }}
               >
@@ -2608,7 +2678,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
             <button
               onClick={() => setLowData(!lowData)}
               className="rounded-xl px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
-              style={{ backgroundColor: lowData ? "#92400E" : C.card, color: lowData ? "#FFF" : C.text, border: `1px solid ${C.border}` }}
+              style={{ backgroundColor: lowData ? "#92400E" : C.cream, color: lowData ? "#FFF" : C.text, border: `1px solid ${C.border}` }}
             >
               {lowData ? t.lowDataOn : t.lowDataOff}
             </button>
@@ -2620,7 +2690,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
         {screen === "r-home" && (
           <div className="flex flex-col gap-6">
             {!lowData && (
-              <div className="w-full rounded-2xl overflow-hidden h-48">
+              <div className="w-full rounded-2xl overflow-hidden h-48 border" style={{ borderColor: C.border }}>
                 <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=400&fit=crop&auto=format" alt="AJAB" className="w-full h-full object-cover" />
               </div>
             )}
@@ -2630,10 +2700,10 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
             </CCard>
 
             <div className="grid grid-cols-2 gap-4">
-              <button onClick={() => setScreen("r-menu")} className="rounded-2xl p-5 text-center font-bold text-lg cursor-pointer" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
+              <button onClick={() => setScreen("r-menu")} className="rounded-2xl p-5 text-center font-bold text-lg cursor-pointer" style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, color: C.text }}>
                 🍵 {t.viewMenu}
               </button>
-              <button onClick={() => setScreen("r-seats")} className="rounded-2xl p-5 text-center font-bold text-lg cursor-pointer" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
+              <button onClick={() => setScreen("r-seats")} className="rounded-2xl p-5 text-center font-bold text-lg cursor-pointer" style={{ backgroundColor: C.card, border: `1px solid ${C.border}`, color: C.text }}>
                 📅 {t.reserveTable}
               </button>
             </div>
@@ -2644,7 +2714,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-serif text-2xl font-bold" style={{ color: C.accent }}>{t.menu}</h2>
-              <button onClick={() => setScreen("r-home")} className="text-xs font-bold underline">← {t.home}</button>
+              <button onClick={() => setScreen("r-home")} className="text-xs font-bold underline" style={{ color: C.accent }}>← {t.home}</button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -2655,11 +2725,11 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
                   <div key={item.id} className="rounded-2xl p-4 flex gap-3 items-center" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
                     {!lowData && <FoodImage src={item.img} alt={item.imgAlt} name={name} className="w-16 h-16 rounded-xl object-cover shrink-0" />}
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-sm truncate">{name}</p>
+                      <p className="font-bold text-sm truncate" style={{ color: C.text }}>{name}</p>
                       <p className="text-xs line-clamp-1" style={{ color: C.muted }}>{desc}</p>
                       <p className="text-xs font-bold mt-1" style={{ color: C.accent }}>₹ {item.price}</p>
                     </div>
-                    <button onClick={() => addToCart(item)} className="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer" style={{ backgroundColor: C.accent, color: C.cream }}>
+                    <button onClick={() => addToCart(item)} className="px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer" style={{ backgroundColor: C.accent, color: "#120D0A" }}>
                       + {t.addToCart}
                     </button>
                   </div>
@@ -2673,7 +2743,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-serif text-2xl font-bold" style={{ color: C.accent }}>{t.floorPlanTitle}</h2>
-              <button onClick={() => setScreen("r-home")} className="text-xs font-bold underline">← {t.home}</button>
+              <button onClick={() => setScreen("r-home")} className="text-xs font-bold underline" style={{ color: C.accent }}>← {t.home}</button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -2682,7 +2752,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 const zone = lang === "hi" ? t2.zoneHi : lang === "mr" ? t2.zoneMr : t2.zone;
                 return (
                   <div key={t2.id} className="p-4 rounded-xl" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
-                    <p className="font-bold text-base">{name}</p>
+                    <p className="font-bold text-base" style={{ color: C.text }}>{name}</p>
                     <p className="text-xs" style={{ color: C.muted }}>{zone} · {t2.seats} pax</p>
                     <div className="mt-2"><StatusDot status={t2.status} /></div>
                   </div>
@@ -2697,7 +2767,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   VISUALLY IMPAIRED VERSION (HIGH CONTRAST DARK)
+   VISUALLY IMPAIRED VERSION (ULTRA-HIGH CONTRAST DARK)
 ═══════════════════════════════════════════════════════════════════════ */
 function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
   const [screen, setScreen] = useState<"vi-home" | "vi-menu" | "vi-seats">("vi-home");
@@ -2709,7 +2779,7 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
   return (
     <div style={{ minHeight: "100%", backgroundColor: VI.bg, color: VI.text, fontFamily: "'DM Sans',sans-serif", fontSize: 18 }}>
       <div className="w-full py-2 px-6 flex items-center justify-between text-sm font-bold" style={{ backgroundColor: "#1C1005", color: VI.accent, borderBottom: `2px solid ${VI.border}` }}>
-        <span>👁 Visually Impaired Mode (High Contrast Dark)</span>
+        <span>👁 Visually Impaired Mode (Ultra-High Contrast Dark)</span>
         <button onClick={() => setMode("common")} className="underline cursor-pointer" style={{ color: VI.muted }}>
           ← Return to Standard
         </button>
@@ -2737,7 +2807,7 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 AJAB blends the unhurried rhythms of Indian chai culture with an accessible contemporary café experience.
               </p>
               {showImgDesc && (
-                <div className="mt-4 p-3 rounded-xl bg-black/60 border border-[#C49A24]">
+                <div className="mt-4 p-3 rounded-xl bg-black/80 border border-[#FFD166]">
                   <p className="text-xs font-bold text-[#FFD166]">📷 Image Description:</p>
                   <p className="text-sm mt-1">"Warm wooden chairs, glowing amber lamps, and brass davarah filter coffee tumblers."</p>
                 </div>
@@ -2782,7 +2852,7 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 <p style={{ color: VI.muted }}>{item.desc}</p>
 
                 {showImgDesc && (
-                  <p className="text-xs p-2 rounded bg-black/40 text-[#FFD166] border border-[#C49A24]/40">
+                  <p className="text-xs p-2 rounded bg-black/40 text-[#FFD166] border border-[#FFD166]/40">
                     📷 Photo: "{item.imgAlt}"
                   </p>
                 )}
@@ -2814,7 +2884,7 @@ function VIApp({ setMode }: { setMode: (m: AppMode) => void }) {
                     </span>
                   </div>
                   <p style={{ color: VI.muted }}>{t.zone} · {t.seats} Persons · {t.feature}</p>
-                  <p className="text-sm">{t.desc}</p>
+                  <p className="text-sm" style={{ color: VI.text }}>{t.desc}</p>
                 </div>
               ))}
             </div>
@@ -2928,7 +2998,7 @@ function CommonApp({ setMode }: { setMode: (m: AppMode) => void }) {
         {screen === "accessibility" && <CAccessibility setMode={setMode} />}
       </main>
 
-      <footer className="mt-16 py-12 text-center text-xs border-t" style={{ backgroundColor: C.card, borderColor: C.border, color: C.muted }}>
+      <footer className="mt-16 py-12 text-center text-xs border-t" style={{ backgroundColor: "#0D0907", borderColor: "#2B1E16", color: C.muted }}>
         <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-3">
           <AjabLogo size={52} />
           <p style={{ fontFamily: "'Playfair Display',serif", fontSize: 18, fontWeight: 700, color: C.accent, letterSpacing: 2 }}>
@@ -2946,7 +3016,7 @@ function CommonApp({ setMode }: { setMode: (m: AppMode) => void }) {
             <button onClick={() => navigate("feedback")} className="cursor-pointer hover:underline" style={{ color: C.text }}>Feedback</button>
             <button onClick={() => navigate("accessibility")} className="cursor-pointer hover:underline" style={{ color: C.text }}>Accessibility</button>
           </div>
-          <p className="text-[11px] mt-4 opacity-75">© 2024–2026 AJAB Café &amp; Restaurant. All rights reserved.</p>
+          <p className="text-[11px] mt-4 opacity-70">© 2024–2026 AJAB Café &amp; Restaurant. All rights reserved.</p>
         </div>
       </footer>
     </div>
