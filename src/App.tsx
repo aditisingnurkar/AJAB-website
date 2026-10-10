@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
 import ajabLogo from "./assets/ajab-logo.png";
 import { menuItems, FoodItem } from "./data/menuData";
 import { tables, TableInfo } from "./data/tableData";
+import VirtualCafe3D from "./components/VirtualCafe3D";
 import { cafeEvents, CafeEvent } from "./data/eventsData";
 import { T, Lang } from "./data/translations";
 
@@ -199,6 +201,15 @@ const Icons = {
   AllergenSesame: ({ size = 13 }: { size?: number }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8 6 6 10 6 14a6 6 0 0 0 12 0c0-4-2-8-6-12z"/></svg>
   ),
+  Sliders: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+  ),
+  ChevronDown: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="6 9 12 15 18 9"/></svg>
+  ),
+  ChevronUp: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="18 15 12 9 6 15"/></svg>
+  ),
 };
 
 function FoodTypeBadge({ type }: { type: "veg" | "nonVeg" }) {
@@ -301,7 +312,7 @@ function CBtn({
   variant?: "primary" | "secondary" | "outline" | "gold";
   size?: "sm" | "md" | "lg";
   full?: boolean;
-  disabled?: boolean;
+  disabled?: boolean; style?: React.CSSProperties;
   icon?: React.ReactNode;
 }) {
   const pad = size === "sm" ? "px-3.5 py-1.5 text-xs" : size === "lg" ? "px-6 py-3.5 text-base font-bold" : "px-5 py-2.5 text-sm";
@@ -332,7 +343,7 @@ function CBtn({
       style={bg}
     >
       {icon && <span>{icon}</span>}
-      <span>{label}</span>
+      <span>{label as string}</span>
     </button>
   );
 }
@@ -371,7 +382,7 @@ function CTag({ label, color = "default" }: { label: string; color?: "default" |
       className="text-xs font-semibold px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 select-none border"
       style={{ backgroundColor: c.bg, color: c.text, borderColor: c.border }}
     >
-      {label}
+      {label as string}
     </span>
   );
 }
@@ -448,12 +459,12 @@ function FoodImage({
     return (
       <div
         role="img"
-        aria-label={`${alt}. Image unavailable; showing a menu illustration instead.`}
-        className={className + " flex flex-col items-center justify-center gap-2 p-4"}
-        style={{ background: "linear-gradient(135deg, #241A13 0%, #17100B 100%)", color: C.accent, border: `1px solid ${C.border}` }}
+        aria-label={`${alt}. Image awaiting upload.`}
+        className={className + " flex flex-col items-center justify-center gap-1.5 p-4"}
+        style={{ background: "linear-gradient(135deg, #241A13 0%, #17100B 100%)", color: C.accent, border: `1px dashed ${C.borderFocus}` }}
       >
-        <Icons.Coffee size={36} className="opacity-80" />
-        <span className="text-xs font-semibold text-center px-4" style={{ color: C.muted }}>{name}</span>
+        <span className="text-[10px] uppercase tracking-widest font-bold text-center px-2 py-1 rounded" style={{ backgroundColor: "#382C23", color: "#D9A073" }}>Awaiting Upload</span>
+        <span className="text-xs font-semibold text-center px-4 mt-1 opacity-70" style={{ color: C.muted }}>{name}</span>
       </div>
     );
   }
@@ -1010,7 +1021,7 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
   ];
 
   return (
-    <header style={{ backgroundColor: "rgba(20, 16, 13, 0.95)", borderBottom: `1px solid ${C.border}` }} className="sticky top-0 z-40 w-full backdrop-blur-md">
+    <header style={{ backgroundColor: "#17100C", borderBottom: `1px solid ${C.border}` }} className="sticky top-0 z-40 w-full backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
         <button onClick={() => navigate("home")} className="cursor-pointer flex items-center gap-3 text-left" aria-label="AJAB Cafe & Restaurant">
           <AjabLogo size={46} />
@@ -1084,7 +1095,7 @@ function CHome({
   addToCart: (f: FoodItem) => void;
   setFood: (f: FoodItem) => void;
 }) {
-  const featuredDishes = menuItems.filter((m) => [1, 5, 9, 11, 21, 39].includes(m.id));
+  const featuredDishes = menuItems.filter((m) => [11, 18, 12, 21, 33, 7].includes(m.id));
 
   return (
     <div className="flex flex-col gap-14 pb-16 animate-fade-in">
@@ -1131,7 +1142,7 @@ function CHome({
               Signature Delights
             </h2>
             <p className="text-sm mt-1" style={{ color: C.muted }}>
-              Handcrafted filter coffees, fresh appetizers, and slow-cooked regional staples.
+              Artisan pastries, specialty coffee, and European comfort food, handcrafted with care.
             </p>
           </div>
           <button
@@ -1139,7 +1150,7 @@ function CHome({
             className="font-bold text-sm underline cursor-pointer hover:opacity-80"
             style={{ color: C.accentLight }}
           >
-            View Full 44-Dish Menu →
+            View Full Menu →
           </button>
         </div>
 
@@ -1155,7 +1166,7 @@ function CHome({
                 <img
                   src={item.img}
                   alt={item.imgAlt}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute top-3 left-3 flex gap-1.5">
                   <FoodTypeBadge type={item.foodType} />
@@ -1195,7 +1206,7 @@ function CHome({
 
                 <div className="mt-5 pt-3 border-t flex gap-2" style={{ borderColor: C.border }}>
                   <button
-                    onClick={() => { setFood(item); navigate("food-details"); }}
+                    onClick={(e) => { e.stopPropagation(); setFood(item); }}
                     className="flex-1 py-2.5 rounded-xl text-xs font-semibold cursor-pointer transition-colors text-center"
                     style={{ backgroundColor: C.cream, color: C.text, border: `1px solid ${C.border}` }}
                   >
@@ -1292,6 +1303,26 @@ function CHome({
 /* ═══════════════════════════════════════════════════════════════════════
    MENU
 ═══════════════════════════════════════════════════════════════════════ */
+
+function CategoryThumbnail({ src, alt, name }: { src: string; alt: string; name: string }) {
+  const [error, setError] = useState(false);
+  if (error) {
+    return (
+      <div className="w-9 h-9 rounded-xl bg-[#2A1E17] border border-[#8C613E] flex items-center justify-center text-[10px] font-bold text-[#D49566] shrink-0">
+        {name.slice(0, 2).toUpperCase()}
+      </div>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className="w-9 h-9 rounded-xl object-cover shrink-0"
+      onError={() => setError(true)}
+    />
+  );
+}
+
 function CMenu({
   navigate,
   setFood,
@@ -1310,13 +1341,16 @@ function CMenu({
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedDiet, setSelectedDiet] = useState<string>("All");
   const [avoidAllergens, setAvoidAllergens] = useState<string[]>([]);
+  const [selectedDiets, setSelectedDiets] = useState<string[]>([]);
+  const [isFilterPanelOpen, setIsFilterPanelOpen] = useState<boolean>(true);
   const getCurrentSeason = () => {
     const month = new Date().getMonth() + 1;
     return month >= 3 && month <= 5 ? "summer" : month >= 6 && month <= 9 ? "monsoon" : "winter";
   };
   const [selectedSeason, setSelectedSeason] = useState<"All" | "summer" | "monsoon" | "winter">(getCurrentSeason());
   const [searchQuery, setSearchQuery] = useState("");
-  const [nutritionModalItem, setNutritionModalItem] = useState<FoodItem | null>(null);
+  const [ingredientOverlayItem, setIngredientOverlayItem] = useState<FoodItem | null>(null);
+  const [productModalItem, setProductModalItem] = useState<FoodItem | null>(null);
 
   useEffect(() => {
     if (!voiceFilter) return;
@@ -1328,34 +1362,21 @@ function CMenu({
     if (voiceFilter.searchKeyword) setSearchQuery(voiceFilter.searchKeyword);
   }, [voiceFilter]);
 
-  const allCuisines = [
-    "All", "Indian", "North Indian", "South Indian", "Maharashtrian", "Punjabi",
-    "Gujarati", "Rajasthani", "Bengali", "Mughlai", "Kerala", "Indo-Chinese",
-    "Italian", "Japanese", "Thai", "Mexican", "Mediterranean", "Continental", "American", "Kashmiri"
+  const visualCategories = [
+    { id: "All", label: "All", img: "/images/menu/coffee/cappuccino.png" },
+    { id: "Coffee", label: "Coffee", img: "/images/menu/coffee/espresso.png" },
+    { id: "German Bakery", label: "German Bakery", img: "/images/menu/german-bakery/bavarian-butter-pretzel.png" },
+    { id: "Pastries", label: "Pastries", img: "/images/menu/german-bakery/apfelstrudel.png" },
+    { id: "Small Plates", label: "Small Plates", img: "/images/menu/starters/wild-mushroom-tartine.png" },
+    { id: "Soups & Salads", label: "Soups & Salads", img: "/images/menu/soups-salads/roasted-tomato-basil-soup.png" },
+    { id: "Brunch", label: "Brunch", img: "/images/menu/brunch/rosti-benedict.png" },
+    { id: "Mains", label: "Mains", img: "/images/menu/european-mains/kasespatzle.png" },
+    { id: "Desserts", label: "Desserts", img: "/images/menu/desserts/basque-cheesecake.png" },
   ];
 
-  const allCategories = [
-    "All", "Beverages", "Starters", "Soups & Salads", "Main Course", "Rice & Biryani", "Breads", "Desserts"
-  ];
-
-  const allDiets = [
-    { label: "Jain Friendly", value: "Jain" },
-    { label: "100% Vegan", value: "Vegan" },
-    { label: "Keto / Low Carb", value: "Keto" },
-    { label: "High Protein (15g+)", value: "High Protein" },
-    { label: "Gluten-Free", value: "Gluten-Free" },
-    { label: "Low Calorie (<300 kcal)", value: "Low Calorie" },
-  ];
-
-  const allergenList = [
-    { name: "Dairy", icon: <Icons.AllergenMilk /> },
-    { name: "Gluten", icon: <Icons.AllergenGluten /> },
-    { name: "Nuts", icon: <Icons.AllergenNut /> },
-    { name: "Soy", icon: <Icons.AllergenSoy /> },
-    { name: "Egg", icon: <Icons.AllergenEgg /> },
-    { name: "Shellfish", icon: <Icons.AllergenShellfish /> },
-    { name: "Sesame", icon: <Icons.AllergenSesame /> },
-  ];
+  const toggleDiet = (d: string) => {
+    setSelectedDiets((prev) => (prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]));
+  };
 
   const toggleAllergen = (a: string) => {
     setAvoidAllergens((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]));
@@ -1366,24 +1387,71 @@ function CMenu({
     setSelectedCuisine("All");
     setSelectedCategory("All");
     setSelectedDiet("All");
+    setSelectedDiets([]);
     setAvoidAllergens([]);
     setSelectedSeason("All");
     setSearchQuery("");
     onClearVoiceFilter();
   };
 
+  const activeFilterCount =
+    (foodType !== "All" ? 1 : 0) +
+    (selectedCategory !== "All" ? 1 : 0) +
+    (selectedCuisine !== "All" ? 1 : 0) +
+    selectedDiets.length +
+    (selectedDiet !== "All" ? 1 : 0) +
+    avoidAllergens.length +
+    (searchQuery ? 1 : 0);
+
   const filteredItems = menuItems.filter((item) => {
     const hay = `${item.name} ${item.desc} ${item.cuisine} ${item.category} ${item.ingredients.join(" ")} ${item.dietary.join(" ")}`.toLowerCase();
+    
+    // Food type match
     const typeMatch = foodType === "All" || (foodType === "Veg" ? item.foodType === "veg" : item.foodType === "nonVeg");
+    
+    // Cuisine match
     const cuisineMatch =
       selectedCuisine === "All"
         ? true
         : selectedCuisine === "Indian"
         ? ["North Indian", "South Indian", "Maharashtrian", "Punjabi", "Gujarati", "Rajasthani", "Bengali", "Mughlai", "Kerala", "Kashmiri"].includes(item.cuisine)
         : item.cuisine === selectedCuisine;
-    const categoryMatch = selectedCategory === "All" || item.category === selectedCategory;
-    const dietMatch = selectedDiet === "All" || item.dietary.includes(selectedDiet);
-    const allergenMatch = avoidAllergens.every((a) => !item.allergens.includes(a));
+    
+    // Category match
+    const categoryMatch = (() => {
+      if (selectedCategory === "All") return true;
+      if (selectedCategory === "Coffee") return item.category.includes("Coffee");
+      if (selectedCategory === "German Bakery") return item.category === "German Bakery";
+      if (selectedCategory === "Pastries") return item.category.includes("Croissants") || item.category.includes("Waffles") || item.category.includes("Viennoiserie");
+      if (selectedCategory === "Small Plates") return item.category.includes("Small Plates") || item.category.includes("Starters");
+      if (selectedCategory === "Soups & Salads") return item.category.includes("Soups") || item.category.includes("Salads");
+      if (selectedCategory === "Brunch") return item.category.includes("Brunch") || item.category.includes("Dining");
+      if (selectedCategory === "Mains") return item.category.includes("Mains");
+      if (selectedCategory === "Desserts") return item.category.includes("Desserts") || item.category.includes("Cakes") || item.category.includes("Treats");
+      return item.category === selectedCategory;
+    })();
+
+    // Dietary match
+    const allActiveDiets = selectedDiet !== "All" ? [...selectedDiets, selectedDiet] : selectedDiets;
+    const dietMatch = allActiveDiets.every((diet) => {
+      if (diet === "Vegetarian") return item.foodType === "veg" || item.dietary.includes("Vegetarian");
+      if (diet === "Vegan") return item.dietary.includes("Vegan") || item.dietary.includes("100% Vegan");
+      if (diet === "Jain Friendly" || diet === "Jain") return item.dietary.includes("Jain") || item.dietary.includes("Jain Friendly");
+      if (diet === "Gluten-Free") return item.dietary.includes("Gluten-Free");
+      if (diet === "Keto / Low Carb" || diet === "Keto") return item.dietary.includes("Keto") || item.dietary.includes("Keto / Low Carb");
+      if (diet === "High Protein (15g+)" || diet === "High Protein") return item.protein >= 15 || item.dietary.includes("High Protein");
+      if (diet === "Low Calorie (<300 kcal)" || diet === "Low Calorie") return item.cal < 300 || item.dietary.includes("Low Calorie");
+      return item.dietary.includes(diet);
+    });
+
+    // Allergen exclusion match
+    const allergenMatch = avoidAllergens.every((a) => {
+      const aLower = a.toLowerCase();
+      const hasInAllergens = item.allergens.some((alg) => alg.toLowerCase().includes(aLower));
+      const hasInIngredients = item.ingredients.some((ing) => ing.toLowerCase().includes(aLower));
+      return !hasInAllergens && !hasInIngredients;
+    });
+
     const seasonMatch = selectedSeason === "All" || item.season === selectedSeason || item.season === "all";
     const queryMatch = !searchQuery || hay.includes(searchQuery.toLowerCase());
 
@@ -1431,13 +1499,14 @@ function CMenu({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 animate-fade-in">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+      {/* ── PAGE HEADING ── */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold" style={{ color: C.accent }}>
-            AJAB Artisanal Menu
+            AJAB European Menu
           </h1>
-          <p className="text-sm mt-1" style={{ color: C.muted }}>
-            Explore 44 handcrafted dishes across 20 authentic culinary traditions. Allergen safeguards &amp; full macro nutrition.
+          <p className="text-sm mt-1 max-w-2xl" style={{ color: C.muted }}>
+            Discover artisan German bakery classics, European café favourites, specialty coffee, and handcrafted desserts.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -1447,155 +1516,339 @@ function CMenu({
               <span>{voiceFilter.badgeLabel}</span>
             </span>
           )}
+          {activeFilterCount > 0 && (
+            <button
+              onClick={resetFilters}
+              className="text-xs font-semibold underline cursor-pointer py-1.5 px-3 rounded-lg transition-colors"
+              style={{ color: C.accentLight, backgroundColor: C.card }}
+            >
+              Reset All Filters
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* ── 3. VISUAL CATEGORY NAVIGATION STRIP ── */}
+      <div className="flex items-center gap-3 overflow-x-auto pb-3 mb-8 hide-scrollbar">
+        {visualCategories.map((cat) => {
+          const active = selectedCategory === cat.id;
+          return (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className="flex items-center gap-3 px-4 py-2.5 rounded-2xl cursor-pointer shrink-0 transition-all select-none"
+              style={{
+                backgroundColor: active ? "#2A1E17" : "#1E1813",
+                color: active ? "#FFFDF8" : C.muted,
+                border: `1.5px solid ${active ? "#D49566" : C.border}`,
+                boxShadow: active ? "0 0 14px rgba(212, 149, 102, 0.25)" : "none",
+                fontWeight: active ? 700 : 500,
+              }}
+            >
+              <CategoryThumbnail
+                src={cat.img}
+                alt={cat.label}
+                name={cat.label}
+              />
+              <span className="text-xs font-semibold whitespace-nowrap">{cat.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── 4. SEARCH AND FILTER TOOLBAR ── */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 mb-6">
+        {/* Left: Search input */}
+        <div className="flex-1 relative">
+          <input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search menu (e.g. croissant, flammkuchen, latte...)"
+            className="w-full rounded-xl px-11 py-2.5 text-xs sm:text-sm outline-none transition-all focus:ring-2 focus:ring-[#B87342]"
+            style={{ backgroundColor: "#1E1813", border: `1px solid ${C.border}`, color: C.text }}
+          />
+          <span className="absolute left-3.5 top-3 text-sm opacity-60">
+            <Icons.Search size={16} />
+          </span>
+          {searchQuery && (
+            <button onClick={() => setSearchQuery("")} className="absolute right-3.5 top-3 text-xs font-bold opacity-60 cursor-pointer">
+              <Icons.Cross size={14} />
+            </button>
+          )}
+        </div>
+
+        {/* Centre: Dietary & allergens button */}
+        <button
+          onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
+          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold cursor-pointer transition-all select-none shrink-0"
+          style={{
+            backgroundColor: isFilterPanelOpen ? "#2A1E17" : "#1E1813",
+            borderColor: isFilterPanelOpen || activeFilterCount > 0 ? "#D49566" : C.border,
+            color: isFilterPanelOpen || activeFilterCount > 0 ? "#D49566" : C.text,
+          }}
+        >
+          <Icons.Sliders size={16} />
+          <span>Dietary &amp; allergens</span>
+          {activeFilterCount > 0 && (
+            <span className="w-5 h-5 rounded-full bg-[#B87342] text-white flex items-center justify-center text-[10px] font-extrabold ml-1">
+              {activeFilterCount}
+            </span>
+          )}
+          {isFilterPanelOpen ? <Icons.ChevronUp size={14} /> : <Icons.ChevronDown size={14} />}
+        </button>
+
+        {/* Right: Dietary selector (Veg / Non-Veg / All) */}
+        <div className="flex rounded-xl p-1 shrink-0" style={{ backgroundColor: "#1E1813", border: `1px solid ${C.border}` }}>
+          {(["All", "Veg", "Non-Veg"] as const).map((t) => (
+            <button
+              key={t}
+              onClick={() => setFoodType(t)}
+              className="px-3.5 py-1.5 text-xs font-bold rounded-lg cursor-pointer transition-all text-center flex items-center justify-center gap-1.5 select-none"
+              style={{
+                backgroundColor: foodType === t ? (t === "Veg" ? "#166534" : t === "Non-Veg" ? "#991B1B" : "#B87342") : "transparent",
+                color: foodType === t ? "#FFFDF8" : C.muted,
+              }}
+            >
+              {t === "Veg" && <span className="w-2 h-2 rounded-full bg-[#4ADE80]" />}
+              {t === "Non-Veg" && <span className="w-2 h-2 rounded-full bg-[#F87171]" />}
+              <span>{t}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 5 & 6. EXPANDABLE DIETARY & ALLERGENS PANEL ── */}
+      <div className="rounded-2xl border mb-6 overflow-hidden transition-all duration-300" style={{ backgroundColor: "#1E1813", borderColor: C.border }}>
+        {/* Panel Header */}
+        <div 
+          onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
+          className="p-4 sm:p-5 flex items-center justify-between text-left cursor-pointer select-none transition-colors hover:bg-white/5"
+          style={{ borderBottom: isFilterPanelOpen ? `1px solid ${C.border}` : "none" }}
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#2A1E17", color: "#D49566", border: `1px solid ${C.border}` }}>
+              <Icons.Sliders size={18} />
+            </div>
+            <div>
+              <h3 className="font-serif font-bold text-base sm:text-lg" style={{ color: "#FFFDF8" }}>Dietary &amp; allergens</h3>
+              <p className="text-xs" style={{ color: C.muted }}>Choose your preferences to see matching dishes</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2" style={{ color: "#D49566" }}>
+            {activeFilterCount > 0 && (
+              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#B87342] text-white">
+                {activeFilterCount} Active
+              </span>
+            )}
+            {isFilterPanelOpen ? <Icons.ChevronUp size={20} /> : <Icons.ChevronDown size={20} />}
+          </div>
+        </div>
+
+        {/* Panel Body */}
+        {isFilterPanelOpen && (
+          <div className="p-4 sm:p-6 animate-fade-in">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* Column A: Dietary Preferences */}
+              <div className="flex flex-col gap-3">
+                <p className="text-xs font-bold uppercase tracking-wider flex items-center gap-2" style={{ color: "#D49566" }}>
+                  <Icons.Leaf size={14} />
+                  <span>Dietary Preferences</span>
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "Vegetarian",
+                    "Vegan",
+                    "Jain Friendly",
+                    "Gluten-Free",
+                    "Keto / Low Carb",
+                    "High Protein (15g+)",
+                    "Low Calorie (<300 kcal)"
+                  ].map((diet) => {
+                    const active = selectedDiets.includes(diet) || selectedDiet === diet;
+                    return (
+                      <button
+                        key={diet}
+                        onClick={() => {
+                          toggleDiet(diet);
+                          if (selectedDiet === diet) setSelectedDiet("All");
+                        }}
+                        className="px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all flex items-center gap-1.5 select-none"
+                        style={{
+                          backgroundColor: active ? "#B87342" : "#14100D",
+                          color: active ? "#FFFDF8" : C.muted,
+                          border: `1px solid ${active ? "#D49566" : C.border}`,
+                          fontWeight: active ? 600 : 400
+                        }}
+                      >
+                        <span className={`w-2 h-2 rounded-full ${active ? "bg-white" : "bg-transparent border border-neutral-500"}`} />
+                        <span>{diet}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Column B: Allergens (Exclude) */}
+              <div className="flex flex-col gap-3 md:border-l md:pl-6" style={{ borderColor: C.border }}>
+                <p className="text-xs font-bold uppercase tracking-wider flex items-center gap-2 text-rose-400">
+                  <Icons.Shield size={14} />
+                  <span>Allergens (Exclude)</span>
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "Dairy",
+                    "Gluten",
+                    "Nuts",
+                    "Soy",
+                    "Egg",
+                    "Shellfish",
+                    "Sesame"
+                  ].map((alg) => {
+                    const active = avoidAllergens.includes(alg);
+                    return (
+                      <button
+                        key={alg}
+                        onClick={() => toggleAllergen(alg)}
+                        className="px-3 py-1.5 rounded-full text-xs font-medium cursor-pointer transition-all flex items-center gap-1.5 select-none"
+                        style={{
+                          backgroundColor: active ? "#8B2326" : "#14100D",
+                          color: active ? "#FFFFFF" : C.muted,
+                          border: `1px solid ${active ? "#F87171" : C.border}`,
+                          fontWeight: active ? 600 : 400
+                        }}
+                      >
+                        <span>{active ? "✕" : "🚫"}</span>
+                        <span>{active ? `No ${alg}` : alg}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Column C: Cuisine */}
+              <div className="flex flex-col gap-3 md:border-l md:pl-6" style={{ borderColor: C.border }}>
+                <p className="text-xs font-bold uppercase tracking-wider flex items-center gap-2" style={{ color: "#D49566" }}>
+                  <Icons.Globe size={14} />
+                  <span>Cuisine</span>
+                </p>
+                
+                <select
+                  value={selectedCuisine}
+                  onChange={(e) => setSelectedCuisine(e.target.value)}
+                  className="w-full rounded-xl px-3 py-2 text-xs font-medium outline-none cursor-pointer"
+                  style={{ backgroundColor: "#14100D", border: `1px solid ${C.border}`, color: C.text }}
+                >
+                  {["All Cuisines", "German", "French", "Italian", "Austrian", "Swiss", "Scandinavian", "Belgian", "European Fusion"].map((c) => (
+                    <option key={c} value={c === "All Cuisines" ? "All" : c}>{c}</option>
+                  ))}
+                </select>
+
+                <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1">
+                  {["German", "French", "Italian", "Austrian", "Swiss", "Scandinavian", "Belgian", "European Fusion"].map((c) => {
+                    const active = selectedCuisine === c;
+                    return (
+                      <button
+                        key={c}
+                        onClick={() => setSelectedCuisine(active ? "All" : c)}
+                        className="px-2.5 py-1 rounded-lg text-xs cursor-pointer transition-all select-none"
+                        style={{
+                          backgroundColor: active ? "#2A1E17" : "#14100D",
+                          color: active ? "#D49566" : C.muted,
+                          border: `1px solid ${active ? "#D49566" : C.border}`,
+                          fontWeight: active ? 600 : 400
+                        }}
+                      >
+                        {c}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+            </div>
+
+            {/* ── 7. PANEL ACTIONS ── */}
+            <div className="mt-6 pt-4 border-t flex items-center justify-between" style={{ borderColor: C.border }}>
+              <p className="text-xs" style={{ color: C.muted }}>
+                Showing <span className="font-bold text-[#FFFDF8]">{filteredItems.length}</span> matching dishes
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={resetFilters}
+                  className="px-4 py-2 text-xs font-semibold rounded-xl cursor-pointer transition-colors"
+                  style={{ backgroundColor: "#14100D", color: C.muted, border: `1px solid ${C.border}` }}
+                >
+                  Reset
+                </button>
+                <button
+                  onClick={() => setIsFilterPanelOpen(false)}
+                  className="px-5 py-2 text-xs font-bold rounded-xl cursor-pointer transition-colors"
+                  style={{ backgroundColor: "#B87342", color: "#FFFDF8" }}
+                >
+                  Apply
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── ACTIVE FILTER CHIPS ROW ── */}
+      {activeFilterCount > 0 && (
+        <div className="flex flex-wrap items-center gap-2 mb-6 p-3 rounded-xl bg-[#1E1813] border border-[#382C23]">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#A08F81] mr-1">Active Filters:</span>
+          
+          {foodType !== "All" && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[#2A1E17] text-[#D49566] border border-[#D49566]">
+              {foodType}
+              <button onClick={() => setFoodType("All")} className="hover:text-white cursor-pointer ml-1 font-bold">✕</button>
+            </span>
+          )}
+
+          {selectedCategory !== "All" && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[#2A1E17] text-[#D49566] border border-[#D49566]">
+              Category: {selectedCategory}
+              <button onClick={() => setSelectedCategory("All")} className="hover:text-white cursor-pointer ml-1 font-bold">✕</button>
+            </span>
+          )}
+
+          {selectedCuisine !== "All" && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[#2A1E17] text-[#D49566] border border-[#D49566]">
+              Cuisine: {selectedCuisine}
+              <button onClick={() => setSelectedCuisine("All")} className="hover:text-white cursor-pointer ml-1 font-bold">✕</button>
+            </span>
+          )}
+
+          {selectedDiets.map(d => (
+            <span key={d} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[#2A1E17] text-[#D49566] border border-[#D49566]">
+              {d}
+              <button onClick={() => toggleDiet(d)} className="hover:text-white cursor-pointer ml-1 font-bold">✕</button>
+            </span>
+          ))}
+
+          {avoidAllergens.map(a => (
+            <span key={a} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[#3B1416] text-[#F87171] border border-[#8B2326]">
+              No {a}
+              <button onClick={() => toggleAllergen(a)} className="hover:text-white cursor-pointer ml-1 font-bold">✕</button>
+            </span>
+          ))}
+
+          {searchQuery && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-[#2A1E17] text-[#D49566] border border-[#D49566]">
+              Search: "{searchQuery}"
+              <button onClick={() => setSearchQuery("")} className="hover:text-white cursor-pointer ml-1 font-bold">✕</button>
+            </span>
+          )}
+
           <button
             onClick={resetFilters}
-            className="text-xs font-semibold underline cursor-pointer py-1.5 px-3 rounded-lg"
-            style={{ color: C.accentLight, backgroundColor: C.card }}
+            className="text-xs text-[#D9A073] underline ml-auto font-semibold cursor-pointer"
           >
-            Reset All Filters
+            Reset All
           </button>
         </div>
-      </div>
-
-      {/* ── TOP SECTION: ALLERGEN SAFETY SHIELD & NUTRITION HUB ── */}
-      <div className="rounded-3xl p-5 mb-8 shadow-sm" style={{ backgroundColor: "#1A140F", border: `1.5px solid ${C.border}` }}>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-          <div className="lg:col-span-6 flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <Icons.Shield size={16} className="text-[#D49566]" />
-              <span className="font-serif font-bold text-sm" style={{ color: C.accent }}>Allergen Safety Shield (Exclude Allergens)</span>
-            </div>
-            <p className="text-xs" style={{ color: C.muted }}>Tap any allergen to instantly hide all dishes containing it:</p>
-            <div className="flex flex-wrap gap-1.5 mt-1">
-              {allergenList.map((a) => {
-                const active = avoidAllergens.includes(a.name);
-                return (
-                  <button
-                    key={a.name}
-                    onClick={() => toggleAllergen(a.name)}
-                    className="rounded-full px-3 py-1.5 text-xs font-semibold cursor-pointer transition-all flex items-center gap-1.5 select-none"
-                    style={{
-                      backgroundColor: active ? "#8B2326" : C.cream,
-                      color: active ? "#FFFFFF" : C.text,
-                      border: `1.5px solid ${active ? "#8B2326" : C.border}`,
-                    }}
-                  >
-                    <span>{a.icon}</span>
-                    <span>{active ? `Excluding ${a.name}` : `Avoid ${a.name}`}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="lg:col-span-6 flex flex-col gap-2 border-t lg:border-t-0 lg:border-l pt-4 lg:pt-0 lg:pl-6" style={{ borderColor: C.border }}>
-            <div className="flex items-center gap-2">
-              <Icons.Leaf size={16} className="text-[#4ADE80]" />
-              <span className="font-serif font-bold text-sm" style={{ color: C.accent }}>Dietary Lifestyles &amp; Nutrition</span>
-            </div>
-            <p className="text-xs" style={{ color: C.muted }}>Filter for specific nutritional goals or faith-based preferences:</p>
-            <div className="flex flex-wrap gap-1.5 mt-1">
-              {allDiets.map((d) => {
-                const active = selectedDiet === d.value;
-                return (
-                  <button
-                    key={d.value}
-                    onClick={() => setSelectedDiet(active ? "All" : d.value)}
-                    className="rounded-full px-3 py-1.5 text-xs font-semibold cursor-pointer transition-all select-none"
-                    style={{
-                      backgroundColor: active ? "#B87342" : C.cream,
-                      color: active ? "#FFFDF8" : C.text,
-                      border: `1.5px solid ${active ? "#B87342" : C.border}`,
-                      fontWeight: active ? 700 : 500,
-                    }}
-                  >
-                    {d.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── SEARCH & PRIMARY CATEGORY BAR ── */}
-      <div className="flex flex-col gap-4 mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-          <div className="md:col-span-8 relative">
-            <input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search dishes (e.g., Filter Coffee, Samosa, Butter Chicken, Biryani, Tiramisu)..."
-              className="w-full rounded-2xl px-11 py-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[#B87342]"
-              style={{ backgroundColor: "#1E1813", border: `1px solid ${C.border}`, color: C.text }}
-            />
-            <span className="absolute left-4 top-3.5 text-base opacity-60">
-              <Icons.Search size={16} />
-            </span>
-            {searchQuery && (
-              <button onClick={() => setSearchQuery("")} className="absolute right-4 top-3.5 text-xs font-bold opacity-60 cursor-pointer">
-                <Icons.Cross size={14} />
-              </button>
-            )}
-          </div>
-
-          <div className="md:col-span-4 flex rounded-2xl p-1" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
-            {(["All", "Veg", "Non-Veg"] as const).map((t) => (
-              <button
-                key={t}
-                onClick={() => setFoodType(t)}
-                className="flex-1 py-2 text-xs font-bold rounded-xl cursor-pointer transition-all text-center flex items-center justify-center gap-1.5"
-                style={{
-                  backgroundColor: foodType === t ? (t === "Veg" ? "#166534" : t === "Non-Veg" ? "#991B1B" : "#B87342") : "transparent",
-                  color: foodType === t ? "#FFFDF8" : C.muted,
-                }}
-              >
-                {t === "Veg" && <span className="w-2 h-2 rounded-full bg-[#4ADE80]" />}
-                {t === "Non-Veg" && <span className="w-2 h-2 rounded-full bg-[#F87171]" />}
-                <span>{t}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-          <span className="text-xs font-bold uppercase tracking-wider shrink-0 mr-1" style={{ color: C.muted }}>Category:</span>
-          {allCategories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setSelectedCategory(c)}
-              className="rounded-full px-3.5 py-1.5 text-xs font-semibold cursor-pointer shrink-0 transition-all select-none"
-              style={{
-                backgroundColor: selectedCategory === c ? "#B87342" : C.card,
-                color: selectedCategory === c ? "#FFFDF8" : C.text,
-                border: `1px solid ${selectedCategory === c ? "#B87342" : C.border}`,
-                fontWeight: selectedCategory === c ? 700 : 500,
-              }}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-          <span className="text-xs font-bold uppercase tracking-wider shrink-0 mr-1" style={{ color: C.muted }}>Cuisine:</span>
-          {allCuisines.map((c) => (
-            <button
-              key={c}
-              onClick={() => setSelectedCuisine(c)}
-              className="rounded-full px-3 py-1 text-xs font-semibold cursor-pointer shrink-0 transition-all select-none"
-              style={{
-                backgroundColor: selectedCuisine === c ? "#A66838" : C.cream,
-                color: selectedCuisine === c ? "#FFFDF8" : C.muted,
-                border: `1px solid ${selectedCuisine === c ? "#A66838" : C.border}`,
-                fontWeight: selectedCuisine === c ? 700 : 500,
-              }}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-      </div>
+      )}
 
       {/* ── DISHES GRID & COLORFUL SEASONAL GARDEN WIDGET ── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -1624,69 +1877,44 @@ function CMenu({
                   className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-xl hover:border-[#B87342]/60 hover:-translate-y-1 group"
                   style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}
                 >
-                  <div className="relative h-44 overflow-hidden">
+                  <div 
+                    className="relative aspect-[4/3] overflow-hidden cursor-pointer"
+                    onClick={() => setIngredientOverlayItem(item)}
+                  >
                     <FoodImage
                       src={item.img}
                       alt={item.imgAlt}
                       name={item.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
-                      <FoodTypeBadge type={item.foodType} />
-                      {item.isChefSpecial && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#B87342] text-white shadow-sm flex items-center gap-1">
-                          <Icons.Sparkles size={10} /> Special
-                        </span>
-                      )}
-                    </div>
-
-                    <button
-                      onClick={() => setNutritionModalItem(item)}
-                      aria-label="View Nutrition & Allergen info"
-                      className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-lg text-[10px] font-bold cursor-pointer backdrop-blur-md bg-black/70 text-white hover:bg-black/90 border border-white/20 flex items-center gap-1"
-                    >
-                      <Icons.Shield size={11} />
-                      <span>Nutrition &amp; Allergens</span>
-                    </button>
                   </div>
 
                   <div className="p-4 flex-1 flex flex-col justify-between">
                     <div>
                       <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: C.muted }}>
-                            {item.cuisine} · {item.category}
-                          </p>
-                          <h3 className="font-serif font-bold text-base mt-0.5" style={{ color: C.text }}>
-                            {item.name}
-                          </h3>
-                        </div>
-                        <p className="font-bold text-base shrink-0" style={{ color: "#D49566" }}>
-                          ₹ {item.price}
+                        <h3 className="font-serif font-bold text-xl leading-tight" style={{ color: C.text }}>
+                          {item.name}
+                        </h3>
+                        <p className="font-bold text-lg shrink-0" style={{ color: "#D49566" }}>
+                          ₹{item.price}
                         </p>
                       </div>
 
-                      <p className="text-xs line-clamp-2 mt-1.5 leading-relaxed" style={{ color: C.muted }}>
-                        {item.desc}
+                      <p className="text-[13px] font-medium mt-1.5" style={{ color: C.muted }}>
+                        {item.cal} kcal · {item.protein}g protein · {item.carbs}g carbs
                       </p>
-
-                      <div className="flex items-center gap-3 mt-3 text-[11px] font-semibold" style={{ color: C.muted }}>
-                        <span className="flex items-center gap-1"><Icons.Flame size={11} /> {item.cal} kcal</span>
-                        <span>{item.protein}g protein</span>
-                        <span>{item.carbs}g carbs</span>
-                      </div>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t flex gap-2" style={{ borderColor: C.border }}>
+                    <div className="mt-4 pt-4 border-t flex gap-2" style={{ borderColor: C.border }}>
                       <button
-                        onClick={() => { setFood(item); navigate("food-details"); }}
+                        onClick={(e) => { e.stopPropagation(); setProductModalItem(item); }}
                         className="flex-1 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-colors text-center"
                         style={{ backgroundColor: C.cream, color: C.text, border: `1px solid ${C.border}` }}
                       >
                         Details
                       </button>
                       <button
-                        onClick={() => addToCart(item)}
+                        onClick={(e) => { e.stopPropagation(); addToCart(item); }}
                         className="flex-1 py-2 rounded-xl text-xs font-bold cursor-pointer transition-colors text-center"
                         style={{
                           background: "linear-gradient(135deg, #B87342 0%, #9C5E32 100%)",
@@ -1751,7 +1979,7 @@ function CMenu({
               <div className="flex flex-col gap-3">
                 {seasonalPicks.slice(0, 4).map((pick) => (
                   <div key={pick.id} className="p-3 rounded-2xl flex gap-3 items-center shadow-sm" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-                    <FoodImage src={pick.img} alt={pick.imgAlt} name={pick.name} className="w-14 h-14 rounded-xl object-cover shrink-0" />
+                    <FoodImage src={pick.img} alt={pick.imgAlt} name={pick.name} className="w-14 h-14 rounded-xl object-contain shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="font-serif font-bold text-xs truncate" style={{ color: C.text }}>{pick.name}</p>
                       <p className="text-[11px] font-semibold" style={{ color: "#D49566" }}>₹ {pick.price} · {pick.cal} kcal</p>
@@ -1775,157 +2003,276 @@ function CMenu({
       </div>
 
       {/* ── NUTRITION & ALLERGEN MODAL ── */}
-      {nutritionModalItem && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in"
-          onClick={() => setNutritionModalItem(null)}
-        >
+      {/* ── INGREDIENT OVERLAY MODAL ── */}
+      {productModalItem && ReactDOM.createPortal(<CProductModal item={productModalItem} onClose={() => setProductModalItem(null)} addToCart={addToCart} />, document.body)}
+
+      {ingredientOverlayItem && ReactDOM.createPortal(
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99998, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div 
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
+            onClick={() => setIngredientOverlayItem(null)}
+          />
           <div
-            className="rounded-3xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto"
-            style={{ backgroundColor: C.card, border: `2px solid ${C.border}` }}
+            role="dialog"
+            aria-modal="true"
+            style={{ position: 'relative', zIndex: 99999, width: '90%', maxWidth: '384px', maxHeight: '90vh', backgroundColor: '#261D15', border: '1px solid #382C23', borderRadius: '1.5rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.8)' }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between gap-4 mb-4">
-              <div>
-                <CTag label={nutritionModalItem.category} />
-                <h3 className="font-serif text-xl font-bold mt-1" style={{ color: C.accent }}>{nutritionModalItem.name}</h3>
-                <p className="text-xs font-semibold" style={{ color: C.muted }}>{nutritionModalItem.cuisine} Cuisine</p>
-              </div>
-              <button
-                onClick={() => setNutritionModalItem(null)}
-                className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm cursor-pointer"
-                style={{ backgroundColor: C.cream, color: C.text }}
-              >
-                <Icons.Cross size={14} />
-              </button>
+            <button
+              onClick={() => setIngredientOverlayItem(null)}
+              style={{ position: 'absolute', top: '12px', right: '12px', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '20px', lineHeight: 1, cursor: 'pointer', zIndex: 100000, backgroundColor: 'rgba(0,0,0,0.6)', color: '#FFFDF8', border: 'none' }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <div style={{ position: 'relative', height: '256px', flexShrink: 0, backgroundColor: '#1A130E' }}>
+              <FoodImage
+                src={ingredientOverlayItem.img}
+                alt={ingredientOverlayItem.imgAlt}
+                name={ingredientOverlayItem.name}
+                className="w-full h-full object-cover"
+              />
             </div>
-
-            <div className="grid grid-cols-4 gap-2 text-center mb-4">
-              {[
-                { label: "Calories", val: `${nutritionModalItem.cal} kcal` },
-                { label: "Protein", val: `${nutritionModalItem.protein}g` },
-                { label: "Carbs", val: `${nutritionModalItem.carbs}g` },
-                { label: "Fats", val: `${nutritionModalItem.fat}g` },
-              ].map((m) => (
-                <div key={m.label} className="rounded-xl p-2.5" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-                  <p className="text-[10px] font-bold uppercase" style={{ color: C.muted }}>{m.label}</p>
-                  <p className="font-bold text-sm mt-0.5" style={{ color: "#D49566" }}>{m.val}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col gap-3 text-xs mb-4">
-              <div>
-                <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Ingredients</p>
-                <p style={{ color: C.text }}>{nutritionModalItem.ingredients.join(", ")}</p>
-              </div>
-
-              <div>
-                <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Allergen Notice</p>
-                {nutritionModalItem.allergens.length > 0 ? (
-                  <p className="font-semibold text-amber-200 bg-amber-950/60 p-2.5 rounded-xl border border-amber-800">
-                    Contains: {nutritionModalItem.allergens.join(", ")}. Please inform servers of severe allergies.
+            <div style={{ padding: '24px', overflowY: 'auto' }}>
+              <p style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#A08F81', margin: '0 0 6px 0' }}>{ingredientOverlayItem.category}</p>
+              <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#FFFDF8', marginTop: 0 }}>
+                {ingredientOverlayItem.name}
+              </h3>
+              <div style={{ marginBottom: '16px' }}>
+                <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontStyle: 'italic', marginBottom: '10px', color: '#C4824E', marginTop: 0 }}>Made with</p>
+                {(!ingredientOverlayItem.ingredients || ingredientOverlayItem.ingredients.length === 0) ? (
+                  <p style={{ fontSize: '14px', color: '#A08F81', fontStyle: 'italic', margin: 0 }}>
+                    Ingredient information is being verified.
                   </p>
                 ) : (
-                  <p className="font-semibold text-emerald-200 bg-emerald-950/60 p-2.5 rounded-xl border border-emerald-800">
-                    No major allergens listed in base ingredients.
-                  </p>
+                  <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0, color: '#EDE4DB' }}>
+                    {ingredientOverlayItem.ingredients.map((ing: string, i: number) => (
+                      <li key={i} style={{ fontSize: '14px', marginBottom: '6px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                        <span style={{ color: '#C4824E', lineHeight: '1.4' }}>•</span>
+                        <span style={{ lineHeight: '1.4' }}>{ing}</span>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
 
-              <div>
-                <p className="font-bold uppercase tracking-wider text-[11px] mb-1" style={{ color: C.muted }}>Dietary Compatibility</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {nutritionModalItem.dietary.map((d) => (
-                    <span key={d} className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1">
-                      <Icons.Check size={12} className="text-[#4ADE80]" /> {d}
-                    </span>
-                  ))}
+              {ingredientOverlayItem.ingredientVerificationStatus === 'unverified' && (
+                <div style={{ marginTop: '12px', padding: '8px 12px', backgroundColor: 'rgba(217, 119, 6, 0.15)', border: '1px solid rgba(217, 119, 6, 0.3)', borderRadius: '8px', marginBottom: '12px' }}>
+                  <p style={{ fontSize: '12px', color: '#FBBF24', margin: 0 }}>
+                    ℹ Recipe details unverified — daily chef selection subject to variation.
+                  </p>
                 </div>
-              </div>
-            </div>
+              )}
 
-            <div className="flex gap-3 pt-3 border-t" style={{ borderColor: C.border }}>
-              <CBtn
-                label="Add to Cart"
-                onClick={() => {
-                  addToCart(nutritionModalItem);
-                  setNutritionModalItem(null);
-                }}
-                full
-              />
+              {ingredientOverlayItem.allergens && ingredientOverlayItem.allergens.length > 0 ? (
+                <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #382C23' }}>
+                  <p style={{ fontSize: '12px', fontStyle: 'italic', color: '#E5C07B', margin: '0 0 4px 0' }}>
+                    ⚠ Contains: {ingredientOverlayItem.allergens.join(', ')}
+                  </p>
+                  <p style={{ fontSize: '11px', color: '#8A7B70', margin: 0, fontStyle: 'italic' }}>
+                    Cross-contact risk: Prepared in a kitchen environment handling gluten, milk, eggs, soy & nuts.
+                  </p>
+                </div>
+              ) : (
+                <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #382C23' }}>
+                  <p style={{ fontSize: '11px', color: '#8A7B70', margin: 0, fontStyle: 'italic' }}>
+                    Declared allergens: None declared in recipe. Cross-contact risks may exist in a shared kitchen.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
 }
 
-function CFoodDetails({ food, navigate, addToCart }: { food: FoodItem | null; navigate: (s: Screen) => void; addToCart: (f: FoodItem) => void }) {
-  if (!food) return null;
+function CProductModal({ item, onClose, addToCart }: { item: FoodItem, onClose: () => void, addToCart: (f: FoodItem, q: number) => void }) {
+  const [activeTab, setActiveTab] = useState<"overview" | "nutrition" | "ingredients" | "allergens">("overview");
+  const [qty, setQty] = useState(1);
+
+  // Close on Escape key
+  React.useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 animate-fade-in">
-      <button onClick={() => navigate("menu")} className="text-sm font-semibold mb-6 cursor-pointer flex items-center gap-1.5" style={{ color: C.muted }}>
-        ← Back to Menu
-      </button>
+    <div
+      role="dialog"
+      aria-modal="true"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99998, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
+    >
+      <div 
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
+        onClick={onClose}
+      />
+      <div
+        style={{ position: 'relative', zIndex: 99999, width: '100%', maxWidth: '42rem', maxHeight: '90vh', backgroundColor: "#261D15", border: `1px solid ${C.border}`, borderRadius: '1.5rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          style={{ position: 'absolute', top: '16px', right: '16px', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer', zIndex: 100000, backgroundColor: 'rgba(0,0,0,0.5)', color: 'white', border: 'none' }}
+          aria-label="Close modal"
+        >
+          ×
+        </button>
 
-      <div className="grid md:grid-cols-2 gap-8 items-start">
-        <div className="rounded-3xl overflow-hidden shadow-xl border" style={{ borderColor: C.border }}>
-          <FoodImage src={food.img} alt={food.imgAlt} name={food.name} className="w-full h-80 object-cover" />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-2 flex-wrap items-center">
-            <CTag label={food.category} />
-            <CTag label={food.cuisine} />
-            <FoodTypeBadge type={food.foodType} />
+        {/* HEADER SECTION */}
+        <div className="flex flex-col sm:flex-row gap-6 p-6 border-b" style={{ borderColor: C.border }}>
+          <div className="w-full sm:w-1/2 shrink-0 h-48 sm:h-auto rounded-xl overflow-hidden relative">
+            <FoodImage src={item.img} alt={item.imgAlt} name={item.name} className="w-full h-full object-cover absolute inset-0" />
           </div>
+          
+          <div className="flex flex-col justify-between flex-1">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <CTag label={item.category} />
+                <CTag label={item.cuisine} />
+              </div>
+              <h2 className="font-serif text-3xl font-bold leading-tight" style={{ color: "#FFFDF8" }}>{item.name}</h2>
+              <div className="flex items-center gap-2 mt-2">
+                <p className="text-2xl font-bold" style={{ color: "#D49566" }}>₹{item.price}</p>
+                <FoodTypeBadge type={item.foodType} />
+              </div>
+            </div>
 
-          <div className="flex items-start justify-between gap-3">
-            <h1 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>{food.name}</h1>
-            <ReadAloudBtn text={`${food.name}. ${food.desc}. Priced at ${food.price} rupees. Contains ${food.cal} calories and ${food.protein} grams of protein.`} />
-          </div>
-
-          <p className="text-base" style={{ color: C.muted, lineHeight: 1.7 }}>{food.desc}</p>
-          <p className="text-2xl font-bold" style={{ color: "#D49566" }}>₹ {food.price}</p>
-
-          <div className="grid grid-cols-4 gap-2">
-            {[
-              ["Calories", `${food.cal} kcal`],
-              ["Protein", `${food.protein}g`],
-              ["Carbs", `${food.carbs}g`],
-              ["Fat", `${food.fat}g`],
-            ].map(([k, v]) => (
-              <CCard key={k} style={{ padding: "8px 10px", textAlign: "center", backgroundColor: C.cream }}>
-                <p className="text-[10px] font-bold uppercase" style={{ color: C.muted }}>{k}</p>
-                <p className="text-sm font-bold mt-0.5" style={{ color: C.text }}>{v}</p>
-              </CCard>
-            ))}
-          </div>
-
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>Dietary Suitability</p>
-            <div className="flex flex-wrap gap-1.5">
-              {food.dietary.map((d) => (
-                <span key={d} className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1">
-                  <Icons.Check size={12} className="text-[#4ADE80]" /> {d}
-                </span>
-              ))}
+            <div className="mt-6 flex items-center gap-3">
+              <div className="flex items-center rounded-xl overflow-hidden" style={{ backgroundColor: "#1A130E", border: `1px solid ${C.border}` }}>
+                <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-4 py-2 font-bold cursor-pointer transition-colors hover:bg-white/5" style={{ color: "#D49566" }}>-</button>
+                <span className="px-2 font-bold w-8 text-center" style={{ color: "#FFFDF8" }}>{qty}</span>
+                <button onClick={() => setQty(qty + 1)} className="px-4 py-2 font-bold cursor-pointer transition-colors hover:bg-white/5" style={{ color: "#D49566" }}>+</button>
+              </div>
+              <CBtn 
+                label={`Add ${qty} to Cart`}
+                onClick={() => { addToCart(item, qty); onClose(); }} 
+                full 
+                style={{ backgroundColor: "#B87342", color: "#FFFDF8" }}
+              />
             </div>
           </div>
+        </div>
 
-          <div className="flex gap-3 mt-4">
-            <CBtn label="Add to Cart" onClick={() => { addToCart(food); navigate("cart"); }} full size="lg" />
-          </div>
+        {/* TABS NAVIGATION */}
+        <div className="flex border-b overflow-x-auto hide-scrollbar" style={{ borderColor: C.border }}>
+          {[
+            { id: "overview", label: "Overview" },
+            { id: "nutrition", label: "Nutrition" },
+            { id: "ingredients", label: "Ingredients" },
+            { id: "allergens", label: "Allergens" }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className="px-6 py-4 font-bold text-sm whitespace-nowrap border-b-2 transition-colors cursor-pointer"
+              style={{
+                borderColor: activeTab === tab.id ? "#D49566" : "transparent",
+                color: activeTab === tab.id ? "#D49566" : "#A08F81"
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* TAB CONTENT */}
+        <div className="p-6 overflow-y-auto flex-1 text-sm" style={{ color: "#FFFDF8" }}>
+          {activeTab === "overview" && (
+            <div className="space-y-4 animate-fade-in">
+              <p className="text-base" style={{ color: "#E0D7CD", lineHeight: 1.6 }}>{item.desc}</p>
+              
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="p-4 rounded-xl" style={{ backgroundColor: "#1A130E", border: `1px solid ${C.border}` }}>
+                  <p className="text-xs uppercase font-bold tracking-wider mb-1" style={{ color: "#A08F81" }}>Dietary</p>
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {item.dietary.map((d) => (
+                      <span key={d} className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729]">
+                        {d}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="p-4 rounded-xl flex flex-col justify-center" style={{ backgroundColor: "#1A130E", border: `1px solid ${C.border}` }}>
+                  <p className="text-xs uppercase font-bold tracking-wider mb-1" style={{ color: "#A08F81" }}>Preparation</p>
+                  <p className="font-bold text-[#E0D7CD]">Freshly prepared to order</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "nutrition" && (
+            <div className="animate-fade-in">
+              <p className="text-xs uppercase font-bold tracking-wider mb-4" style={{ color: "#A08F81" }}>Nutritional Information (Per Serving)</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { label: "Calories", val: `${item.cal} kcal` },
+                  { label: "Protein", val: `${item.protein}g` },
+                  { label: "Carbs", val: `${item.carbs}g` },
+                  { label: "Total Fat", val: `${item.fat}g` },
+                  { label: "Sat Fat", val: "N/A" },
+                  { label: "Sugars", val: "N/A" },
+                  { label: "Fibre", val: "N/A" },
+                  { label: "Sodium", val: "N/A" }
+                ].map((n, i) => (
+                  <div key={i} className="p-3 rounded-xl text-center" style={{ backgroundColor: "#1A130E", border: `1px solid ${C.border}` }}>
+                    <p className="text-[10px] uppercase font-bold" style={{ color: "#A08F81" }}>{n.label}</p>
+                    <p className="font-bold text-sm mt-1" style={{ color: "#D49566" }}>{n.val}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] italic mt-4" style={{ color: "#A08F81" }}>* Some exact values pending verification.</p>
+            </div>
+          )}
+
+          {activeTab === "ingredients" && (
+            <div className="animate-fade-in">
+              <p className="text-xs uppercase font-bold tracking-wider mb-4" style={{ color: "#A08F81" }}>Base Ingredients</p>
+              <ul className="list-disc pl-5 space-y-2">
+                {item.ingredients.map((ing, i) => (
+                  <li key={i} className="text-[#E0D7CD]">{ing}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {activeTab === "allergens" && (
+            <div className="animate-fade-in space-y-4">
+              <div>
+                <p className="text-xs uppercase font-bold tracking-wider mb-2" style={{ color: "#A08F81" }}>Declared Allergens</p>
+                {item.allergens.length > 0 ? (
+                  <div className="p-4 rounded-xl border border-amber-800 bg-amber-950/30">
+                    <p className="font-semibold text-amber-200">
+                      Contains: {item.allergens.join(", ")}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="p-4 rounded-xl border border-emerald-800 bg-emerald-950/30">
+                    <p className="font-semibold text-emerald-200">
+                      No major allergens listed in base ingredients.
+                    </p>
+                  </div>
+                )}
+              </div>
+              
+              <div className="p-4 rounded-xl" style={{ backgroundColor: "#1A130E", border: `1px solid ${C.border}` }}>
+                <p className="text-xs uppercase font-bold tracking-wider mb-2" style={{ color: "#A08F81" }}>Cross-Contact Disclaimer</p>
+                <p className="text-xs leading-relaxed" style={{ color: "#E0D7CD" }}>
+                  Please be aware that our food may contain or come into contact with common allergens, such as dairy, eggs, wheat, soybeans, tree nuts, peanuts, fish, shellfish or wheat. While we take steps to minimize risk and safely handle the foods that contain potential allergens, please be advised that cross contamination may occur.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
+
+
 
 function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: Screen) => void; updateQty: (id: number, d: number) => void }) {
   const subtotal = cart.reduce((s, c) => s + c.price * c.qty, 0);
@@ -1951,7 +2298,7 @@ function CCart({ cart, navigate, updateQty }: { cart: CartItem[]; navigate: (s: 
           {cart.map((item) => (
             <CCard key={item.id} className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <FoodImage src={item.img} alt={item.name} name={item.name} className="w-14 h-14 rounded-xl object-cover" />
+                <FoodImage src={item.img} alt={item.name} name={item.name} className="w-14 h-14 rounded-xl object-contain" />
                 <div>
                   <p className="font-bold text-sm" style={{ color: C.text }}>{item.name}</p>
                   <p className="text-xs" style={{ color: C.muted }}>₹ {item.price} each</p>
@@ -2022,249 +2369,19 @@ function CSeats({
   draft: ReservationDraft;
   setDraft: React.Dispatch<React.SetStateAction<ReservationDraft>>;
 }) {
-  const [activeZone, setActiveZone] = useState<"All" | "Indoor" | "Outdoor" | "Quiet Area" | "Bar Counter">("All");
-
-  const filteredTables = tables.filter((t) => (activeZone === "All" ? true : t.zone === activeZone));
-  const selectedTableObj = tables.find((t) => t.id === selected);
-  const timeSlots = ["12:00 PM", "1:00 PM", "2:00 PM", "4:30 PM", "6:00 PM", "7:30 PM", "8:30 PM", "9:30 PM"];
-
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 animate-fade-in">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
-        <div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold" style={{ color: C.accent }}>
-            Reserve Your Table at AJAB
-          </h1>
-          <p className="text-sm mt-1" style={{ color: C.muted }}>
-            Select your preferred date, arrival time, guest count, and choose an exact table from our visual floor plan.
-          </p>
-        </div>
-      </div>
-
-      <CCard className="mb-8 p-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div>
-            <label className="text-xs font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5" style={{ color: C.muted }}>
-              <Icons.Calendar size={13} />
-              <span>Reservation Date</span>
-            </label>
-            <input
-              type="date"
-              value={draft.date || "2024-10-14"}
-              onChange={(e) => setDraft({ ...draft, date: e.target.value })}
-              className="w-full rounded-xl px-3.5 py-2.5 text-sm font-semibold outline-none"
-              style={{ backgroundColor: C.cream, border: `1px solid ${C.border}`, color: C.text }}
-            />
-          </div>
-
-          <div>
-            <label className="text-xs font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5" style={{ color: C.muted }}>
-              <Icons.Clock size={13} />
-              <span>Arrival Time Slot</span>
-            </label>
-            <select
-              value={draft.time || "7:30 PM"}
-              onChange={(e) => setDraft({ ...draft, time: e.target.value })}
-              className="w-full rounded-xl px-3.5 py-2.5 text-sm font-semibold outline-none cursor-pointer"
-              style={{ backgroundColor: C.cream, border: `1px solid ${C.border}`, color: C.text }}
-            >
-              {timeSlots.map((ts) => (
-                <option key={ts} value={ts}>{ts}</option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="text-xs font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5" style={{ color: C.muted }}>
-              <Icons.Users size={13} />
-              <span>Number of Guests</span>
-            </label>
-            <div className="flex items-center rounded-xl p-1" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-              {[1, 2, 4, 6, 8].map((num) => (
-                <button
-                  key={num}
-                  onClick={() => setDraft({ ...draft, guests: num })}
-                  className="flex-1 py-1.5 text-xs font-bold rounded-lg cursor-pointer transition-all"
-                  style={{
-                    backgroundColor: draft.guests === num ? "#B87342" : "transparent",
-                    color: draft.guests === num ? "#FFFDF8" : C.text,
-                  }}
-                >
-                  {num}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label className="text-xs font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1.5" style={{ color: C.muted }}>
-              <Icons.Sparkles size={13} />
-              <span>Seating Ambiance</span>
-            </label>
-            <select
-              value={activeZone}
-              onChange={(e) => {
-                setActiveZone(e.target.value as any);
-                setDraft({ ...draft, zone: e.target.value as any });
-              }}
-              className="w-full rounded-xl px-3.5 py-2.5 text-sm font-semibold outline-none cursor-pointer"
-              style={{ backgroundColor: C.cream, border: `1px solid ${C.border}`, color: C.text }}
-            >
-              <option value="All">All Restaurant Zones</option>
-              <option value="Indoor">Indoor Dining Hall</option>
-              <option value="Outdoor">Garden Patio &amp; Pergola</option>
-              <option value="Quiet Area">Heritage Quiet Alcove</option>
-              <option value="Bar Counter">Barista Coffee Bar</option>
-            </select>
-          </div>
-        </div>
-      </CCard>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-8">
-          <CCard className="p-4 sm:p-6 overflow-hidden">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b" style={{ borderColor: C.border }}>
-              <div className="flex items-center gap-2">
-                <span className="font-serif font-bold text-base" style={{ color: C.accent }}>Architectural Floor Plan</span>
-                <span className="text-xs px-2 py-0.5 rounded bg-[#241A13] text-[#D49566] font-semibold border border-[#382A20]">12 Residency Rd</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <StatusDot status="available" />
-                <StatusDot status="reserved" />
-                <StatusDot status="occupied" />
-              </div>
-            </div>
-
-            <div
-              className="relative w-full rounded-2xl overflow-hidden select-none shadow-inner"
-              style={{
-                height: 480,
-                backgroundColor: "#16110D",
-                border: `2px solid ${C.border}`,
-                backgroundImage: "radial-gradient(#2A2018 1.5px, transparent 1.5px)",
-                backgroundSize: "24px 24px",
-              }}
-            >
-              <div className="absolute top-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
-                INDOOR MAIN HALL
-              </div>
-              <div className="absolute top-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
-                GARDEN VERANDAH &amp; PATIO
-              </div>
-              <div className="absolute bottom-3 left-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
-                BARISTA ESPRESSO BAR
-              </div>
-              <div className="absolute bottom-3 right-4 text-[11px] font-bold tracking-widest uppercase opacity-40 text-[#A08F81]">
-                HERITAGE QUIET ALCOVE
-              </div>
-
-              <div className="absolute left-1/2 top-0 bottom-0 w-px border-r border-dashed border-[#382C23]" />
-              <div className="absolute top-1/2 left-0 right-0 h-px border-b border-dashed border-[#382C23]" />
-
-              {filteredTables.map((t) => {
-                const isSelected = selected === t.id;
-                const isAvail = t.status === "available";
-                const isBigEnough = t.seats >= draft.guests;
-                const canSelect = isAvail && isBigEnough;
-                const isRound = t.shape === "round";
-                const isBooth = t.shape === "booth";
-                const isBar = t.shape === "bar";
-
-                const w = isBooth ? 84 : isBar ? 44 : 64;
-                const h = isBooth ? 54 : isBar ? 44 : 64;
-
-                return (
-                  <button
-                    key={t.id}
-                    disabled={!canSelect}
-                    onClick={() => setSelected(isSelected ? null : t.id)}
-                    className="absolute group transition-all duration-200 cursor-pointer flex flex-col items-center justify-center"
-                    style={{
-                      left: `${t.x}%`,
-                      top: `${t.y}%`,
-                      transform: `translate(-50%, -50%) ${isSelected ? "scale(1.15)" : "scale(1)"}`,
-                      width: w,
-                      height: h,
-                      borderRadius: isRound || isBar ? "50%" : 16,
-                      backgroundColor: isSelected
-                        ? "#B87342"
-                        : t.status === "occupied"
-                        ? "#1C1511"
-                        : t.status === "reserved"
-                        ? "#261D15"
-                        : "#132619",
-                      color: isSelected
-                        ? "#FFFDF8"
-                        : t.status === "occupied"
-                        ? "#665448"
-                        : t.status === "reserved"
-                        ? "#D49566"
-                        : "#4ADE80",
-                      border: isSelected
-                        ? "2px solid #FFF8F0"
-                        : t.status === "occupied"
-                        ? "1.5px solid #33261F"
-                        : t.status === "reserved"
-                        ? "1.5px solid #6E492B"
-                        : "2px solid #2E7D47",
-                      boxShadow: isSelected
-                        ? "0 0 16px rgba(184, 115, 66, 0.4)"
-                        : "0 2px 8px rgba(0,0,0,0.3)",
-                      opacity: canSelect || isSelected ? 1 : 0.4,
-                    }}
-                  >
-                    <span className="font-bold text-[11px] leading-none">{t.id}</span>
-                    <span className="text-[9px] mt-0.5 opacity-90">{t.seats} Seats</span>
-                  </button>
-                );
-              })}
-            </div>
-          </CCard>
-        </div>
-
-        <div className="lg:col-span-4 flex flex-col gap-5">
-          {selectedTableObj ? (
-            <CCard className="p-6 flex flex-col gap-4 animate-fade-in shadow-xl">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#D49566]">Selected Table</span>
-                <StatusDot status={selectedTableObj.status} />
-              </div>
-
-              <h3 className="font-serif text-2xl font-bold" style={{ color: C.accent }}>{selectedTableObj.name}</h3>
-              <p className="text-sm" style={{ color: C.muted }}>{selectedTableObj.desc}</p>
-
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="p-2.5 rounded-xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-                  <p className="text-[10px] font-bold uppercase text-[#A08F81]">Capacity</p>
-                  <p className="font-bold text-sm mt-0.5" style={{ color: C.text }}>{selectedTableObj.seats} Guests Max</p>
-                </div>
-                <div className="p-2.5 rounded-xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-                  <p className="text-[10px] font-bold uppercase text-[#A08F81]">Zone</p>
-                  <p className="font-bold text-sm mt-0.5" style={{ color: C.text }}>{selectedTableObj.zone}</p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-1.5">
-                {selectedTableObj.amenities.map((a) => (
-                  <span key={a} className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#122619] text-[#4ADE80] border border-[#1E4729] inline-flex items-center gap-1">
-                    <Icons.Check size={11} className="text-[#4ADE80]" /> {a}
-                  </span>
-                ))}
-              </div>
-
-              <div className="pt-2">
-                <CBtn label="Proceed to Guest Details →" onClick={() => navigate("reservation")} full size="lg" />
-              </div>
-            </CCard>
-          ) : (
-            <CCard className="text-center py-12">
-              <Icons.MapPin size={34} className="mx-auto mb-3 text-[#A08F81]" />
-              <h3 className="font-serif text-lg font-bold" style={{ color: C.accent }}>Select a Table on Floor Plan</h3>
-              <p className="text-xs mt-1" style={{ color: C.muted }}>Tap any green available table to review its features and reserve.</p>
-            </CCard>
-          )}
-        </div>
-      </div>
+    <div className="w-full h-[calc(100vh-85px)] animate-fade-in overflow-hidden">
+      <VirtualCafe3D
+        tables={tables}
+        selectedTableId={selected}
+        onSelectTable={setSelected}
+        guestCount={draft.guests}
+        reservationDate={draft.date || "Oct 24, 2026"}
+        reservationTime={draft.time || "7:00 PM"}
+        onUpdateDraft={(fields) => setDraft((prev) => ({ ...prev, ...fields }))}
+        onProceedToReserve={() => navigate("reservation")}
+        onBack={() => navigate("home")}
+      />
     </div>
   );
 }
@@ -2352,7 +2469,7 @@ function CEvents({ navigate }: { navigate: (s: Screen) => void }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {cafeEvents.map((e) => (
           <div key={e.id} className="rounded-3xl overflow-hidden flex flex-col justify-between" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
-            <img src={e.img} alt={e.imgAlt} className="w-full h-48 object-cover" />
+            <img src={e.img} alt={e.imgAlt} className="w-full h-48 object-contain" />
             <div className="p-5 flex-1 flex flex-col justify-between">
               <div>
                 <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#291E15] text-[#D49566] border border-[#4A3525]">{e.tag}</span>
@@ -2475,8 +2592,8 @@ function CAccessibility({ setMode }: { setMode: (m: AppMode) => void }) {
             ["Visually Impaired", "High contrast & audio", () => setMode("vi")],
           ].map(([label, sub, action]) => (
             <button key={String(label)} onClick={action as () => void} className="rounded-2xl p-3 text-left cursor-pointer transition-all hover:-translate-y-0.5 hover:border-[#B87342]" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-              <p className="font-bold text-xs" style={{ color: C.accent }}>{label}</p>
-              <p className="text-[11px] mt-1 leading-snug" style={{ color: C.muted }}>{sub}</p>
+              <p className="font-bold text-xs" style={{ color: C.accent }}>{label as string}</p>
+              <p className="text-[11px] mt-1 leading-snug" style={{ color: C.muted }}>{sub as string}</p>
             </button>
           ))}
         </div>
@@ -2633,7 +2750,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
               {filteredElderlyItems.map((item) => (
                 <div key={item.id} className="rounded-3xl p-5 flex flex-col justify-between" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
                   <div className="flex gap-4 items-center">
-                    <FoodImage src={item.img} alt={item.imgAlt} name={item.name} className="w-24 h-24 rounded-2xl object-cover shrink-0" />
+                    <FoodImage src={item.img} alt={item.imgAlt} name={item.name} className="w-24 h-24 rounded-2xl object-contain shrink-0" />
                     <div>
                       <FoodTypeBadge type={item.foodType} />
                       <h3 className="font-bold text-xl mt-1" style={{ color: EC.text }}>{item.name}</h3>
@@ -2669,7 +2786,7 @@ function ElderlyApp({ setMode }: { setMode: (m: AppMode) => void }) {
               ← Back to Menu
             </button>
             <div className="rounded-3xl p-6" style={{ backgroundColor: EC.card, border: `3px solid ${EC.border}` }}>
-              <FoodImage src={selectedFood.img} alt={selectedFood.imgAlt} name={selectedFood.name} className="w-full h-64 rounded-2xl object-cover" />
+              <FoodImage src={selectedFood.img} alt={selectedFood.imgAlt} name={selectedFood.name} className="w-full h-64 rounded-2xl object-contain" />
               <div className="flex items-center justify-between mt-4">
                 <h2 className="font-serif text-3xl font-bold" style={{ color: EC.accent }}>{selectedFood.name}</h2>
                 <ReadAloudBtn text={`${selectedFood.name}. ${selectedFood.desc}. Priced at ${selectedFood.price} rupees.`} />
@@ -2908,7 +3025,7 @@ function RuralApp({ setMode }: { setMode: (m: AppMode) => void }) {
                 const desc = lang === "hi" ? item.descHi : lang === "mr" ? item.descMr : item.desc;
                 return (
                   <div key={item.id} className="rounded-2xl p-4 flex gap-3 items-center" style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}>
-                    {!lowData && <FoodImage src={item.img} alt={item.imgAlt} name={name} className="w-16 h-16 rounded-xl object-cover shrink-0" />}
+                    {!lowData && <FoodImage src={item.img} alt={item.imgAlt} name={name} className="w-16 h-16 rounded-xl object-contain shrink-0" />}
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-sm truncate" style={{ color: C.text }}>{name}</p>
                       <p className="text-xs line-clamp-1" style={{ color: C.muted }}>{desc}</p>
@@ -3153,7 +3270,7 @@ function CommonApp({ setMode }: { setMode: (m: AppMode) => void }) {
             onClearVoiceFilter={() => setVoiceFilter(null)}
           />
         )}
-        {screen === "food-details" && <CFoodDetails food={selectedFood} navigate={navigate} addToCart={addToCart} />}
+        
         {screen === "cart" && <CCart cart={cart} navigate={navigate} updateQty={updateQty} />}
         {screen === "order-confirm" && <COrderConfirm navigate={navigate} />}
         {screen === "seats" && (
@@ -3219,3 +3336,4 @@ export default function App() {
   if (mode === "vi")      return <VIApp      setMode={setMode} />;
   return <CommonApp setMode={setMode} />;
 }
+ 
