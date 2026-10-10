@@ -1,3 +1,4 @@
+import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import ajabLogo from "./assets/ajab-logo.png";
@@ -89,6 +90,13 @@ const VI = {
    CLEAN VECTOR GRAPHIC ICONS (HANDCRAFTED MINIMALIST SVGS)
 ═══════════════════════════════════════════════════════════════════════ */
 const Icons = {
+  Map: ({ size = 24, className = "" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+      <line x1="8" y1="2" x2="8" y2="18"></line>
+      <line x1="16" y1="6" x2="16" y2="22"></line>
+    </svg>
+  ),
   Home: ({ size = 16, className = "" }: { size?: number; className?: string }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
   ),
@@ -484,165 +492,258 @@ function FoodImage({
    REALISTIC OUTSIDE SURROUNDINGS & NEIGHBORHOOD MAP
 ═══════════════════════════════════════════════════════════════════════ */
 function CafeSurroundingsMap() {
-  const [activeTab, setActiveTab] = useState<"map" | "landmarks" | "transit">("map");
+  const [activeTab, setActiveTab] = useState('directions'); // 'directions', 'landmarks', 'transit'
+
+  // Map configuration
+  const center = { lat: 51.5126, lng: -0.1337 }; // Soho, London
+  const mapId = 'DEMO_MAP_ID'; // Special map ID provided by Google for testing Advanced Markers
+
+  // Custom dark style for the map matching espresso theme
+  const mapOptions = {
+    disableDefaultUI: true,
+    zoomControl: true,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: true,
+    styles: [
+      { elementType: "geometry", stylers: [{ color: "#241812" }] },
+      { elementType: "labels.text.stroke", stylers: [{ color: "#241812" }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#D49566" }] },
+      {
+        featureType: "administrative.locality",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#F5EBDD" }],
+      },
+      {
+        featureType: "poi",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#F5EBDD" }],
+      },
+      {
+        featureType: "poi.park",
+        elementType: "geometry",
+        stylers: [{ color: "#285C43" }],
+      },
+      {
+        featureType: "poi.park",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#3C7A59" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [{ color: "#4B3023" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry.stroke",
+        stylers: [{ color: "#241812" }],
+      },
+      {
+        featureType: "road",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#B87543" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry",
+        stylers: [{ color: "#744A31" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry.stroke",
+        stylers: [{ color: "#4B3023" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#F5EBDD" }],
+      },
+      {
+        featureType: "transit",
+        elementType: "geometry",
+        stylers: [{ color: "#241812" }],
+      },
+      {
+        featureType: "transit.station",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#D49566" }],
+      },
+      {
+        featureType: "water",
+        elementType: "geometry",
+        stylers: [{ color: "#1A110D" }],
+      },
+      {
+        featureType: "water",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#4B3023" }],
+      },
+      {
+        featureType: "water",
+        elementType: "labels.text.stroke",
+        stylers: [{ color: "#1A110D" }],
+      },
+    ],
+  };
+
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   return (
-    <div className="rounded-3xl p-6 sm:p-8" style={{ backgroundColor: C.card, border: `2px solid ${C.border}` }}>
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#122619] text-[#4ADE80] border border-[#1E4729] mb-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Open Daily · 8:00 AM – 11:00 PM</span>
-          </div>
-          <h2 className="font-serif text-3xl font-bold" style={{ color: C.accent }}>
-            Café Location &amp; Outside Surroundings
-          </h2>
-          <p className="text-sm mt-1" style={{ color: C.muted }}>
-            12 Residency Road, Central Heritage District, Bangalore · Valet Parking Available
-          </p>
-        </div>
-
-        <div className="flex rounded-2xl p-1 shrink-0" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-          {[
-            { id: "map" as const, label: "Interactive Map", icon: <Icons.MapPin size={13} /> },
-            { id: "landmarks" as const, label: "Landmarks", icon: <Icons.Building size={13} /> },
-            { id: "transit" as const, label: "Transit & Parking", icon: <Icons.Car size={13} /> },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className="px-3.5 py-1.5 text-xs font-bold rounded-xl cursor-pointer transition-all flex items-center gap-1.5"
-              style={{
-                backgroundColor: activeTab === tab.id ? C.accent : "transparent",
-                color: activeTab === tab.id ? "#FFFDF8" : C.muted,
-              }}
-            >
-              {tab.icon}
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {activeTab === "map" && (
-        <div className="relative w-full rounded-2xl overflow-hidden shadow-inner border-2" style={{ height: 380, borderColor: C.border, backgroundColor: "#140F0C" }}>
-          {/* Refined Dark Map Canvas */}
-          <svg className="w-full h-full" viewBox="0 0 900 450" preserveAspectRatio="none">
-            {/* Parks / Green Areas */}
-            <path d="M 0 0 L 260 0 L 240 180 L 0 140 Z" fill="#14261A" opacity="0.9" stroke="#1D3E25" strokeWidth="1" />
-            <text x="50" y="70" fill="#4ADE80" fontSize="12" fontWeight="bold" fontFamily="sans-serif">CUBBON PARK (800m)</text>
-            <path d="M 680 280 L 900 240 L 900 450 L 620 450 Z" fill="#14261A" opacity="0.85" stroke="#1D3E25" strokeWidth="1" />
-            <text x="700" y="380" fill="#4ADE80" fontSize="11" fontWeight="bold" fontFamily="sans-serif">HERITAGE BOTANICAL VERANDAH</text>
-
-            {/* Roads */}
-            {/* MG Road Boulevard */}
-            <line x1="0" y1="210" x2="900" y2="210" stroke="#251C15" strokeWidth="28" />
-            <line x1="0" y1="210" x2="900" y2="210" stroke="#3D2D20" strokeWidth="2" strokeDasharray="14,14" />
-            <text x="40" y="205" fill="#C48E68" fontSize="11" fontWeight="bold" letterSpacing="2">MG ROAD BOULEVARD</text>
-
-            {/* Residency Road */}
-            <line x1="420" y1="0" x2="420" y2="450" stroke="#251C15" strokeWidth="34" />
-            <line x1="420" y1="0" x2="420" y2="450" stroke="#3D2D20" strokeWidth="2" strokeDasharray="14,14" />
-            <text x="435" y="60" fill="#C48E68" fontSize="11" fontWeight="bold" letterSpacing="1.5">RESIDENCY ROAD</text>
-
-            {/* Brigade Road */}
-            <line x1="680" y1="0" x2="680" y2="450" stroke="#201712" strokeWidth="18" />
-            <text x="692" y="100" fill="#8C7B6E" fontSize="10" fontWeight="bold">BRIGADE RD</text>
-
-            {/* Richmond Circle Link */}
-            <line x1="0" y1="360" x2="900" y2="360" stroke="#201712" strokeWidth="18" />
-            <text x="80" y="354" fill="#8C7B6E" fontSize="10" fontWeight="bold">RICHMOND CIRCLE FLYOVER</text>
-
-            {/* Surrounding Buildings Blocks */}
-            <rect x="290" y="60" width="100" height="110" rx="8" fill="#1C1611" stroke="#33251D" strokeWidth="1.5" />
-            <text x="305" y="120" fill="#9C8B7E" fontSize="10" fontWeight="bold">COMMERCIAL</text>
-            <text x="305" y="135" fill="#756558" fontSize="9">PLAZA</text>
-
-            <rect x="470" y="60" width="160" height="110" rx="8" fill="#1C1611" stroke="#33251D" strokeWidth="1.5" />
-            <text x="485" y="120" fill="#9C8B7E" fontSize="10" fontWeight="bold">VICTORIA HERITAGE</text>
-            <text x="485" y="135" fill="#756558" fontSize="9">MANSION</text>
-
-            <rect x="180" y="250" width="180" height="80" rx="8" fill="#1C1611" stroke="#33251D" strokeWidth="1.5" />
-            <text x="195" y="295" fill="#C48E68" fontSize="10" fontWeight="bold">METRO STATION (250m)</text>
-            <text x="195" y="310" fill="#756558" fontSize="9">MG Road Purple Line</text>
-
-            {/* AJAB CAFE PLOT */}
-            <rect x="460" y="240" width="180" height="90" rx="14" fill="#2A180E" stroke="#B87342" strokeWidth="2" />
-            <text x="480" y="276" fill="#EDE4DB" fontSize="14" fontWeight="bold" fontFamily="serif" letterSpacing="1.5">AJAB CAFÉ</text>
-            <text x="480" y="295" fill="#D49566" fontSize="10" fontWeight="bold">12 Residency Rd · Entrance</text>
-            <text x="480" y="312" fill="#A08F81" fontSize="9">Valet Parking &amp; Ramp Access</text>
-
-            {/* Radar Pulse on AJAB Pin */}
-            <circle cx="440" cy="285" r="14" fill="#B87342" opacity="0.3" className="animate-ping" />
-            <circle cx="440" cy="285" r="7" fill="#B87342" />
-          </svg>
-
-          {/* Floating Directions Card */}
-          <div className="absolute bottom-4 left-4 p-3.5 rounded-2xl backdrop-blur-md border shadow-lg max-w-xs" style={{ backgroundColor: "rgba(26, 20, 15, 0.95)", borderColor: C.border }}>
-            <div className="flex items-center gap-1.5 font-bold text-xs" style={{ color: C.accent }}>
-              <Icons.MapPin size={14} />
-              <span>How to reach AJAB:</span>
-            </div>
-            <p className="text-[11px] mt-1 leading-relaxed" style={{ color: C.muted }}>
-              • 3 min walk from MG Road Metro (Exit Gate 2)<br />
-              • Complimentary Valet Parking at Café Gate 1<br />
-              • 100% Step-free wheelchair accessible ramp
+    <div className="flex flex-col lg:flex-row gap-8 items-start my-12" id="cafe-location">
+      {/* Left Column: Interactive Map */}
+      <div 
+        className="w-full lg:w-2/3 h-[500px] relative rounded-3xl overflow-hidden shadow-2xl group"
+        style={{ backgroundColor: C.card, border: `1.5px solid ${C.border}` }}
+      >
+        {!apiKey ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-[#241812]">
+            <Icons.Map size={48} className="text-[#991B1B] mb-4 opacity-70" />
+            <h3 className="font-serif text-2xl text-[#D49566] mb-2">Map Unavailable</h3>
+            <p className="text-[#F5EBDD] opacity-80 max-w-md mx-auto mb-4">
+              Google Maps integration requires a valid API key. Please add VITE_GOOGLE_MAPS_API_KEY to your .env file.
             </p>
           </div>
+        ) : (
+          <APIProvider apiKey={apiKey}>
+            <Map
+              defaultCenter={center}
+              defaultZoom={15}
+              mapId={mapId}
+              {...mapOptions}
+              className="w-full h-full"
+            >
+              <AdvancedMarker position={center} title="AJAB Café">
+                <div className="w-10 h-10 bg-[#D49566] rounded-full border-2 border-[#241812] flex items-center justify-center shadow-lg transform transition-transform hover:scale-110">
+                  <Icons.Coffee size={20} className="text-[#241812]" />
+                </div>
+              </AdvancedMarker>
+              
+              {activeTab === 'landmarks' && (
+                <>
+                  <AdvancedMarker position={{ lat: 51.5132, lng: -0.1345 }} title="Soho Square">
+                    <Pin background={"#285C43"} borderColor={"#1A3D2D"} glyphColor={"#F5EBDD"} />
+                  </AdvancedMarker>
+                  <AdvancedMarker position={{ lat: 51.5118, lng: -0.1331 }} title="Piccadilly Theatre">
+                    <Pin background={"#4B3023"} borderColor={"#241812"} glyphColor={"#F5EBDD"} />
+                  </AdvancedMarker>
+                </>
+              )}
+              
+              {activeTab === 'transit' && (
+                <>
+                  <AdvancedMarker position={{ lat: 51.5113, lng: -0.1338 }} title="Piccadilly Circus Station">
+                    <Pin background={"#1A4384"} borderColor={"#0F284F"} glyphColor={"#FFFFFF"} />
+                  </AdvancedMarker>
+                  <AdvancedMarker position={{ lat: 51.5140, lng: -0.1305 }} title="Tottenham Court Road Station">
+                    <Pin background={"#1A4384"} borderColor={"#0F284F"} glyphColor={"#FFFFFF"} />
+                  </AdvancedMarker>
+                </>
+              )}
+            </Map>
+          </APIProvider>
+        )}
+      </div>
+      
+      {/* Right Column: Directions & Details */}
+      <div className="w-full lg:w-1/3 flex flex-col gap-6">
+        <div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold mb-3" style={{ color: C.accent }}>Find Us</h2>
+          <p className="text-sm leading-relaxed mb-4" style={{ color: C.muted }}>
+            Nestled in the heart of the city, AJAB Café is an urban sanctuary offering respite from the bustling streets. Look for our signature copper espresso bar through the heritage windows.
+          </p>
+          <div className="flex items-start gap-3 mt-4" style={{ color: C.text }}>
+            <span style={{ color: C.accent }} className="shrink-0 mt-1"><Icons.Map size={20} /></span>
+            <div>
+              <p className="font-bold">142 Reserve St, Central District</p>
+              <p className="text-sm mt-1" style={{ color: C.muted }}>London, W1D 3QU</p>
+            </div>
+          </div>
         </div>
-      )}
 
-      {activeTab === "landmarks" && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in">
-          <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
-              <Icons.Train size={18} />
-            </div>
-            <h4 className="font-bold text-sm" style={{ color: C.accent }}>MG Road Metro Station</h4>
-            <p className="text-xs mt-1" style={{ color: C.muted }}>250m walk (Purple Line). Direct connectivity to Indiranagar, Majestic, and Whitefield.</p>
-          </div>
-          <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: "#4ADE80" }}>
-              <Icons.Tree size={18} />
-            </div>
-            <h4 className="font-bold text-sm" style={{ color: C.accent }}>Cubbon Park &amp; Library</h4>
-            <p className="text-xs mt-1" style={{ color: C.muted }}>800m away. Perfect for morning strolls followed by our South Indian Filter Coffee.</p>
-          </div>
-          <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
-              <Icons.Building size={18} />
-            </div>
-            <h4 className="font-bold text-sm" style={{ color: C.accent }}>Heritage Residency Arcade</h4>
-            <p className="text-xs mt-1" style={{ color: C.muted }}>Historical 1920s architecture with boutique bookshops, art galleries, and antique stores.</p>
-          </div>
+        {/* Action Tabs */}
+        <div className="flex p-1.5 rounded-2xl" style={{ backgroundColor: C.bg, border: `1.5px solid ${C.border}` }}>
+          <button 
+            onClick={() => setActiveTab('directions')}
+            className={`flex-1 py-2 px-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-colors ${activeTab === 'directions' ? 'text-[#F5EBDD] shadow-md' : 'text-[#F5EBDD] opacity-60 hover:opacity-100'}`}
+            style={{ backgroundColor: activeTab === 'directions' ? C.card : 'transparent', border: activeTab === 'directions' ? `1px solid ${C.border}` : '1px solid transparent' }}
+          >
+            Directions
+          </button>
+          <button 
+            onClick={() => setActiveTab('transit')}
+            className={`flex-1 py-2 px-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-colors ${activeTab === 'transit' ? 'text-[#F5EBDD] shadow-md' : 'text-[#F5EBDD] opacity-60 hover:opacity-100'}`}
+            style={{ backgroundColor: activeTab === 'transit' ? C.card : 'transparent', border: activeTab === 'transit' ? `1px solid ${C.border}` : '1px solid transparent' }}
+          >
+            Transit
+          </button>
+          <button 
+            onClick={() => setActiveTab('landmarks')}
+            className={`flex-1 py-2 px-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-colors ${activeTab === 'landmarks' ? 'text-[#F5EBDD] shadow-md' : 'text-[#F5EBDD] opacity-60 hover:opacity-100'}`}
+            style={{ backgroundColor: activeTab === 'landmarks' ? C.card : 'transparent', border: activeTab === 'landmarks' ? `1px solid ${C.border}` : '1px solid transparent' }}
+          >
+            Nearby
+          </button>
         </div>
-      )}
 
-      {activeTab === "transit" && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in">
-          <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
-              <Icons.Car size={18} />
+        {/* Tab Content */}
+        <div className="p-6 rounded-3xl" style={{ backgroundColor: C.card, border: `1.5px solid ${C.border}` }}>
+          {activeTab === 'directions' && (
+            <div className="animate-fade-in">
+              <h3 className="font-serif text-xl mb-3" style={{ color: C.text }}>Getting Here</h3>
+              <p className="text-sm mb-4" style={{ color: C.muted }}>
+                We are located just off the main avenue. If you are driving, enter our address directly into Google Maps for the best route.
+              </p>
+              <a 
+                href="https://maps.google.com/?q=51.5126,-0.1337" 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-full py-3 px-4 font-bold rounded-xl flex items-center justify-center gap-2 transition-colors hover:opacity-90"
+                style={{ backgroundColor: C.accent, color: C.bg }}
+              >
+                <Icons.Map size={18} /> Open in Google Maps
+              </a>
             </div>
-            <h4 className="font-bold text-sm" style={{ color: C.accent }}>Valet Parking</h4>
-            <p className="text-xs mt-1" style={{ color: C.muted }}>Complimentary valet parking for up to 40 vehicles with EV charging stations.</p>
-          </div>
-          <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
-              <Icons.Accessibility size={18} />
+          )}
+
+          {activeTab === 'transit' && (
+            <div className="animate-fade-in">
+              <h3 className="font-serif text-xl mb-3" style={{ color: C.text }}>Transit & Parking</h3>
+              <ul className="text-sm space-y-3" style={{ color: C.muted }}>
+                <li className="flex gap-2">
+                  <strong style={{ color: C.accent }}>Tube:</strong> 3 min walk from Piccadilly Circus Station (Piccadilly & Bakerloo lines).
+                </li>
+                <li className="flex gap-2">
+                  <strong style={{ color: C.accent }}>Bus:</strong> Routes 14, 19, 38 stop nearby.
+                </li>
+                <li className="flex gap-2">
+                  <strong style={{ color: C.accent }}>Parking:</strong> Validated parking available at Q-Park Soho (5 min walk).
+                </li>
+              </ul>
             </div>
-            <h4 className="font-bold text-sm" style={{ color: C.accent }}>Universal Access Ramp</h4>
-            <p className="text-xs mt-1" style={{ color: C.muted }}>Gentle 1:12 slope ramp from car drop-off directly into main dining hall and patio.</p>
-          </div>
-          <div className="p-4 rounded-2xl" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-2" style={{ backgroundColor: C.card, color: C.accent }}>
-              <Icons.Car size={18} />
+          )}
+
+          {activeTab === 'landmarks' && (
+            <div className="animate-fade-in">
+              <h3 className="font-serif text-xl mb-3" style={{ color: C.text }}>Around Us</h3>
+              <ul className="text-sm space-y-3" style={{ color: C.muted }}>
+                <li className="flex justify-between items-center border-b pb-2" style={{ borderColor: C.border }}>
+                  <span>Soho Square Gardens</span>
+                  <span className="text-xs" style={{ color: C.muted }}>2 min walk</span>
+                </li>
+                <li className="flex justify-between items-center border-b pb-2" style={{ borderColor: C.border }}>
+                  <span>Piccadilly Theatre</span>
+                  <span className="text-xs" style={{ color: C.muted }}>4 min walk</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span>National Gallery</span>
+                  <span className="text-xs" style={{ color: C.muted }}>10 min walk</span>
+                </li>
+              </ul>
             </div>
-            <h4 className="font-bold text-sm" style={{ color: C.accent }}>Cab &amp; Auto Stand</h4>
-            <p className="text-xs mt-1" style={{ color: C.muted }}>Designated pickup and drop bay right outside our bougainvillea arch.</p>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -1159,62 +1260,48 @@ function CHome({
           {featuredDishes.map((item) => (
             <div
               key={item.id}
-              className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-2xl hover:border-[#B87342]/60 hover:-translate-y-1.5 group"
-              style={{ backgroundColor: C.card, border: `1.5px solid ${C.border}` }}
+              className="rounded-3xl overflow-hidden flex flex-col justify-between transition-all hover:shadow-2xl group"
+              style={{ backgroundColor: C.card, border: `1px solid ${C.border}` }}
             >
-              <div className="relative h-48 overflow-hidden">
+              <div 
+                className="relative aspect-[4/3] overflow-hidden bg-[#14100D] cursor-pointer"
+                onClick={(e) => { e.stopPropagation(); setFood(item); }}
+              >
                 <img
                   src={item.img}
                   alt={item.imgAlt}
-                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
                 />
-                <div className="absolute top-3 left-3 flex gap-1.5">
-                  <FoodTypeBadge type={item.foodType} />
-                  {item.seasonBadge && (
-                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#B87342] text-white shadow-sm">
-                      {item.seasonBadge}
-                    </span>
-                  )}
-                </div>
               </div>
 
-              <div className="p-5 flex-1 flex flex-col justify-between">
+              <div className="p-5 flex-1 flex flex-col justify-between" style={{ backgroundColor: C.card }}>
                 <div>
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: C.muted }}>
-                        {item.cuisine} · {item.category}
-                      </p>
-                      <h3 className="font-serif font-bold text-lg mt-0.5" style={{ color: C.text }}>
-                        {item.name}
-                      </h3>
-                    </div>
-                    <p className="font-bold text-lg shrink-0" style={{ color: "#D49566" }}>
-                      ₹ {item.price}
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <h3 className="font-serif font-bold text-[22px] leading-tight" style={{ color: C.text }}>
+                      {item.name}
+                    </h3>
+                    <p className="font-bold text-[18px] shrink-0" style={{ color: "#D49566" }}>
+                      ₹{item.price}
                     </p>
                   </div>
-
-                  <p className="text-xs line-clamp-2 mt-2 leading-relaxed" style={{ color: C.muted }}>
-                    {item.desc}
+                  
+                  <p className="text-[13px] mb-5" style={{ color: C.muted }}>
+                    {item.cal} kcal · {item.protein}g protein · {item.carbs}g carbs
                   </p>
-
-                  <div className="flex items-center gap-3 mt-3 text-xs font-semibold" style={{ color: C.muted }}>
-                    <span className="flex items-center gap-1"><Icons.Flame size={12} /> {item.cal} kcal</span>
-                    <span>{item.protein}g protein</span>
-                  </div>
                 </div>
 
-                <div className="mt-5 pt-3 border-t flex gap-2" style={{ borderColor: C.border }}>
+                <div className="pt-4 border-t flex gap-3" style={{ borderColor: C.border }}>
                   <button
                     onClick={(e) => { e.stopPropagation(); setFood(item); }}
-                    className="flex-1 py-2.5 rounded-xl text-xs font-semibold cursor-pointer transition-colors text-center"
-                    style={{ backgroundColor: C.cream, color: C.text, border: `1px solid ${C.border}` }}
+                    className="flex-1 py-2.5 rounded-xl text-xs font-bold cursor-pointer transition-colors text-center hover:bg-white/5"
+                    style={{ color: C.text, border: `1px solid ${C.border}` }}
                   >
                     Details
                   </button>
                   <button
                     onClick={() => addToCart(item)}
-                    className="flex-1 py-2.5 rounded-xl text-xs font-bold cursor-pointer transition-colors text-center"
+                    className="flex-1 py-2.5 rounded-xl text-xs font-bold cursor-pointer transition-all text-center hover:opacity-90 active:scale-95"
                     style={{
                       background: "linear-gradient(135deg, #B87342 0%, #9C5E32 100%)",
                       color: "#FFFDF8",
@@ -3301,6 +3388,7 @@ function CommonApp({ setMode }: { setMode: (m: AppMode) => void }) {
         {screen === "about" && <CAbout />}
         {screen === "feedback" && <CFeedback />}
         {screen === "accessibility" && <CAccessibility setMode={setMode} />}
+      {selectedFood && ReactDOM.createPortal(<CProductModal item={selectedFood} onClose={() => setSelectedFood(null)} addToCart={addToCart} />, document.body)}
       </main>
 
       <footer className="mt-16 py-12 text-center text-xs border-t" style={{ backgroundColor: "#0E0A08", borderColor: "#261C14", color: C.muted }}>
