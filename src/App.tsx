@@ -1663,11 +1663,8 @@ function CMenu({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
           <h1 className="font-serif text-3xl sm:text-4xl font-bold" style={{ color: C.accent }}>
-            AJAB European Menu
+            AJAB Menu
           </h1>
-          <p className="text-sm mt-1 max-w-2xl" style={{ color: C.muted }}>
-            Discover artisan German bakery classics, European café favourites, specialty coffee, and handcrafted desserts.
-          </p>
         </div>
         <div className="flex items-center gap-2">
           {voiceFilter && (
