@@ -1187,6 +1187,103 @@ function CNav({ navigate, active, cartCount }: { navigate: (s: Screen) => void; 
 /* ═══════════════════════════════════════════════════════════════════════
    FRONT PAGE (HOME)
 ═══════════════════════════════════════════════════════════════════════ */
+function CIngredientOverlayModal({
+  item,
+  onClose,
+}: {
+  item: FoodItem;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
+
+  return ReactDOM.createPortal(
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99998, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div 
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
+        onClick={onClose}
+      />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${item.name} ingredients`}
+        style={{ position: 'relative', zIndex: 99999, width: '90%', maxWidth: '384px', maxHeight: '90vh', backgroundColor: '#261D15', border: '1px solid #382C23', borderRadius: '1.5rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.8)' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          style={{ position: 'absolute', top: '12px', right: '12px', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '20px', lineHeight: 1, cursor: 'pointer', zIndex: 100000, backgroundColor: 'rgba(0,0,0,0.6)', color: '#FFFDF8', border: 'none' }}
+          aria-label="Close"
+        >
+          ×
+        </button>
+        <div style={{ position: 'relative', height: '256px', flexShrink: 0, backgroundColor: '#1A130E' }}>
+          <FoodImage
+            src={item.img}
+            alt={item.imgAlt}
+            name={item.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div style={{ padding: '24px', overflowY: 'auto' }}>
+          <p style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#A08F81', margin: '0 0 6px 0' }}>{item.category}</p>
+          <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#FFFDF8', marginTop: 0 }}>
+            {item.name}
+          </h3>
+          <div style={{ marginBottom: '16px' }}>
+            <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontStyle: 'italic', marginBottom: '10px', color: '#C4824E', marginTop: 0 }}>Made with</p>
+            {(!item.ingredients || item.ingredients.length === 0) ? (
+              <p style={{ fontSize: '14px', color: '#A08F81', fontStyle: 'italic', margin: 0 }}>
+                Ingredient information is being verified.
+              </p>
+            ) : (
+              <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0, color: '#EDE4DB' }}>
+                {item.ingredients.map((ing: string, i: number) => (
+                  <li key={i} style={{ fontSize: '14px', marginBottom: '6px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                    <span style={{ color: '#C4824E', lineHeight: '1.4' }}>•</span>
+                    <span style={{ lineHeight: '1.4' }}>{ing}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {item.ingredientVerificationStatus === 'unverified' && (
+            <div style={{ marginTop: '12px', padding: '8px 12px', backgroundColor: 'rgba(217, 119, 6, 0.15)', border: '1px solid rgba(217, 119, 6, 0.3)', borderRadius: '8px', marginBottom: '12px' }}>
+              <p style={{ fontSize: '12px', color: '#FBBF24', margin: 0 }}>
+                ℹ Recipe details unverified — daily chef selection subject to variation.
+              </p>
+            </div>
+          )}
+
+          {item.allergens && item.allergens.length > 0 ? (
+            <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #382C23' }}>
+              <p style={{ fontSize: '12px', fontStyle: 'italic', color: '#E5C07B', margin: '0 0 4px 0' }}>
+                ⚠ Contains: {item.allergens.join(', ')}
+              </p>
+              <p style={{ fontSize: '11px', color: '#8A7B70', margin: 0, fontStyle: 'italic' }}>
+                Cross-contact risk: Prepared in a kitchen environment handling gluten, milk, eggs, soy & nuts.
+              </p>
+            </div>
+          ) : (
+            <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #382C23' }}>
+              <p style={{ fontSize: '11px', color: '#8A7B70', margin: 0, fontStyle: 'italic' }}>
+                Declared allergens: None declared in recipe. Cross-contact risks may exist in a shared kitchen.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 function CHome({
   navigate,
   addToCart,
@@ -1196,6 +1293,7 @@ function CHome({
   addToCart: (f: FoodItem) => void;
   setFood: (f: FoodItem) => void;
 }) {
+  const [ingredientOverlayItem, setIngredientOverlayItem] = useState<FoodItem | null>(null);
   const featuredDishes = menuItems.filter((m) => [11, 18, 12, 21, 33, 7].includes(m.id));
 
   return (
@@ -1265,13 +1363,14 @@ function CHome({
             >
               <div 
                 className="relative aspect-[4/3] overflow-hidden bg-[#14100D] cursor-pointer"
-                onClick={(e) => { e.stopPropagation(); setFood(item); }}
+                onClick={(e) => { e.stopPropagation(); setIngredientOverlayItem(item); }}
+                title="Click to view recipe & ingredients"
               >
-                <img
+                <FoodImage
                   src={item.img}
                   alt={item.imgAlt}
+                  name={item.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
                 />
               </div>
 
@@ -1315,39 +1414,6 @@ function CHome({
           ))}
         </div>
 
-        {/* Heritage Pairing Combo Banner */}
-        <div className="mt-8 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border" style={{ backgroundColor: "#221811", borderColor: "#4A3525", color: "#EDE4DB" }}>
-          <div className="flex items-center gap-5">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 bg-white/5 border border-white/10 text-[#D49566]">
-              <Icons.Coffee size={26} />
-            </div>
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#D49566]">Special Heritage Combo</span>
-              <h3 className="font-serif text-2xl font-bold mt-0.5">Filter Coffee &amp; Mumbai Vada Pav</h3>
-              <p className="text-xs text-[#A08F81] mt-1">Frothy double-drip chicory coffee paired with hot batata vada &amp; spicy garlic chutney.</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4 shrink-0">
-            <div className="text-right">
-              <span className="text-xs line-through text-[#7A6A5E]">₹ 205</span>
-              <p className="text-2xl font-bold text-[#E0AB82]">₹ 175</p>
-            </div>
-            <button
-              onClick={() => {
-                const f1 = menuItems.find((m) => m.id === 1);
-                const f2 = menuItems.find((m) => m.id === 9);
-                if (f1) addToCart(f1);
-                if (f2) addToCart(f2);
-                navigate("cart");
-              }}
-              className="px-5 py-3 rounded-2xl font-bold text-sm cursor-pointer shadow-lg transition-transform hover:scale-105"
-              style={{ backgroundColor: "#B87342", color: "#FFFDF8" }}
-            >
-              Order Combo →
-            </button>
-          </div>
-        </div>
       </section>
 
       {/* ── 3. REALISTIC MAP & OUTSIDE SURROUNDINGS ── */}
@@ -1383,6 +1449,13 @@ function CHome({
           </div>
         </div>
       </section>
+
+      {ingredientOverlayItem && (
+        <CIngredientOverlayModal
+          item={ingredientOverlayItem}
+          onClose={() => setIngredientOverlayItem(null)}
+        />
+      )}
     </div>
   );
 }
@@ -2093,84 +2166,11 @@ function CMenu({
       {/* ── INGREDIENT OVERLAY MODAL ── */}
       {productModalItem && ReactDOM.createPortal(<CProductModal item={productModalItem} onClose={() => setProductModalItem(null)} addToCart={addToCart} />, document.body)}
 
-      {ingredientOverlayItem && ReactDOM.createPortal(
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99998, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div 
-            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
-            onClick={() => setIngredientOverlayItem(null)}
-          />
-          <div
-            role="dialog"
-            aria-modal="true"
-            style={{ position: 'relative', zIndex: 99999, width: '90%', maxWidth: '384px', maxHeight: '90vh', backgroundColor: '#261D15', border: '1px solid #382C23', borderRadius: '1.5rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.8)' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setIngredientOverlayItem(null)}
-              style={{ position: 'absolute', top: '12px', right: '12px', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '20px', lineHeight: 1, cursor: 'pointer', zIndex: 100000, backgroundColor: 'rgba(0,0,0,0.6)', color: '#FFFDF8', border: 'none' }}
-              aria-label="Close"
-            >
-              ×
-            </button>
-            <div style={{ position: 'relative', height: '256px', flexShrink: 0, backgroundColor: '#1A130E' }}>
-              <FoodImage
-                src={ingredientOverlayItem.img}
-                alt={ingredientOverlayItem.imgAlt}
-                name={ingredientOverlayItem.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div style={{ padding: '24px', overflowY: 'auto' }}>
-              <p style={{ fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#A08F81', margin: '0 0 6px 0' }}>{ingredientOverlayItem.category}</p>
-              <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: '#FFFDF8', marginTop: 0 }}>
-                {ingredientOverlayItem.name}
-              </h3>
-              <div style={{ marginBottom: '16px' }}>
-                <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '17px', fontStyle: 'italic', marginBottom: '10px', color: '#C4824E', marginTop: 0 }}>Made with</p>
-                {(!ingredientOverlayItem.ingredients || ingredientOverlayItem.ingredients.length === 0) ? (
-                  <p style={{ fontSize: '14px', color: '#A08F81', fontStyle: 'italic', margin: 0 }}>
-                    Ingredient information is being verified.
-                  </p>
-                ) : (
-                  <ul style={{ listStyleType: 'none', paddingLeft: 0, margin: 0, color: '#EDE4DB' }}>
-                    {ingredientOverlayItem.ingredients.map((ing: string, i: number) => (
-                      <li key={i} style={{ fontSize: '14px', marginBottom: '6px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                        <span style={{ color: '#C4824E', lineHeight: '1.4' }}>•</span>
-                        <span style={{ lineHeight: '1.4' }}>{ing}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              {ingredientOverlayItem.ingredientVerificationStatus === 'unverified' && (
-                <div style={{ marginTop: '12px', padding: '8px 12px', backgroundColor: 'rgba(217, 119, 6, 0.15)', border: '1px solid rgba(217, 119, 6, 0.3)', borderRadius: '8px', marginBottom: '12px' }}>
-                  <p style={{ fontSize: '12px', color: '#FBBF24', margin: 0 }}>
-                    ℹ Recipe details unverified — daily chef selection subject to variation.
-                  </p>
-                </div>
-              )}
-
-              {ingredientOverlayItem.allergens && ingredientOverlayItem.allergens.length > 0 ? (
-                <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #382C23' }}>
-                  <p style={{ fontSize: '12px', fontStyle: 'italic', color: '#E5C07B', margin: '0 0 4px 0' }}>
-                    ⚠ Contains: {ingredientOverlayItem.allergens.join(', ')}
-                  </p>
-                  <p style={{ fontSize: '11px', color: '#8A7B70', margin: 0, fontStyle: 'italic' }}>
-                    Cross-contact risk: Prepared in a kitchen environment handling gluten, milk, eggs, soy & nuts.
-                  </p>
-                </div>
-              ) : (
-                <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #382C23' }}>
-                  <p style={{ fontSize: '11px', color: '#8A7B70', margin: 0, fontStyle: 'italic' }}>
-                    Declared allergens: None declared in recipe. Cross-contact risks may exist in a shared kitchen.
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>,
-        document.body
+      {ingredientOverlayItem && (
+        <CIngredientOverlayModal
+          item={ingredientOverlayItem}
+          onClose={() => setIngredientOverlayItem(null)}
+        />
       )}
     </div>
   );
@@ -3297,8 +3297,8 @@ function CommonApp({ setMode }: { setMode: (m: AppMode) => void }) {
   const [selectedTable, setSelectedTable] = useState<string | null>("T1");
   const [voiceFilter, setVoiceFilter] = useState<VoiceFilterState | null>(null);
   const [reservation, setReservation] = useState<ReservationDraft>({
-    date: "2024-10-14",
-    time: "7:30 PM",
+    date: "Oct 24, 2026",
+    time: "7:00 PM",
     guests: 2,
     zone: "All",
     preference: "Window View",
@@ -3307,8 +3307,12 @@ function CommonApp({ setMode }: { setMode: (m: AppMode) => void }) {
     customerName: "",
     customerPhone: "",
   });
+  const [reserveNavCount, setReserveNavCount] = useState(0);
 
   const navigate = (s: Screen) => {
+    if (s === "seats") {
+      setReserveNavCount((c) => c + 1);
+    }
     setScreen(s);
     window.scrollTo({ top: 0 });
   };
@@ -3362,6 +3366,7 @@ function CommonApp({ setMode }: { setMode: (m: AppMode) => void }) {
         {screen === "order-confirm" && <COrderConfirm navigate={navigate} />}
         {screen === "seats" && (
           <CSeats
+            key={reserveNavCount}
             navigate={navigate}
             selected={selectedTable}
             setSelected={setSelectedTable}

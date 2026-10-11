@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TableInfo } from "../data/tableData";
 
 export interface VirtualCafe3DProps {
@@ -32,13 +32,37 @@ const OVERLAY_MARKERS: TableMarkerPos[] = [
   { id: "T5", x: 83, y: 70, label: "T5", capacity: 6 },
 ];
 
-const TIME_SLOTS = [
-  "12:00 PM", "1:00 PM", "2:00 PM", "4:30 PM", "6:00 PM", "7:00 PM", "7:30 PM", "8:30 PM", "9:30 PM"
-];
+const LUNCH_SLOTS = ["12:00 PM", "1:00 PM", "2:00 PM", "4:30 PM"];
+const DINNER_SLOTS = ["6:00 PM", "7:00 PM", "7:30 PM", "8:30 PM", "9:30 PM"];
+const TIME_SLOTS = [...LUNCH_SLOTS, ...DINNER_SLOTS];
 
 const DATE_OPTIONS = [
   "Oct 24, 2026", "Oct 25, 2026", "Oct 26, 2026", "Oct 27, 2026", "Oct 28, 2026", "Oct 29, 2026"
 ];
+
+function toIsoDate(dateStr: string): string {
+  try {
+    const d = new Date(dateStr);
+    if (!isNaN(d.getTime())) {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+  } catch {}
+  return "2026-10-24";
+}
+
+function fromIsoDate(isoStr: string): string {
+  if (!isoStr) return "Oct 24, 2026";
+  try {
+    const [year, month, day] = isoStr.split("-");
+    const d = new Date(Number(year), Number(month) - 1, Number(day));
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  } catch {}
+  return "Oct 24, 2026";
+}
 
 // Clean monochrome SVG Line Icons (No emojis)
 const SvgIcons = {
@@ -154,13 +178,25 @@ export default function VirtualCafe3D({
   onProceedToReserve,
   onBack,
 }: VirtualCafe3DProps) {
-  const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(2);
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
+  const [showDateTimeModal, setShowDateTimeModal] = useState(true);
   const [guestName, setGuestName] = useState("");
   const [guestPhone, setGuestPhone] = useState("");
   const [guestEmail, setGuestEmail] = useState("");
   const [specialRequests, setSpecialRequests] = useState("");
   const [bookingRef, setBookingRef] = useState<string | null>(null);
   const [showMapModal, setShowMapModal] = useState(false);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && showDateTimeModal) {
+        setShowDateTimeModal(false);
+        if (currentStep === 1) setCurrentStep(2);
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [showDateTimeModal, currentStep]);
 
   // Single source of truth table object
   const activeTableId = selectedTableId || "T1";
@@ -206,38 +242,85 @@ export default function VirtualCafe3D({
 
         {/* Four-Step Progress Indicator (Copper & Cream) */}
         <div className="flex items-center gap-3 sm:gap-6 bg-[#17100C] px-5 py-2 rounded-full border border-[#36251D]">
-          <button onClick={() => setCurrentStep(1)} className="flex items-center gap-2 cursor-pointer">
-            <span className="w-5 h-5 rounded-full font-bold text-[11px] flex items-center justify-center bg-[#F5EBDD] text-[#241812]">
-              1
+          <button
+            onClick={() => {
+              setShowDateTimeModal(true);
+              setCurrentStep(1);
+            }}
+            className="flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-100"
+          >
+            <span className={`w-5 h-5 rounded-full font-bold text-[11px] flex items-center justify-center transition-all ${
+              showDateTimeModal || currentStep === 1
+                ? "bg-[#B87543] text-white shadow-md scale-105"
+                : "bg-[#285C43] text-white"
+            }`}>
+              {(!showDateTimeModal && currentStep > 1) ? "✓" : "1"}
             </span>
-            <span className="text-xs font-semibold text-[#F5EBDD] hidden md:inline">Date &amp; Guests</span>
-          </button>
-          <div className="w-6 h-[1px] bg-[#36251D]" />
-
-          <button onClick={() => setCurrentStep(2)} className="flex items-center gap-2 cursor-pointer">
-            <span className="w-5 h-5 rounded-full font-bold text-[11px] flex items-center justify-center bg-[#B87543] text-white shadow-md">
-              2
+            <span className={`text-xs transition-colors hidden md:inline ${
+              showDateTimeModal || currentStep === 1 ? "text-[#F5EBDD] font-bold" : "text-[#E9E0D1]/80 font-semibold"
+            }`}>
+              Date &amp; Guests
             </span>
-            <span className="text-xs font-bold text-[#F5EBDD]">Select Table</span>
           </button>
           <div className="w-6 h-[1px] bg-[#36251D]" />
 
           <button
-            onClick={() => setCurrentStep(3)}
-            className="flex items-center gap-2 cursor-pointer opacity-60 hover:opacity-100"
+            onClick={() => {
+              setShowDateTimeModal(false);
+              setCurrentStep(2);
+            }}
+            className="flex items-center gap-2 cursor-pointer transition-opacity hover:opacity-100"
           >
-            <span className="w-5 h-5 rounded-full font-bold text-[11px] flex items-center justify-center border border-[#66493A] text-[#E9E0D1]">
-              3
+            <span className={`w-5 h-5 rounded-full font-bold text-[11px] flex items-center justify-center transition-all ${
+              !showDateTimeModal && currentStep === 2
+                ? "bg-[#B87543] text-white shadow-md scale-105"
+                : currentStep > 2
+                ? "bg-[#285C43] text-white"
+                : "border border-[#66493A] text-[#E9E0D1]"
+            }`}>
+              {currentStep > 2 ? "✓" : "2"}
             </span>
-            <span className="text-xs font-medium text-[#E9E0D1]/70 hidden md:inline">Review</span>
+            <span className={`text-xs transition-colors ${
+              !showDateTimeModal && currentStep === 2 ? "font-bold text-[#F5EBDD]" : "font-medium text-[#E9E0D1]/70"
+            }`}>
+              Select Table
+            </span>
           </button>
           <div className="w-6 h-[1px] bg-[#36251D]" />
 
-          <div className="flex items-center gap-2 opacity-40">
-            <span className="w-5 h-5 rounded-full font-bold text-[11px] flex items-center justify-center border border-[#66493A] text-[#E9E0D1]">
+          <button
+            onClick={() => {
+              setShowDateTimeModal(false);
+              setCurrentStep(3);
+            }}
+            className={`flex items-center gap-2 cursor-pointer ${currentStep === 3 ? "opacity-100" : "opacity-60 hover:opacity-100"}`}
+          >
+            <span className={`w-5 h-5 rounded-full font-bold text-[11px] flex items-center justify-center transition-all ${
+              currentStep === 3
+                ? "bg-[#B87543] text-white shadow-md scale-105"
+                : currentStep > 3
+                ? "bg-[#285C43] text-white"
+                : "border border-[#66493A] text-[#E9E0D1]"
+            }`}>
+              {currentStep > 3 ? "✓" : "3"}
+            </span>
+            <span className={`text-xs hidden md:inline ${currentStep === 3 ? "font-bold text-[#F5EBDD]" : "font-medium text-[#E9E0D1]/70"}`}>
+              Review
+            </span>
+          </button>
+          <div className="w-6 h-[1px] bg-[#36251D]" />
+
+          <div className={`flex items-center gap-2 ${currentStep === 4 ? "opacity-100" : "opacity-40"}`}>
+            <span className={`w-5 h-5 rounded-full font-bold text-[11px] flex items-center justify-center transition-all ${
+              currentStep === 4
+                ? "bg-[#285C43] text-white shadow-md scale-105"
+                : "border border-[#66493A] text-[#E9E0D1]"
+            }`}>
               4
             </span>
-            <span className="text-xs font-medium text-[#E9E0D1]/70 hidden md:inline">Confirm</span>
+            <span className={`text-xs hidden md:inline ${currentStep === 4 ? "font-bold text-[#F5EBDD]" : "font-medium text-[#E9E0D1]/70"}`}>
+              Confirm
+            </span>
           </div>
         </div>
       </div>
@@ -333,22 +416,16 @@ export default function VirtualCafe3D({
               {/* ── SECTION 6: BOTTOM-CENTER RESERVATION BAR (#F5EBDD) ── */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 bg-[#F5EBDD] text-[#30241D] px-5 py-2.5 rounded-2xl border border-[#E9E0D1] shadow-2xl flex items-center gap-4 md:gap-6 text-xs">
                 {/* Date */}
-                <div className="flex items-center gap-2">
+                <div 
+                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                  onClick={() => setShowDateTimeModal(true)}
+                  title="Click to change date"
+                >
                   <SvgIcons.Calendar />
                   <div>
                     <p className="text-[9px] font-bold text-[#4B3023]/70 uppercase tracking-wider">Date</p>
                     <div className="flex items-center gap-1 font-bold text-xs text-[#30241D]">
-                      <select
-                        value={reservationDate}
-                        onChange={(e) => onUpdateDraft({ date: e.target.value })}
-                        className="bg-transparent font-bold text-xs text-[#30241D] outline-none cursor-pointer appearance-none pr-3"
-                      >
-                        {DATE_OPTIONS.map((d) => (
-                          <option key={d} value={d} className="bg-[#F5EBDD] text-[#30241D]">
-                            {d}
-                          </option>
-                        ))}
-                      </select>
+                      <span>{reservationDate}</span>
                       <SvgIcons.ChevronDown />
                     </div>
                   </div>
@@ -357,22 +434,16 @@ export default function VirtualCafe3D({
                 <div className="w-[1px] h-7 bg-[#4B3023]/20" />
 
                 {/* Time */}
-                <div className="flex items-center gap-2">
+                <div 
+                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                  onClick={() => setShowDateTimeModal(true)}
+                  title="Click to change time"
+                >
                   <SvgIcons.Clock />
                   <div>
                     <p className="text-[9px] font-bold text-[#4B3023]/70 uppercase tracking-wider">Time</p>
                     <div className="flex items-center gap-1 font-bold text-xs text-[#30241D]">
-                      <select
-                        value={reservationTime}
-                        onChange={(e) => onUpdateDraft({ time: e.target.value })}
-                        className="bg-transparent font-bold text-xs text-[#30241D] outline-none cursor-pointer appearance-none pr-3"
-                      >
-                        {TIME_SLOTS.map((t) => (
-                          <option key={t} value={t} className="bg-[#F5EBDD] text-[#30241D]">
-                            {t}
-                          </option>
-                        ))}
-                      </select>
+                      <span>{reservationTime}</span>
                       <SvgIcons.ChevronDown />
                     </div>
                   </div>
@@ -381,26 +452,31 @@ export default function VirtualCafe3D({
                 <div className="w-[1px] h-7 bg-[#4B3023]/20" />
 
                 {/* Guests */}
-                <div className="flex items-center gap-2">
+                <div 
+                  className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                  onClick={() => setShowDateTimeModal(true)}
+                  title="Click to change guests"
+                >
                   <SvgIcons.Users />
                   <div>
                     <p className="text-[9px] font-bold text-[#4B3023]/70 uppercase tracking-wider">Guests</p>
                     <div className="flex items-center gap-1 font-bold text-xs text-[#30241D]">
-                      <select
-                        value={guestCount}
-                        onChange={(e) => onUpdateDraft({ guests: Number(e.target.value) })}
-                        className="bg-transparent font-bold text-xs text-[#30241D] outline-none cursor-pointer appearance-none pr-3"
-                      >
-                        {[1, 2, 3, 4, 5, 6, 8, 10].map((g) => (
-                          <option key={g} value={g} className="bg-[#F5EBDD] text-[#30241D]">
-                            {g}
-                          </option>
-                        ))}
-                      </select>
+                      <span>{guestCount} Guests</span>
                       <SvgIcons.ChevronDown />
                     </div>
                   </div>
                 </div>
+
+                <div className="w-[1px] h-7 bg-[#4B3023]/20 hidden sm:block" />
+
+                {/* Change Slot Button */}
+                <button
+                  type="button"
+                  onClick={() => setShowDateTimeModal(true)}
+                  className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#B87543] hover:bg-[#A3683A] text-white font-bold text-[11px] shadow transition-colors cursor-pointer"
+                >
+                  Change Slot
+                </button>
               </div>
             </div>
           </div>
@@ -482,9 +558,18 @@ export default function VirtualCafe3D({
                       {isSelectedAvailable ? "Available" : "Unavailable / Reserved"}
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#4B3023]/70 ml-5">
-                    for {reservationDate} at {reservationTime}
-                  </p>
+                  <div className="flex items-center justify-between mt-1">
+                    <p className="text-[11px] text-[#4B3023]/70 ml-5">
+                      for {reservationDate} at {reservationTime}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setShowDateTimeModal(true)}
+                      className="text-[11px] font-bold text-[#B87543] hover:underline cursor-pointer"
+                    >
+                      Change Date &amp; Time
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -707,6 +792,167 @@ export default function VirtualCafe3D({
                   </button>
                 );
               })}
+            </div>
+          </div>
+        </div>
+      )}
+      {/* ── DATE & TIME SELECTION MODAL (STEP 1) ── */}
+      {showDateTimeModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+          onClick={() => {
+            setShowDateTimeModal(false);
+            if (currentStep === 1) setCurrentStep(2);
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Select reservation date and time"
+            className="relative w-full max-w-lg rounded-3xl bg-[#20150F] text-[#F5EBDD] border border-[#422C20] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] p-6 sm:p-7 flex flex-col gap-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-[#36251D]">
+              <div>
+                <h2 className="font-serif text-2xl font-bold text-[#F5EBDD]">
+                  Select Date &amp; Time
+                </h2>
+                <p className="text-xs text-[#E9E0D1]/70 mt-0.5">
+                  Pick your schedule to view table availability.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  setShowDateTimeModal(false);
+                  if (currentStep === 1) setCurrentStep(2);
+                }}
+                className="w-8 h-8 rounded-full bg-[#2C1D15] hover:bg-[#422C20] text-[#E9E0D1] flex items-center justify-center font-bold text-lg transition-colors cursor-pointer shrink-0 border border-[#4A3224]"
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* 1. Proper Calendar Selection */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#D49566] flex items-center gap-1.5">
+                  <SvgIcons.Calendar /> Date
+                </label>
+                <span className="text-xs font-semibold text-[#F5EBDD]">
+                  {reservationDate}
+                </span>
+              </div>
+              <div className="flex items-center gap-3 bg-[#170F0A] border border-[#3D271B] rounded-2xl px-4 py-2.5 focus-within:border-[#B87543] transition-colors">
+                <SvgIcons.Calendar />
+                <input
+                  type="date"
+                  value={toIsoDate(reservationDate)}
+                  onChange={(e) => onUpdateDraft({ date: fromIsoDate(e.target.value) })}
+                  className="bg-transparent text-sm font-bold text-[#F5EBDD] outline-none w-full cursor-pointer [color-scheme:dark]"
+                />
+              </div>
+              {/* Quick Date Chips */}
+              <div className="flex items-center gap-2 mt-2.5 overflow-x-auto pb-1 scrollbar-none">
+                {DATE_OPTIONS.map((dStr) => {
+                  const isSel = reservationDate === dStr;
+                  const label = dStr.split(",")[0]; // "Oct 24"
+                  return (
+                    <button
+                      key={dStr}
+                      type="button"
+                      onClick={() => onUpdateDraft({ date: dStr })}
+                      className={`px-3 py-1 rounded-lg text-[11px] font-bold shrink-0 transition-all cursor-pointer border ${
+                        isSel
+                          ? "bg-[#B87543] text-white border-[#D49566] shadow"
+                          : "bg-[#170F0A] text-[#E9E0D1]/80 border-[#3D271B] hover:border-[#8C552D] hover:text-white"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 2. Time Slot in ONE Single Row */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#D49566] flex items-center gap-1.5">
+                  <SvgIcons.Clock /> Time Slot
+                </label>
+                <span className="text-xs font-semibold text-[#F5EBDD]">
+                  {reservationTime}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+                {TIME_SLOTS.map((tStr) => {
+                  const isSel = reservationTime === tStr;
+                  return (
+                    <button
+                      key={tStr}
+                      type="button"
+                      onClick={() => onUpdateDraft({ time: tStr })}
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer border ${
+                        isSel
+                          ? "bg-[#B87543] text-white border-[#D49566] shadow-md scale-105"
+                          : "bg-[#170F0A] text-[#E9E0D1] border-[#3D271B] hover:border-[#8C552D] hover:bg-[#251811]"
+                      }`}
+                    >
+                      {tStr}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 3. Number of Guests (Simple) */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#D49566] flex items-center gap-1.5">
+                  <SvgIcons.Users /> Number of Guests
+                </label>
+                <span className="text-xs font-semibold text-[#F5EBDD]">
+                  {guestCount} Guests
+                </span>
+              </div>
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                {[1, 2, 3, 4, 5, 6, 8, 10].map((num) => {
+                  const isSel = guestCount === num;
+                  return (
+                    <button
+                      key={num}
+                      type="button"
+                      onClick={() => onUpdateDraft({ guests: num })}
+                      className={`flex-1 min-w-[38px] h-10 rounded-xl text-xs font-bold shrink-0 flex items-center justify-center transition-all cursor-pointer border ${
+                        isSel
+                          ? "bg-[#B87543] text-white border-[#D49566] shadow-md scale-105"
+                          : "bg-[#170F0A] text-[#E9E0D1] border-[#3D271B] hover:border-[#8C552D] hover:bg-[#251811]"
+                      }`}
+                    >
+                      {num}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="pt-3 border-t border-[#36251D] flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="text-xs font-semibold text-[#E9E0D1]/80 text-center sm:text-left">
+                {reservationDate} at {reservationTime} · {guestCount} Guests
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowDateTimeModal(false);
+                  setCurrentStep(2);
+                }}
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#B87543] hover:bg-[#A3683A] text-white font-bold text-xs shadow-lg transition-all cursor-pointer text-center"
+              >
+                Find &amp; Select Table →
+              </button>
             </div>
           </div>
         </div>
