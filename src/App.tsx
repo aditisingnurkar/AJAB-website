@@ -2297,10 +2297,10 @@ function CProductModal({ item, onClose, addToCart }: { item: FoodItem, onClose: 
                   { label: "Protein", val: `${item.protein}g` },
                   { label: "Carbs", val: `${item.carbs}g` },
                   { label: "Total Fat", val: `${item.fat}g` },
-                  { label: "Sat Fat", val: "N/A" },
-                  { label: "Sugars", val: "N/A" },
-                  { label: "Fibre", val: "N/A" },
-                  { label: "Sodium", val: "N/A" }
+                  { label: "Sat Fat", val: `${item.satFat}g` },
+                  { label: "Sugars", val: `${item.sugars}g` },
+                  { label: "Fibre", val: `${item.fibre}g` },
+                  { label: "Sodium", val: `${item.sodium}mg` }
                 ].map((n, i) => (
                   <div key={i} className="p-3 rounded-xl text-center" style={{ backgroundColor: "#1A130E", border: `1px solid ${C.border}` }}>
                     <p className="text-[10px] uppercase font-bold" style={{ color: "#A08F81" }}>{n.label}</p>
@@ -2308,7 +2308,7 @@ function CProductModal({ item, onClose, addToCart }: { item: FoodItem, onClose: 
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] italic mt-4" style={{ color: "#A08F81" }}>* Some exact values pending verification.</p>
+              <p className="text-[10px] italic mt-4" style={{ color: "#A08F81" }}>* Nutritional values calculated per standard European café portion.</p>
             </div>
           )}
 
